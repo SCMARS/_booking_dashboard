@@ -1,201 +1,169 @@
 'use client';
 
 import React from 'react';
-import {
-    Home,
-    Calendar,
-    FileText,
-    BookOpen,
-    Settings,
-    ShoppingCart,
-    ChevronRight
+import { 
+  Home, 
+  Calendar, 
+  FileText, 
+  BookOpen, 
+  Settings,
+  ShoppingCart,
+  ChevronRight
 } from 'lucide-react';
 
 interface BookingData {
-    name: string;
-    date: string;
-    status: 'Confirmed' | 'Pending';
-    channel: string;
+  name: string;
+  date: string;
+  status: 'Confirmed' | 'Pending';
+  channel: string;
 }
 
 interface LogData {
-    text: string;
-    intent: string;
-    channel?: string;
+  text: string;
+  intent: string;
+  channel?: string;
 }
 
 const Dashboard: React.FC = () => {
-    const recentBookings: BookingData[] = [
-        { name: 'Vanessa C.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'WhatsApp' },
-        { name: 'Mark T.', date: 'Apr 21, 2024', status: 'Pending', channel: 'Website' },
-        { name: 'Anna H.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'Website' },
-        { name: 'John D.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'Phone' },
-    ];
+  const recentBookings: BookingData[] = [
+    { name: 'Vanessa C.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'WhatsApp' },
+    { name: 'Mark T.', date: 'Apr 21, 2024', status: 'Pending', channel: 'Website' },
+    { name: 'Anna H.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'Website' },
+    { name: 'John D.', date: 'Apr 21, 2024', status: 'Confirmed', channel: 'Phone' },
+  ];
 
-    const recentLogsLeft: LogData[] = [
-        { text: 'I would like to book a table', intent: 'booking' },
-        { text: 'Make a reservation', intent: 'booking' },
-    ];
+  const recentLogsLeft: LogData[] = [
+    { text: 'I would like to book a table', intent: 'booking' },
+    { text: 'Make a reservation', intent: 'booking' },
+  ];
 
-    const recentLogsRight: LogData[] = [
-        { text: 'Make a reservation', intent: 'Call', channel: 'Call' },
-        { text: 'Table for 5', intent: 'Chat', channel: 'Chat' },
-    ];
+  const recentLogsRight: LogData[] = [
+    { text: 'Make a reservation', intent: 'Call', channel: 'Call' },
+    { text: 'Table for 5', intent: 'Chat', channel: 'Chat' },
+  ];
 
-    const sidebarItems = [
-        { icon: Home, label: 'Dashboard', active: true },
-        { icon: Calendar, label: 'Bookings', active: false },
-        { icon: FileText, label: 'Logs', active: false },
-        { icon: BookOpen, label: 'Knowledge', active: false },
-        { icon: Settings, label: 'Settings', active: false },
-    ];
+  const sidebarItems = [
+    { icon: Home, label: 'Dashboard', active: true },
+    { icon: Calendar, label: 'Bookings', active: false },
+    { icon: FileText, label: 'Logs', active: false },
+    { icon: BookOpen, label: 'Knowledge', active: false },
+    { icon: Settings, label: 'Settings', active: false },
+  ];
 
-    return (
-        <div className="flex h-screen bg-gray-50">
-            {/* Sidebar */}
-            <div className="w-80 bg-slate-800 text-white">
-                {/* Header */}
-                <div className="p-6 border-b border-slate-700">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                            <ShoppingCart className="w-6 h-6 text-slate-800" />
-                        </div>
-                        <span className="text-lg font-semibold">RESTAURANT</span>
-                    </div>
-                </div>
+  return (
+    <div>
+      {/* Main Content */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
 
-                {/* Navigation */}
-                <nav className="p-4">
-                    {sidebarItems.map((item, index) => (
-                        <button
-                            key={index}
-                            type="button"
-                            onClick={() => console.log(`Clicked on ${item.label}`)}
-                            className={`flex w-full items-center gap-3 px-4 py-3 rounded-lg mb-2 cursor-pointer transition-colors text-left ${
-                                item.active
-                                    ? 'bg-slate-700 text-white'
-                                    : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                            }`}
-                        >
-                            <item.icon className="w-5 h-5" />
-                            <span className="font-medium">{item.label}</span>
-                        </button>
-                    ))}
-                </nav>
-            </div>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-3 gap-8 mb-8">
+          <div className="bg-white p-6 rounded-lg">
+            <div className="text-sm text-gray-600 mb-2">Total bookings</div>
+            <div className="text-4xl font-bold text-gray-900">324</div>
+          </div>
+          <div className="bg-white p-6 rounded-lg">
+            <div className="text-sm text-gray-600 mb-2">Confirmed / Pending</div>
+            <div className="text-4xl font-bold text-gray-900">210 / 39</div>
+          </div>
+          <div className="bg-white p-6 rounded-lg">
+            <div className="text-sm text-gray-600 mb-2">Calls to bookings conversion</div>
+            <div className="text-4xl font-bold text-gray-900">61.1%</div>
+          </div>
+        </div>
 
-            {/* Main Content */}
-            <div className="flex-1 p-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
-
-                {/* Stats Cards */}
-                <div className="grid grid-cols-3 gap-8 mb-8">
-                    <div className="bg-white p-6 rounded-lg">
-                        <div className="text-sm text-gray-600 mb-2">Total bookings</div>
-                        <div className="text-4xl font-bold text-gray-900">324</div>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg">
-                        <div className="text-sm text-gray-600 mb-2">Confirmed / Pending</div>
-                        <div className="text-4xl font-bold text-gray-900">210 / 39</div>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg">
-                        <div className="text-sm text-gray-600 mb-2">Calls to bookings conversion</div>
-                        <div className="text-4xl font-bold text-gray-900">61.1%</div>
-                    </div>
-                </div>
-
-                {/* Recent Bookings */}
-                <div className="bg-white rounded-lg mb-8">
-                    <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                        <h2 className="text-xl font-semibold text-gray-900">Recent bookings</h2>
-                        <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
-                    </div>
-
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Date</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Status</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Channel</th>
-                                <th className="px-6 py-3"></th>
-                            </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200">
-                            {recentBookings.map((booking, index) => (
-                                <tr key={index} className="hover:bg-gray-50">
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{booking.name}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-600">{booking.date}</td>
-                                    <td className="px-6 py-4">
+        {/* Recent Bookings */}
+        <div className="bg-white rounded-lg mb-8">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900">Recent bookings</h2>
+            <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Date</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Status</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Channel</th>
+                  <th className="px-6 py-3"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {recentBookings.map((booking, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{booking.name}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{booking.date}</td>
+                    <td className="px-6 py-4">
                       <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
-                          booking.status === 'Confirmed'
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-yellow-100 text-yellow-800'
+                        booking.status === 'Confirmed' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-yellow-100 text-yellow-800'
                       }`}>
                         {booking.status}
                       </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-600">{booking.channel}</td>
-                                    <td className="px-6 py-4">
-                                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                {/* Recent Logs */}
-                <div className="grid grid-cols-2 gap-8">
-                    <div className="bg-white rounded-lg">
-                        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-900">Recent logs</h2>
-                            <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
-                        </div>
-
-                        <div className="p-6">
-                            <div className="grid grid-cols-2 gap-4 mb-4">
-                                <div className="text-sm font-medium text-gray-600">Text</div>
-                                <div className="text-sm font-medium text-gray-600">Intent</div>
-                            </div>
-
-                            {recentLogsLeft.map((log, index) => (
-                                <div key={index} className="grid grid-cols-2 gap-4 py-3 border-b border-gray-100 last:border-b-0">
-                                    <div className="text-sm text-gray-900">{log.text}</div>
-                                    <div className="text-sm text-gray-600">{log.intent}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-lg">
-                        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-900">Recent logs</h2>
-                            <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
-                        </div>
-
-                        <div className="p-6">
-                            <div className="grid grid-cols-3 gap-4 mb-4">
-                                <div className="text-sm font-medium text-gray-600">Text</div>
-                                <div className="text-sm font-medium text-gray-600">Intent</div>
-                                <div className="text-sm font-medium text-gray-600">Channel</div>
-                            </div>
-
-                            {recentLogsRight.map((log, index) => (
-                                <div key={index} className="grid grid-cols-3 gap-4 py-3 border-b border-gray-100 last:border-b-0">
-                                    <div className="text-sm text-gray-900">{log.text}</div>
-                                    <div className="text-sm text-gray-600">{log.intent}</div>
-                                    <div className="text-sm text-gray-600">{log.channel}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{booking.channel}</td>
+                    <td className="px-6 py-4">
+                      <ChevronRight className="w-4 h-4 text-gray-400" />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-    );
+
+        {/* Recent Logs */}
+        <div className="grid grid-cols-2 gap-8">
+          <div className="bg-white rounded-lg">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900">Recent logs</h2>
+              <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
+            </div>
+            
+            <div className="p-6">
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="text-sm font-medium text-gray-600">Text</div>
+                <div className="text-sm font-medium text-gray-600">Intent</div>
+              </div>
+              
+              {recentLogsLeft.map((log, index) => (
+                <div key={index} className="grid grid-cols-2 gap-4 py-3 border-b border-gray-100 last:border-b-0">
+                  <div className="text-sm text-gray-900">{log.text}</div>
+                  <div className="text-sm text-gray-600">{log.intent}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900">Recent logs</h2>
+              <button className="text-blue-600 hover:text-blue-700 font-medium">View all</button>
+            </div>
+            
+            <div className="p-6">
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="text-sm font-medium text-gray-600">Text</div>
+                <div className="text-sm font-medium text-gray-600">Intent</div>
+                <div className="text-sm font-medium text-gray-600">Channel</div>
+              </div>
+              
+              {recentLogsRight.map((log, index) => (
+                <div key={index} className="grid grid-cols-3 gap-4 py-3 border-b border-gray-100 last:border-b-0">
+                  <div className="text-sm text-gray-900">{log.text}</div>
+                  <div className="text-sm text-gray-600">{log.intent}</div>
+                  <div className="text-sm text-gray-600">{log.channel}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;
