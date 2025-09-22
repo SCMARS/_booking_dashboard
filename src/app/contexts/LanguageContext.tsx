@@ -40,6 +40,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 
   useEffect(() => {
+    // 1) URL segment has top priority: /{lang}/...
+    let urlLang: string | null = null;
+    if (typeof window !== 'undefined') {
+      const seg = window.location.pathname.split('/')[1];
+      if (seg === 'en' || seg === 'ru' || seg === 'hr' || seg === 'es') {
+        urlLang = seg;
+      }
+    }
+
+    // 2) Then localStorage, then cookies, then browser language
     const stored = typeof window !== 'undefined' ? window.localStorage.getItem('lang') : null;
 
     let cookieLang: string | null = null;
@@ -48,6 +58,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const matchNext = document.cookie.match(/(?:^|; )NEXT_LOCALE=([^;]+)/);
       cookieLang = matchLang ? decodeURIComponent(matchLang[1]) : (matchNext ? decodeURIComponent(matchNext[1]) : null);
     }
+
+    if (urlLang) {
+      setLanguageState(urlLang as SupportedLanguage);
+      return;
+    }
+
     if (stored === 'en' || stored === 'ru' || stored === 'hr' || stored === 'es') {
       setLanguageState(stored);
       return;
