@@ -4,7 +4,8 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 
 export type SupportedLanguage = 'en' | 'ru' | 'hr' | 'es';
 
-type Dictionary = Record<string, string | Record<string, string>>;
+type TranslationNode = string | { [key: string]: TranslationNode };
+type Dictionary = { [key: string]: TranslationNode };
 
 interface LanguageContextValue {
   language: SupportedLanguage;
@@ -22,14 +23,14 @@ const LanguageContext = createContext<LanguageContextValue>({
 async function loadDictionary(lang: SupportedLanguage): Promise<Dictionary> {
   switch (lang) {
     case 'ru':
-      return (await import('../i18n/ru')).default;
+      return (await import('../i18n/ru')).default as unknown as Dictionary;
     case 'hr':
-      return (await import('../i18n/hr')).default;
+      return (await import('../i18n/hr')).default as unknown as Dictionary;
     case 'es':
-      return (await import('../i18n/es')).default;
+      return (await import('../i18n/es')).default as unknown as Dictionary;
     case 'en':
     default:
-      return (await import('../i18n/en')).default;
+      return (await import('../i18n/en')).default as unknown as Dictionary;
   }
 }
 
@@ -43,8 +44,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     let cookieLang: string | null = null;
     if (typeof document !== 'undefined') {
-      const match = document.cookie.match(/(?:^|; )lang=([^;]+)/);
-      cookieLang = match ? decodeURIComponent(match[1]) : null;
+      const matchLang = document.cookie.match(/(?:^|; )lang=([^;]+)/);
+      const matchNext = document.cookie.match(/(?:^|; )NEXT_LOCALE=([^;]+)/);
+      cookieLang = matchLang ? decodeURIComponent(matchLang[1]) : (matchNext ? decodeURIComponent(matchNext[1]) : null);
     }
     if (stored === 'en' || stored === 'ru' || stored === 'hr' || stored === 'es') {
       setLanguageState(stored);
@@ -79,6 +81,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('lang', lang);
+      // sync cookies for middleware/Vercel
+      const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = `lang=${lang}; Path=/; SameSite=Lax; Expires=${expires}`;
+      document.cookie = `NEXT_LOCALE=${lang}; Path=/; SameSite=Lax; Expires=${expires}`;
     }
   };
 
