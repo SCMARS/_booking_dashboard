@@ -13,7 +13,7 @@ module.exports = {
         lightGray: '#f9fafb',
       },
       fontFamily: {
-        heading: ['var(--font-geist-sans)'],
+        heading: ['var(--font-inter)'],
       },
     },
   },

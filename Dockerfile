@@ -14,8 +14,8 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Update next.config.ts to remove hardcoded paths
-RUN sed -i 's|root: "/Users/glebuhovskij/WebstormProjects/untitled41"|// root path is automatically determined|' next.config.ts
+# Update next.config.js to remove hardcoded paths
+RUN sed -i 's|root: "/Users/glebuhovskij/WebstormProjects/untitled41"|// root path is automatically determined|' next.config.js
 
 # Build the application
 RUN npm run build
