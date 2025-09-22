@@ -7,7 +7,6 @@ import {
   FileText, 
   BookOpen, 
   Settings,
-  ShoppingCart,
   ChevronRight
 } from 'lucide-react';
 
@@ -40,14 +39,6 @@ const Dashboard: React.FC = () => {
   const recentLogsRight: LogData[] = [
     { text: 'Make a reservation', intent: 'Call', channel: 'Call' },
     { text: 'Table for 5', intent: 'Chat', channel: 'Chat' },
-  ];
-
-  const sidebarItems = [
-    { icon: Home, label: 'Dashboard', active: true },
-    { icon: Calendar, label: 'Bookings', active: false },
-    { icon: FileText, label: 'Logs', active: false },
-    { icon: BookOpen, label: 'Knowledge', active: false },
-    { icon: Settings, label: 'Settings', active: false },
   ];
 
   return (

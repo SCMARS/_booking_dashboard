@@ -11,7 +11,7 @@ export default function HomePage() {
           <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
             <h2 className="text-lg font-medium mb-2 text-blue-800">Quick Start</h2>
             <p className="text-sm text-blue-700">
-              Check the dashboard for an overview of your restaurant's performance.
+              Check the dashboard for an overview of your restaurant&apos;s performance.
             </p>
           </div>
           <div className="bg-green-50 p-4 rounded-lg border border-green-100">
