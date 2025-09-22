@@ -2,9 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'standalone',
   experimental: {
     turbopack: {
-      root: "/Users/glebuhovskij/WebstormProjects/untitled41"
+      // Use relative path instead of absolute path
     }
   }
 };
