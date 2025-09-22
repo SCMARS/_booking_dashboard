@@ -1,20 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { logout } = useAuth();
+  const router = useRouter();
+  const { t } = useLanguage();
 
+  // prefix links with current language
+  const localePrefix = `/${useLanguage().language}`;
   const menu = [
-    { name: 'Dashboard', path: '/dashboard' },
-    { name: 'Bookings', path: '/bookings' },
-    { name: 'Logs', path: '/logs' },
-    { name: 'Knowledge', path: '/knowledge' },
-    { name: 'Settings', path: '/settings' },
+    { name: t('nav.dashboard'), path: `${localePrefix}/dashboard` },
+    { name: t('nav.bookings'), path: `${localePrefix}/bookings` },
+    { name: t('nav.logs'), path: `${localePrefix}/logs` },
+    { name: t('nav.knowledge'), path: `${localePrefix}/knowledge` },
+    { name: t('nav.settings'), path: `${localePrefix}/settings` },
   ];
 
   const toggleSidebar = () => {
@@ -43,7 +50,7 @@ export default function Sidebar() {
           md:h-auto md:min-h-screen
         `}
       >
-        <div className="mb-8 text-center font-heading text-xl pt-12 md:pt-0">AI Bot Admin</div>
+        <div className="mb-8 text-center font-heading text-xl pt-12 md:pt-0">{t('app.title')}</div>
         <nav>
           {menu.map((item) => (
             <Link 
@@ -51,13 +58,24 @@ export default function Sidebar() {
               href={item.path}
               onClick={() => setIsOpen(false)}
               className={`block py-2 px-4 rounded hover:bg-primary ${
-                pathname === item.path ? 'bg-primary' : ''
+                pathname?.startsWith(item.path) ? 'bg-primary' : ''
               }`}
             >
               {item.name}
             </Link>
           ))}
         </nav>
+        
+        <button
+          onClick={async () => {
+            await logout();
+            router.replace('/login');
+          }}
+          className="mt-8 flex items-center gap-2 py-2 px-4 rounded hover:bg-primary w-full"
+        >
+          <LogOut size={18} />
+          {t('nav.logout')}
+        </button>
       </aside>
     </>
   );
