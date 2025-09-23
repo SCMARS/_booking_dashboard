@@ -39,6 +39,33 @@ const en = {
       passwordMin: 'Password must be at least 6 characters',
     },
   },
+  settings: {
+    languageTitle: 'Language',
+    chooseInterface: 'Choose interface language',
+    languages: {
+      en: { label: 'English', desc: 'Default language' },
+      ru: { label: 'Русский', desc: 'Русский язык' },
+      hr: { label: 'Hrvatski', desc: 'Hrvatski jezik' },
+      es: { label: 'Español', desc: 'Idioma español' },
+    },
+    agent: {
+      title: 'Agent Profile', subtitle: 'Basic agent profile settings',
+      name: 'Agent name', voice: 'Voice', lang: 'Language & accent', active: 'Active',
+    },
+    integrations: {
+      title: 'Integrations', subtitle: 'Connect external services',
+      sheets: 'Google Sheets', customize: 'Customize',
+      twilio: 'Twilio', connect: 'Connect',
+      crm: 'CRM', integrate: 'Integrate',
+    },
+    call: {
+      title: 'Call Behavior', greeting: 'Greeting script', maxDuration: 'Maximum call duration', minutes: 'minutes', forwardHuman: 'Forward to human'
+    },
+    notifications: {
+      title: 'Notifications', subtitle: 'Email alerts and reports',
+      newBookings: 'New bookings', callErrors: 'Call errors', daily: 'Daily report', weekly: 'Weekly report'
+    }
+  },
 };
 
 export default en;

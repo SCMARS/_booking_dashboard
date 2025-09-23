@@ -20,7 +20,7 @@ function assertFirebaseEnv(config) {
         .filter(([, v]) => !v)
         .map(([k]) => k);
     if (missing.length) {
-        // eslint-disable-next-line no-console
+
         console.warn(`[firebase] Missing env vars: ${missing.join(", ")}`);
     }
 }

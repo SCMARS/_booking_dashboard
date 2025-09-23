@@ -12,7 +12,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
   const router = useRouter();
   const { user, loading } = useAuth();
 
-  // consider first segment as locale
+
   const segments = (pathname || '/').split('/');
   const first = segments[1];
   const currentPath = first && ['en','ru','hr','es'].includes(first) ? `/${segments.slice(2).join('/')}` : (pathname || '/');
@@ -39,7 +39,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
     );
   }
 
-  // Hide sidebar on public routes
+
   if (isPublic) {
     return <div className="min-h-screen bg-lightGray p-4 md:p-6">{children}</div>;
   }
@@ -47,7 +47,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
   return (
     <div className="min-h-screen flex bg-lightGray">
       <Sidebar />
-      <main className="flex-1 p-4 md:p-6 md:ml-64 w-full">{children}</main>
+      <main className="flex-1 p-4 md:p-6 w-full">{children}</main>
     </div>
   );
 }
