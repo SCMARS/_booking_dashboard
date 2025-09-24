@@ -1,0 +1,225 @@
+[debug] [2025-09-24T16:54:11.539Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:54:11.541Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase use booking-2c3e1
+[debug] [2025-09-24T16:54:11.541Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:54:11.541Z] Platform:      darwin
+[debug] [2025-09-24T16:54:11.541Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:54:11.542Z] Time:          Wed Sep 24 2025 18:54:11 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:54:11.542Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:54:11.544Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-09-24T16:54:11.664Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-24T16:54:11.669Z] Error: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.
+    at GoogleAuth.getApplicationDefaultAsync (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:287:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async GoogleAuth._GoogleAuth_determineClient (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:834:32)
+    at async GoogleAuth.getClient (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:698:20)
+    at async GoogleAuth.getAccessToken (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:722:24)
+    at async autoAuth (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/requireAuth.js:26:19)
+    at async Object.requireAuth [as fn] (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/requireAuth.js:81:20)
+    at async /Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/command.js:241:17
+[error] 
+[error] Error: Failed to authenticate, have you run firebase login?
+[debug] [2025-09-24T16:54:48.961Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:54:48.962Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase login --no-localhost
+[debug] [2025-09-24T16:54:48.962Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:54:48.962Z] Platform:      darwin
+[debug] [2025-09-24T16:54:48.962Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:54:48.963Z] Time:          Wed Sep 24 2025 18:54:48 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:54:48.963Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:54:48.965Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[debug] [2025-09-24T16:54:50.091Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-09-24T16:54:50.092Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] i  To change your data collection preference at any time, run `firebase logout` and log in again. 
+[debug] [2025-09-24T16:55:00.133Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2025-09-24T16:55:00.134Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"940153fb-5e08-4221-9168-2d8dbfdaf063"}
+[debug] [2025-09-24T16:55:07.322Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200
+[debug] [2025-09-24T16:55:07.324Z] <<< [apiv2][body] POST https://auth.firebase.tools/attest {"token":"3KppLXGEpNZMwGDm0KxUDZhkaxqAwmL6JuajR4tQmKI"}
+[info] 
+[info] To sign in to the Firebase CLI:
+[info] 
+[info] 1. Take note of your session ID:
+[info] 
+[info]    94015
+[info] 
+[info] 2. Visit the URL below on any device and follow the instructions to get your code:
+[info] 
+[info]    https://auth.firebase.tools/login?code_challenge=H33DbdOTj5b8hZ7_9BTkSSmnoSJ3u29XvVIfctqsFCs&session=940153fb-5e08-4221-9168-2d8dbfdaf063&attest=3KppLXGEpNZMwGDm0KxUDZhkaxqAwmL6JuajR4tQmKI
+[info] 
+[info] 3. Paste or enter the authorization code below once you have it:
+[info] 
+[debug] [2025-09-24T16:55:44.910Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2025-09-24T16:55:44.910Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2025-09-24T16:55:45.967Z] <<< [apiv2][status] POST https://accounts.google.com/o/oauth2/token 400
+[debug] [2025-09-24T16:55:45.967Z] <<< [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2025-09-24T16:55:45.968Z] Token Fetch Error: FirebaseError: Request to https://accounts.google.com/o/oauth2/token had HTTP Error: 400, invalid_grant
+    at responseToError (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/responseToError.js:52:12)
+    at RetryOperation._fn (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[error] 
+[error] Error: Unable to authenticate using the provided code. Please try again.
+[debug] [2025-09-24T16:55:49.305Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:55:49.306Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase use booking-2c3e1
+[debug] [2025-09-24T16:55:49.306Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:55:49.307Z] Platform:      darwin
+[debug] [2025-09-24T16:55:49.307Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:55:49.308Z] Time:          Wed Sep 24 2025 18:55:49 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:55:49.308Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:55:49.407Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-24T16:55:50.910Z] Error: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.
+    at GoogleAuth.getApplicationDefaultAsync (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:287:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async GoogleAuth._GoogleAuth_determineClient (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:834:32)
+    at async GoogleAuth.getClient (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:698:20)
+    at async GoogleAuth.getAccessToken (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/node_modules/google-auth-library/build/src/auth/googleauth.js:722:24)
+    at async autoAuth (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/requireAuth.js:26:19)
+    at async Object.requireAuth [as fn] (/Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/requireAuth.js:81:20)
+    at async /Users/glebuhovskij/.nvm/versions/node/v18.20.5/lib/node_modules/firebase-tools/lib/command.js:241:17
+[error] 
+[error] Error: Failed to authenticate, have you run firebase login?
+[debug] [2025-09-24T16:57:09.015Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:57:09.016Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase logout
+[debug] [2025-09-24T16:57:09.016Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:57:09.016Z] Platform:      darwin
+[debug] [2025-09-24T16:57:09.016Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:57:09.017Z] Time:          Wed Sep 24 2025 18:57:09 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:57:09.017Z] ----------------------------------------------------------------------
+[debug] 
+[info] No need to logout, not logged in
+[debug] [2025-09-24T16:57:10.996Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:57:10.997Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase login --reauth --no-localhost
+[debug] [2025-09-24T16:57:10.997Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:57:10.998Z] Platform:      darwin
+[debug] [2025-09-24T16:57:10.998Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:57:10.999Z] Time:          Wed Sep 24 2025 18:57:10 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:57:10.999Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:57:11.101Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2025-09-24T16:57:11.102Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"d7ef8b80-7fb6-444f-bbf5-910577a727de"}
+[debug] [2025-09-24T16:57:12.285Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200
+[debug] [2025-09-24T16:57:12.286Z] <<< [apiv2][body] POST https://auth.firebase.tools/attest {"token":"7CgXEVPIFXZAAtev0IyoJD1Bxx8TSrqXdSLlXY5jVG4"}
+[info] 
+[info] To sign in to the Firebase CLI:
+[info] 
+[info] 1. Take note of your session ID:
+[info] 
+[info]    D7EF8
+[info] 
+[info] 2. Visit the URL below on any device and follow the instructions to get your code:
+[info] 
+[info]    https://auth.firebase.tools/login?code_challenge=HZP90D1cKUHZ5xnxESqyF6afDlN7Hjns4gjTvGIM-C8&session=d7ef8b80-7fb6-444f-bbf5-910577a727de&attest=7CgXEVPIFXZAAtev0IyoJD1Bxx8TSrqXdSLlXY5jVG4
+[info] 
+[info] 3. Paste or enter the authorization code below once you have it:
+[info] 
+[debug] [2025-09-24T16:57:40.722Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2025-09-24T16:57:40.723Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2025-09-24T16:57:41.930Z] <<< [apiv2][status] POST https://accounts.google.com/o/oauth2/token 200
+[debug] [2025-09-24T16:57:41.930Z] <<< [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[info] 
+[info] ✔  Success! Logged in as gleb270975@gmail.com 
+[debug] [2025-09-24T16:57:51.836Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:57:51.837Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes
+[debug] [2025-09-24T16:57:51.837Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:57:51.837Z] Platform:      darwin
+[debug] [2025-09-24T16:57:51.837Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:57:51.838Z] Time:          Wed Sep 24 2025 18:57:51 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:57:51.838Z] ----------------------------------------------------------------------
+[debug] 
+[error] 
+[error] Error: No currently active project.
+To run this command, you need to specify a project. You have two options:
+- Run this command with --project <alias_or_project_id>.
+- Set an active project by running firebase use --add, then rerun this command.
+To list all the Firebase projects to which you have access, run firebase projects:list.
+To learn about active projects for the CLI, visit https://firebase.google.com/docs/cli#project_aliases
+
+
+[debug] [2025-09-24T16:58:28.560Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:58:28.561Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase use --add booking-2c3e1
+[debug] [2025-09-24T16:58:28.561Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:58:28.562Z] Platform:      darwin
+[debug] [2025-09-24T16:58:28.562Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:58:28.563Z] Time:          Wed Sep 24 2025 18:58:28 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:58:28.563Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:58:28.658Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-24T16:58:28.659Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-09-24T16:58:28.660Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:58:28.660Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:58:28.660Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1 [none]
+[debug] [2025-09-24T16:58:29.764Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1 200
+[debug] [2025-09-24T16:58:29.765Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1 {"projectNumber":"373888935111","projectId":"booking-2c3e1","lifecycleState":"ACTIVE","name":"booking","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-09-21T19:23:42.964465Z"}
+[info] Now using project booking-2c3e1
+[debug] [2025-09-24T16:58:59.875Z] ----------------------------------------------------------------------
+[debug] [2025-09-24T16:58:59.876Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1
+[debug] [2025-09-24T16:58:59.876Z] CLI Version:   13.35.1
+[debug] [2025-09-24T16:58:59.876Z] Platform:      darwin
+[debug] [2025-09-24T16:58:59.876Z] Node Version:  v18.20.5
+[debug] [2025-09-24T16:58:59.877Z] Time:          Wed Sep 24 2025 18:58:59 GMT+0200 (Central European Summer Time)
+[debug] [2025-09-24T16:58:59.877Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-24T16:58:59.974Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-24T16:58:59.975Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-09-24T16:58:59.975Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-09-24T16:58:59.976Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:58:59.976Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:58:59.976Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-09-24T16:58:59.976Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-09-24T16:58:59.976Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-09-24T16:59:00.950Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-09-24T16:59:00.950Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-09-24T16:59:00.956Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:00.956Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:00.956Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-09-24T16:59:02.628Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-09-24T16:59:02.629Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2025-09-24T16:59:02.630Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:02.630Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:02.630Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-09-24T16:59:04.161Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-09-24T16:59:04.161Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2025-09-24T16:59:04.161Z] Creating new index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-09-24T16:59:04.162Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:04.162Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:04.162Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes [none]
+[debug] [2025-09-24T16:59:04.162Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-09-24T16:59:05.982Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes 200
+[debug] [2025-09-24T16:59:05.983Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0U0aFhqT2dBQ0lDDCoDIDI2ZWMwMmJiN2RlNy1kYTc5LTVmZjQtZDFmOS1mZTNhZjlkYiQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-09-24T16:59:05.728127Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK","state":"INITIALIZING"}}
+[debug] [2025-09-24T16:59:05.983Z] Creating new index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-09-24T16:59:05.985Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:05.985Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:05.985Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes [none]
+[debug] [2025-09-24T16:59:05.985Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-09-24T16:59:07.544Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes 200
+[debug] [2025-09-24T16:59:07.544Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S01vcFVpSmdBQ0lDDCoDIDVlMTEzNzM5NzMwOC0wNGQ4LTczZTQtZGUzNi00OTNkOWFhMCQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-09-24T16:59:07.379774Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK","state":"INITIALIZING"}}
+[debug] [2025-09-24T16:59:07.544Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-09-24T16:59:07.545Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:07.545Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:07.546Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-09-24T16:59:07.546Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-09-24T16:59:09.184Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 200
+[debug] [2025-09-24T16:59:09.184Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0E0MW1pSmdBQ0lDDCoDIDk1ZWE3MTE2N2EwYS1mNWFhLWIyMTQtNTkzNC05YWY0MDJhMyQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-09-24T16:59:09.003265Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK","state":"INITIALIZING"}}
+[debug] [2025-09-24T16:59:09.185Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-09-24T16:59:09.185Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:09.185Z] Checked if tokens are valid: true, expires at: 1758736660930
+[debug] [2025-09-24T16:59:09.186Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-09-24T16:59:09.186Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-09-24T16:59:11.024Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 200
+[debug] [2025-09-24T16:59:11.025Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/SkU0aFhqT2dBQ0lDDCoDIDAxMDRiMzdiZDVhNi02ODRhLTM5YzQtZjU2Zi00OGU1NDM0NSQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-09-24T16:59:10.719362Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ","state":"INITIALIZING"}}
+[info] ✔  firestore: deployed indexes in firestore.indexes.json successfully for (default) database 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/booking-2c3e1/overview

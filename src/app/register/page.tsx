@@ -31,7 +31,7 @@ export default function Register() {
         e.preventDefault();
         setError('');
 
-        // Validation
+
         if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
             setError(t('auth.errors.fillAllFields') as string);
             return;
@@ -50,19 +50,19 @@ export default function Register() {
         setLoading(true);
 
         try {
-            // Создание пользователя
+
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 formData.email,
                 formData.password
             );
 
-            // Обновление профиля с именем
+
             await updateProfile(userCredential.user, {
                 displayName: formData.name
             });
 
-            // Перенаправление на дашборд
+
             router.push('/dashboard');
         } catch (error: any) {
             console.error('Register error:', error);

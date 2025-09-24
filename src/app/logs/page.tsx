@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, onSnapshot, orderBy, query, limit } from 'firebase/firestore';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type LogItem = {
   id: string;
@@ -17,6 +18,7 @@ export default function LogsPage() {
   const [channel, setChannel] = useState<string>('All');
   const [search, setSearch] = useState<string>('');
   const [debounced, setDebounced] = useState<string>('');
+  const { language } = useLanguage();
 
   useEffect(() => {
     const q = query(collection(db, 'logs'), orderBy('createdAt', 'desc'), limit(100));
@@ -53,8 +55,8 @@ export default function LogsPage() {
     <div className="max-w-6xl">
       <h1 className="text-2xl md:text-3xl font-heading mb-6">Logs</h1>
 
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="p-4 md:p-5 border-b border-gray-100 flex items-center gap-3">
+      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
+        <div className="p-4 md:p-5 border-b border-gray-100 flex items-center gap-3 bg-gray-50/50">
           <select
             value={channel}
             onChange={(e) => setChannel(e.target.value)}
@@ -87,7 +89,7 @@ export default function LogsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filtered.map((log) => (
+              {filtered.length ? filtered.map((log) => (
                 <tr key={log.id} className="hover:bg-gray-50 align-top">
                   <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">{log.timestamp || '-'}</td>
                   <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">{log.channel || '-'}</td>
@@ -110,11 +112,18 @@ export default function LogsPage() {
                   </td>
                   <td className="px-4 py-3 text-sm">
                     {'bookingId' in (log as any) && (log as any).bookingId ? (
-                      <a className="text-blue-600 hover:underline" href={`/${'en'}/bookings?bookingId=${(log as any).bookingId}`}>View</a>
+                      <a className="text-blue-600 hover:underline" href={`/${language}/bookings?bookingId=${(log as any).bookingId}`}>View</a>
                     ) : '—'}
                   </td>
                 </tr>
-              ))}
+              )) : (
+                <tr>
+                  <td colSpan={5} className="px-4 py-12 text-center text-gray-500">
+                    <div className="mx-auto h-2 w-1/2 bg-gray-100 rounded animate-pulse" />
+                    <div className="mt-3 text-xs text-gray-400">Loading logs…</div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

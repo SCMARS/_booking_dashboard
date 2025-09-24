@@ -38,15 +38,15 @@ export default function Login() {
         setLoading(true);
 
         try {
-            // Вход пользователя
+
             await signInWithEmailAndPassword(auth, formData.email, formData.password);
             
-            // Перенаправление на дашборд
+
             router.push('/dashboard');
         } catch (error: any) {
             console.error('Login error:', error);
             
-            // Firebase error handling
+
             switch (error.code) {
                 case 'auth/user-not-found':
                     setError(t('auth.errors.userNotFound') as string);

@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/firebase';
 import { collection, deleteDoc, doc, setDoc, serverTimestamp } from 'firebase/firestore';
-
-// n8n → our app webhook
-// Headers: X-API-Key: <N8N_INBOUND_KEY>
-// Body: { action: 'upsert'|'delete', items: [{ id?: string, question, answer, category }] }
 export async function POST(req: Request) {
   try {
     const key = req.headers.get('x-api-key');
