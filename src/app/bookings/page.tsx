@@ -85,7 +85,16 @@ const BookingsPage: React.FC = () => {
     }, [recentBookings, status, channel, period, sort]);
 
     const [details, setDetails] = useState<null | (BookingData & { id: string })>(null);
+    const [dayList, setDayList] = useState<BookingData[] | null>(null);
     const [saving, setSaving] = useState(false);
+
+    const openDayList = (day: number) => {
+      const now = new Date();
+      const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const dayStr = `${ym}-${String(day).padStart(2, '0')}`;
+      const list = recentBookings.filter((b) => (b.date || '').startsWith(dayStr));
+      setDayList(list);
+    };
 
     return (
         <div className="p-4 md:p-6">
@@ -103,21 +112,21 @@ const BookingsPage: React.FC = () => {
                         <div>
                             <label className="block text-xs text-gray-500 mb-1">{t('bookings.filters.status')}</label>
                             <select value={status} onChange={(e) => setStatus(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm">
-                                <option>{t('bookings.filters.all')}</option>
-                                <option>Confirmed</option>
-                                <option>Pending</option>
-                                <option>cancelled</option>
+                                <option value="All">{t('bookings.filters.all')}</option>
+                                <option value="Confirmed">Confirmed</option>
+                                <option value="Pending">Pending</option>
+                                <option value="cancelled">cancelled</option>
                             </select>
                         </div>
                         <div>
                             <label className="block text-xs text-gray-500 mb-1">{t('bookings.filters.channel')}</label>
                             <select value={channel} onChange={(e) => setChannel(e.target.value)} className="w-full border rounded-md px-3 py-2 text-sm">
-                                <option>{t('bookings.filters.all')}</option>
-                                <option>Call</option>
-                                <option>Phone</option>
-                                <option>Website</option>
-                                <option>Chat</option>
-                                <option>WhatsApp</option>
+                                <option value="All">{t('bookings.filters.all')}</option>
+                                <option value="Call">Call</option>
+                                <option value="Phone">Phone</option>
+                                <option value="Website">Website</option>
+                                <option value="Chat">Chat</option>
+                                <option value="WhatsApp">WhatsApp</option>
                             </select>
                         </div>
                         <div>
@@ -178,7 +187,7 @@ const BookingsPage: React.FC = () => {
                             </div>
                             <div className="text-gray-700">WhatsApp</div>
                             <div className="flex justify-center">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm shadow-sm">{t('bookings.calendar.details')}</button>
+                                <button onClick={() => openDayList(5)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm shadow-sm">{t('bookings.calendar.details')}</button>
                             </div>
                         </div>
 
@@ -194,7 +203,7 @@ const BookingsPage: React.FC = () => {
                             </div>
                             <div className="text-gray-700">Website</div>
                             <div className="flex justify-center">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
+                                <button onClick={() => openDayList(12)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
                             </div>
                         </div>
 
@@ -212,7 +221,7 @@ const BookingsPage: React.FC = () => {
                             </div>
                             <div className="text-gray-700">Website</div>
                             <div className="flex justify-center">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
+                                <button onClick={() => openDayList(17)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
                             </div>
                         </div>
 
@@ -228,7 +237,7 @@ const BookingsPage: React.FC = () => {
                             </div>
                             <div className="text-gray-700">Phone</div>
                             <div className="flex justify-center">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
+                                <button onClick={() => openDayList(26)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
                             </div>
                         </div>
 
@@ -244,7 +253,7 @@ const BookingsPage: React.FC = () => {
                             </div>
                             <div className="text-gray-700">WhatsApp</div>
                             <div className="flex justify-center">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">Details</button>
+                                <button onClick={() => openDayList(31)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
                             </div>
                         </div>
                     </div>
@@ -269,6 +278,7 @@ const BookingsPage: React.FC = () => {
                                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">{t('bookings.table.date')}</th>
                                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">{t('bookings.table.status')}</th>
                                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">{t('bookings.table.channel')}</th>
+                                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">{t('dashboard.table.actions')}</th>
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
@@ -288,10 +298,30 @@ const BookingsPage: React.FC = () => {
                       </span>
                                     </td>
                                     <td className="px-6 py-4 text-sm text-gray-600">{booking.channel}</td>
+                                    <td className="px-6 py-4">
+                                      <div className="flex flex-wrap gap-1">
+                                        <button
+                                          onClick={() => booking.id && setDetails({ ...(booking as any), id: booking.id })}
+                                          className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                                        >{t('bookings.calendar.details')}</button>
+                                        <button
+                                          onClick={async () => { if (!booking.id) return; await updateDoc(doc(db, 'bookings', booking.id), { status: 'Confirmed' }); }}
+                                          className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                                        >{t('bookings.details.actions.confirm')}</button>
+                                        <button
+                                          onClick={async () => { if (!booking.id) return; await updateDoc(doc(db, 'bookings', booking.id), { status: 'cancelled' }); }}
+                                          className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                                        >{t('bookings.details.actions.cancel')}</button>
+                                        <button
+                                          onClick={() => booking.id && setDetails({ ...(booking as any), id: booking.id })}
+                                          className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
+                                        >{t('bookings.details.actions.reschedule')}</button>
+                                      </div>
+                                    </td>
                                 </tr>
                             )) : (
                               <tr>
-                                <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
+                                <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
                                   <div className="mx-auto h-2 w-1/2 bg-gray-100 rounded animate-pulse" />
                                   <div className="mt-3 text-xs text-gray-400">{t('dashboard.loadingBookings')}</div>
                                 </td>
@@ -368,6 +398,37 @@ const BookingsPage: React.FC = () => {
                           }}
                           className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 disabled:opacity-60"
                         >{saving ? '...' : t('bookings.details.actions.save')}</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {dayList && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                    <div className="bg-white w-full max-w-xl rounded-xl shadow-lg border border-gray-100 p-5">
+                      <div className="text-lg font-semibold mb-4">{t('bookings.calendar.title')}</div>
+                      <div className="divide-y divide-gray-100">
+                        {dayList.length ? dayList.map((b, i) => (
+                          <div key={(b as any).id || i} className="py-3 flex items-center justify-between">
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{b.name}</div>
+                              <div className="text-xs text-gray-500">{b.date} · {b.channel}</div>
+                            </div>
+                            <div className="flex gap-2">
+                              {(b as any).id && (
+                                <>
+                                  <button onClick={() => setDetails({ ...(b as any), id: (b as any).id })} className="px-2 py-1 text-xs rounded border hover:bg-gray-50">{t('bookings.calendar.details')}</button>
+                                  <button onClick={async () => { await updateDoc(doc(db, 'bookings', (b as any).id), { status: 'Confirmed' }); }} className="px-2 py-1 text-xs rounded border hover:bg-gray-50">{t('bookings.details.actions.confirm')}</button>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        )) : (
+                          <div className="py-6 text-center text-gray-500">—</div>
+                        )}
+                      </div>
+                      <div className="mt-5 flex items-center justify-end">
+                        <button onClick={() => setDayList(null)} className="px-3 py-2 rounded-lg border text-sm hover:bg-gray-50">{t('bookings.details.actions.close')}</button>
                       </div>
                     </div>
                   </div>
