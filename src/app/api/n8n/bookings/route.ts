@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       date: (body.date || '').toString(),
       status: (body.status || 'Pending').toString(),
       channel: (body.channel || 'Website').toString(),
-      // passthrough
+
       source: 'n8n',
       raw: body,
       createdAt: serverTimestamp(),

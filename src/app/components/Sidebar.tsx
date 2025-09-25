@@ -61,11 +61,8 @@ export default function Sidebar() {
           border-r border-white/10
         `}
       >
-        {/* Brand */}
-        <div className="mb-6 md:mb-8 flex items-center gap-3 pt-12 md:pt-4 px-1">
-          <div className="h-9 w-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shadow-inner">🍽️</div>
-          <div className="font-heading text-lg tracking-tight">{t('app.title')}</div>
-        </div>
+        {/* Brand (removed as requested) */}
+        <div className="pt-8 mb-4" />
 
         {/* Nav */}
         <nav className="space-y-1">

@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
-// n8n → POST /api/n8n/logs
-// Optional header X-Webhook-Secret must match NEXT_PUBLIC_N8N_WEBHOOK_SECRET (or N8N_WEBHOOK_SECRET)
 
 export async function POST(req: Request) {
   try {

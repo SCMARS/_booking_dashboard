@@ -30,7 +30,7 @@ const BookingsPage: React.FC = () => {
     const [sort, setSort] = useState<string>(searchParams.get('sort') || 'date_desc');
 
     useEffect(() => {
-        const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'), limit(50));
+        const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'), limit(500));
         const unsub = onSnapshot(q, (snap) => {
             const rows: BookingData[] = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
             setRecentBookings(rows);
@@ -87,6 +87,10 @@ const BookingsPage: React.FC = () => {
     const [details, setDetails] = useState<null | (BookingData & { id: string })>(null);
     const [dayList, setDayList] = useState<BookingData[] | null>(null);
     const [saving, setSaving] = useState(false);
+    const [showNew, setShowNew] = useState(false);
+    const [newForm, setNewForm] = useState<{ name: string; phone: string; date: string; time: string; partySize: number; status: 'Confirmed' | 'Pending' | 'cancelled'; channel: string; notes: string }>(
+      { name: '', phone: '', date: '', time: '', partySize: 1, status: 'Confirmed', channel: 'Website', notes: '' }
+    );
 
     const openDayList = (day: number) => {
       const now = new Date();
@@ -101,7 +105,7 @@ const BookingsPage: React.FC = () => {
                 {/* Page Header */}
                 <div className="flex items-center justify-between mb-6 md:mb-8">
                     <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{t('bookings.title')}</h1>
-                    <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 md:px-5 py-2 rounded-lg font-medium text-white transition-colors shadow-sm">
+                    <button onClick={() => setShowNew(true)} className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 md:px-5 py-2 rounded-lg font-medium text-white transition-colors shadow-sm">
                         {t('bookings.new')}
                     </button>
                 </div>
@@ -161,102 +165,57 @@ const BookingsPage: React.FC = () => {
                 <div className="bg-white rounded-xl p-4 md:p-6 mb-8 border border-gray-100 shadow-sm">
                     <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 text-gray-900">{t('bookings.calendar.title')}</h2>
 
-                    {/* Calendar Header */}
-                    <div className="grid grid-cols-7 gap-4 text-center mb-6 text-gray-600">
-                        <div className="font-medium py-2">{t('bookings.calendar.daysShort.S')}</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.daysShort.M')}</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.daysShort.T')}</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.daysShort.W')}</div>
-                        <div className="font-medium py-2">T</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.headers.status')}</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.headers.channel')}</div>
-                        <div className="font-medium py-2">{t('bookings.calendar.headers.actions')}</div>
+                    <div className="grid grid-cols-7 gap-1 md:gap-2 text-center mb-3 text-gray-600">
+                        <div className="font-medium py-1">{t('bookings.calendar.daysShort.S')}</div>
+                        <div className="font-medium py-1">{t('bookings.calendar.daysShort.M')}</div>
+                        <div className="font-medium py-1">{t('bookings.calendar.daysShort.T')}</div>
+                        <div className="font-medium py-1">{t('bookings.calendar.daysShort.W')}</div>
+                        <div className="font-medium py-1">T</div>
+                        <div className="font-medium py-1">F</div>
+                        <div className="font-medium py-1">S</div>
                     </div>
 
-                    {/* Calendar Rows */}
-                    <div className="space-y-4">
-                        {/* Placeholder rows for layout; real calendar left as future work */}
-                        <div className="grid grid-cols-8 gap-4 items-center py-3 border-b border-gray-100">
-                            <div className="text-gray-700 text-center">1</div>
-                            <div className="text-gray-700 text-center">2</div>
-                            <div className="text-gray-700 text-center">3</div>
-                            <div className="text-gray-700 text-center">4</div>
-                            <div className="text-gray-700 text-center">5</div>
-                            <div className="flex items-center">
-                                <span className="bg-green-50 text-green-700 ring-1 ring-green-200 px-2 py-1 rounded text-sm">Confirmed</span>
-                            </div>
-                            <div className="text-gray-700">WhatsApp</div>
-                            <div className="flex justify-center">
-                                <button onClick={() => openDayList(5)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm shadow-sm">{t('bookings.calendar.details')}</button>
-                            </div>
+                    {(() => {
+                      const now = new Date();
+                      const year = now.getFullYear();
+                      const month = now.getMonth();
+                      const first = new Date(year, month, 1);
+                      const firstWeekday = first.getDay(); // 0..6, Sun..Sat
+                      const daysInMonth = new Date(year, month + 1, 0).getDate();
+                      const cells: (number | null)[] = Array(firstWeekday).fill(null).concat(Array.from({ length: daysInMonth }, (_, i) => i + 1));
+                      while (cells.length % 7 !== 0) cells.push(null);
+                      const ym = `${year}-${String(month + 1).padStart(2, '0')}`;
+                      const dayMap = new Map<number, BookingData[]>();
+                      for (const b of recentBookings) {
+                        const d = (b.date || '').split('T')[0];
+                        if (!d.startsWith(ym)) continue;
+                        const dd = Number(d.split('-')[2]);
+                        if (!Number.isFinite(dd)) continue;
+                        const arr = dayMap.get(dd) || [];
+                        arr.push(b);
+                        dayMap.set(dd, arr);
+                      }
+                      return (
+                        <div className="grid grid-cols-7 gap-1 md:gap-2">
+                          {cells.map((d, idx) => {
+                            if (d == null) return <div key={idx} className="h-16 md:h-20 rounded-lg bg-gray-50" />;
+                            const list = dayMap.get(d) || [];
+                            const confirmed = list.filter(x => x.status === 'Confirmed').length;
+                            const pending = list.filter(x => x.status === 'Pending').length;
+                            return (
+                              <button key={idx} onClick={() => setDayList(list)} className="h-16 md:h-20 rounded-lg border border-gray-100 hover:border-blue-200 hover:shadow-sm transition p-1.5 md:p-2 text-left overflow-hidden">
+                                <div className="text-[10px] md:text-xs text-gray-500">{d}</div>
+                                <div className="mt-1 md:mt-2 flex flex-wrap gap-1">
+                                  {!!confirmed && <span className="px-1.5 py-0.5 rounded text-[10px] bg-green-50 text-green-700 ring-1 ring-green-200">C {confirmed}</span>}
+                                  {!!pending && <span className="px-1.5 py-0.5 rounded text-[10px] bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200">P {pending}</span>}
+                                  {!confirmed && !pending && !!list.length && <span className="px-1.5 py-0.5 rounded text-[10px] bg-blue-50 text-blue-700 ring-1 ring-blue-200">L {list.length}</span>}
+                                </div>
+                              </button>
+                            );
+                          })}
                         </div>
-
-                        {/* Row 2: Days 8-12 */}
-                        <div className="grid grid-cols-8 gap-4 items-center py-3 border-b border-gray-100">
-                            <div className="text-gray-700 text-center">8</div>
-                            <div className="text-gray-700 text-center">9</div>
-                            <div className="text-gray-700 text-center">10</div>
-                            <div className="text-gray-700 text-center">11</div>
-                            <div className="text-gray-700 text-center">12</div>
-                            <div className="flex items-center">
-                                <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Pending</span>
-                            </div>
-                            <div className="text-gray-700">Website</div>
-                            <div className="flex justify-center">
-                                <button onClick={() => openDayList(12)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
-                            </div>
-                        </div>
-
-                        {/* Row 3: Days 15-19 */}
-                        <div className="grid grid-cols-8 gap-4 items-center py-3 border-b border-gray-100">
-                            <div className="text-gray-700 text-center">15</div>
-                            <div className="text-center">
-                                <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mx-auto">17</div>
-                            </div>
-                            <div className="text-gray-700 text-center">17</div>
-                            <div className="text-gray-700 text-center">18</div>
-                            <div className="text-gray-700 text-center">19</div>
-                            <div className="flex items-center">
-                                <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Confirmed</span>
-                            </div>
-                            <div className="text-gray-700">Website</div>
-                            <div className="flex justify-center">
-                                <button onClick={() => openDayList(17)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
-                            </div>
-                        </div>
-
-                        {/* Row 4: Days 22-26 */}
-                        <div className="grid grid-cols-8 gap-4 items-center py-3 border-b border-gray-100">
-                            <div className="text-gray-700 text-center">22</div>
-                            <div className="text-gray-700 text-center">23</div>
-                            <div className="text-gray-700 text-center">24</div>
-                            <div className="text-gray-700 text-center">25</div>
-                            <div className="text-gray-700 text-center">26</div>
-                            <div className="flex items-center">
-                                <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Confirmed</span>
-                            </div>
-                            <div className="text-gray-700">Phone</div>
-                            <div className="flex justify-center">
-                                <button onClick={() => openDayList(26)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
-                            </div>
-                        </div>
-
-                        {/* Row 5: Days 29-31 */}
-                        <div className="grid grid-cols-8 gap-4 items-center py-3">
-                            <div className="text-gray-700 text-center">29</div>
-                            <div className="text-gray-700 text-center">30</div>
-                            <div className="text-gray-700 text-center">31</div>
-                            <div></div>
-                            <div></div>
-                            <div className="flex items-center">
-                                <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Confirmed</span>
-                            </div>
-                            <div className="text-gray-700">WhatsApp</div>
-                            <div className="flex justify-center">
-                                <button onClick={() => openDayList(31)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded text-sm">{t('bookings.calendar.details')}</button>
-                            </div>
-                        </div>
-                    </div>
+                      );
+                    })()}
                 </div>
 
                 {/* Recent Bookings Table */}
@@ -429,6 +388,79 @@ const BookingsPage: React.FC = () => {
                       </div>
                       <div className="mt-5 flex items-center justify-end">
                         <button onClick={() => setDayList(null)} className="px-3 py-2 rounded-lg border text-sm hover:bg-gray-50">{t('bookings.details.actions.close')}</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {showNew && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                    <div className="bg-white w-full max-w-xl rounded-xl shadow-lg border border-gray-100 p-5">
+                      <div className="text-lg font-semibold mb-4">{t('bookings.new')}</div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.name')}</label>
+                          <input className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.name} onChange={(e) => setNewForm({ ...newForm, name: e.target.value })} />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.phone')}</label>
+                          <input className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.phone} onChange={(e) => setNewForm({ ...newForm, phone: e.target.value })} />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.date')}</label>
+                          <input type="date" className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.date} onChange={(e) => setNewForm({ ...newForm, date: e.target.value })} />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.time')}</label>
+                          <input className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.time} onChange={(e) => setNewForm({ ...newForm, time: e.target.value })} />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.partySize')}</label>
+                          <input type="number" className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.partySize} onChange={(e) => setNewForm({ ...newForm, partySize: Number(e.target.value) })} />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.status')}</label>
+                          <select className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.status} onChange={(e) => setNewForm({ ...newForm, status: e.target.value as any })}>
+                            <option>Confirmed</option>
+                            <option>Pending</option>
+                            <option>cancelled</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.channel')}</label>
+                          <select className="w-full border rounded-md px-3 py-2 text-sm" value={newForm.channel} onChange={(e) => setNewForm({ ...newForm, channel: e.target.value })}>
+                            <option>Website</option>
+                            <option>Call</option>
+                            <option>Phone</option>
+                            <option>Chat</option>
+                            <option>WhatsApp</option>
+                          </select>
+                        </div>
+                        <div className="md:col-span-2">
+                          <label className="block text-xs text-gray-500 mb-1">{t('bookings.details.notes')}</label>
+                          <textarea className="w-full border rounded-md px-3 py-2 text-sm" rows={3} value={newForm.notes} onChange={(e) => setNewForm({ ...newForm, notes: e.target.value })} />
+                        </div>
+                      </div>
+                      <div className="mt-5 flex items-center justify-end gap-2">
+                        <button onClick={() => setShowNew(false)} className="px-3 py-2 rounded-lg border text-sm hover:bg-gray-50">{t('bookings.details.actions.close')}</button>
+                        <button
+                          disabled={saving || !newForm.name.trim() || !newForm.date.trim()}
+                          onClick={async () => {
+                            try {
+                              setSaving(true);
+                              await fetch('/api/bookings', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(newForm),
+                              });
+                              setShowNew(false);
+                              setNewForm({ name: '', phone: '', date: '', time: '', partySize: 1, status: 'Confirmed', channel: 'Website', notes: '' });
+                            } finally {
+                              setSaving(false);
+                            }
+                          }}
+                          className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 disabled:opacity-60"
+                        >{saving ? '...' : t('bookings.details.actions.save')}</button>
                       </div>
                     </div>
                   </div>

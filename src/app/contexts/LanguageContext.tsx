@@ -40,7 +40,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
 
   useEffect(() => {
-    // 1) URL segment has top priority: /{lang}/...
     let urlLang: string | null = null;
     if (typeof window !== 'undefined') {
       const seg = window.location.pathname.split('/')[1];
@@ -49,7 +48,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       }
     }
 
-    // 2) Then localStorage, then cookies, then browser language
+
     const stored = typeof window !== 'undefined' ? window.localStorage.getItem('lang') : null;
 
     let cookieLang: string | null = null;
