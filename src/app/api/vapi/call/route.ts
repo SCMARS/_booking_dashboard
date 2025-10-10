@@ -52,12 +52,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const callData = await callResponse.json();
+    const responseData = await callResponse.json();
     
     return NextResponse.json({
       success: true,
-      callId: callData.id,
-      status: callData.status,
+      callId: responseData.id,
+      status: responseData.status,
       message: 'Call initiated successfully'
     });
 
