@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Vapi Private API Key
-const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY || '455bbf66-6cd5-4f3e-ba7a-00c4977761d9';
+const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY;
 
 export async function POST(request: NextRequest) {
   try {
+    if (!VAPI_PRIVATE_KEY) {
+      return NextResponse.json(
+        { error: 'VAPI_PRIVATE_KEY is not configured' },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { phoneNumber, assistantId, customer, phoneNumberId } = body;
 

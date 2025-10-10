@@ -15,9 +15,9 @@
 
 ```env
 # Vapi Configuration
-VAPI_PRIVATE_KEY=455bbf66-6cd5-4f3e-ba7a-00c4977761d9
-VAPI_PUBLIC_KEY=ea7c4170-a2cd-4b71-a37c-bf829fc2d0e6
-VAPI_ASSISTANT_ID=c459fd1f-dcc7-4716-8dc8-e8c79ce5e319
+VAPI_PRIVATE_KEY=your-private-key-here
+VAPI_PUBLIC_KEY=your-public-key-here
+VAPI_ASSISTANT_ID=your-assistant-id-here
 
 # Webhook URL (для локальной разработки)
 VAPI_WEBHOOK_URL=http://localhost:8001/api/vapi/webhook

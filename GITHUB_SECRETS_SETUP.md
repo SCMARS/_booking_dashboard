@@ -8,15 +8,15 @@
 Добавьте следующие secrets в настройках вашего GitHub репозитория:
 
 1. **VAPI_PRIVATE_KEY**
-   - Значение: `455bbf66-6cd5-4f3e-ba7a-00c4977761d9`
+   - Значение: `your-private-key-here`
    - Описание: Private API ключ для серверных запросов к Vapi
 
 2. **VAPI_PUBLIC_KEY**
-   - Значение: `ea7c4170-a2cd-4b71-a37c-bf829fc2d0e6`
+   - Значение: `your-public-key-here`
    - Описание: Public API ключ для клиентских запросов к Vapi
 
 3. **VAPI_ASSISTANT_ID**
-   - Значение: `13b8bfd2-f6c0-4a78-9e85-d46744296327`
+   - Значение: `your-assistant-id-here`
    - Описание: ID ассистента для звонков
 
 4. **VAPI_WEBHOOK_URL**
@@ -72,9 +72,9 @@
 
 ```env
 # Vapi Configuration
-VAPI_PRIVATE_KEY=455bbf66-6cd5-4f3e-ba7a-00c4977761d9
-VAPI_PUBLIC_KEY=ea7c4170-a2cd-4b71-a37c-bf829fc2d0e6
-VAPI_ASSISTANT_ID=13b8bfd2-f6c0-4a78-9e85-d46744296327
+VAPI_PRIVATE_KEY=your-private-key-here
+VAPI_PUBLIC_KEY=your-public-key-here
+VAPI_ASSISTANT_ID=your-assistant-id-here
 VAPI_WEBHOOK_URL=http://localhost:8001/api/vapi/webhook
 
 # Firebase Configuration (если используется)
