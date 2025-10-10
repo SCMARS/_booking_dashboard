@@ -20,7 +20,7 @@
    - Описание: ID ассистента для звонков
 
 4. **VAPI_WEBHOOK_URL**
-   - Значение: `https://your-domain.vercel.app/api/vapi/webhook`
+   - Значение: `https://bmp-7m067s2f4-scmars-projects.vercel.app/api/vapi/webhook`
    - Описание: URL для webhook (замените на ваш домен после деплоя)
 
 ### Vercel Configuration

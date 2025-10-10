@@ -23,7 +23,7 @@ VAPI_ASSISTANT_ID=your-assistant-id-here
 VAPI_WEBHOOK_URL=http://localhost:8001/api/vapi/webhook
 
 # Для продакшена замените на ваш домен:
-# VAPI_WEBHOOK_URL=https://your-domain.com/api/vapi/webhook
+# VAPI_WEBHOOK_URL=https://bmp-7m067s2f4-scmars-projects.vercel.app/api/vapi/webhook
 ```
 
 ### 3. Настройка Webhook в Vapi
