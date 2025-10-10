@@ -115,6 +115,44 @@ const en = {
       notes: 'Notes',
       actions: { save: 'Save', confirm: 'Confirm', cancel: 'Cancel', reschedule: 'Reschedule', close: 'Close' }
     }
+  },
+  landing: {
+    hero: {
+      title: 'AI Restaurant Assistant - Revolutionize Your Dining Experience',
+      subtitle: 'Smart reservation system with voice AI that handles table bookings, takes orders, and provides exceptional customer service 24/7',
+      ctaPrimary: 'Start Free',
+      ctaSecondary: 'Learn More'
+    },
+    features: {
+      title: 'Complete Restaurant Management Solution',
+      subtitle: 'Everything you need to manage your restaurant efficiently and delight your customers',
+      voiceAI: {
+        title: 'Voice AI Assistant',
+        description: 'Riley, your AI hostess, takes reservations, answers questions about the menu, and provides personalized service to every guest.'
+      },
+      automation: {
+        title: 'Smart Reservations',
+        description: 'Automated table management with real-time availability, waitlist management, and automatic confirmations.'
+      },
+      analytics: {
+        title: 'Restaurant Analytics',
+        description: 'Track reservations, peak hours, customer preferences, and revenue insights to optimize your restaurant operations.'
+      }
+    },
+    stats: {
+      title: 'Trusted by Restaurants Worldwide',
+      subtitle: 'Join thousands of restaurants already using our AI assistant',
+      activeUsers: 'Restaurants',
+      processedRequests: 'Reservations Made',
+      timeSaved: 'Time Saved',
+      satisfiedCustomers: 'Happy Customers'
+    },
+    cta: {
+      title: 'Ready to Transform Your Restaurant?',
+      subtitle: 'Join the restaurant technology revolution. Start with a free trial today.',
+      createAccount: 'Create Account',
+      hasAccount: 'Already have an account?'
+    }
   }
 };
 

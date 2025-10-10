@@ -116,6 +116,44 @@ const es = {
       notes: 'Notas',
       actions: { save: 'Guardar', confirm: 'Confirmar', cancel: 'Cancelar', reschedule: 'Reprogramar', close: 'Cerrar' }
     }
+  },
+  landing: {
+    hero: {
+      title: 'Asistente de IA para restaurantes - Revolución en la industria gastronómica',
+      subtitle: 'Sistema inteligente de reservas con IA de voz que maneja reservas de mesas, toma pedidos y brinda servicio excepcional al cliente 24/7',
+      ctaPrimary: 'Comenzar gratis',
+      ctaSecondary: 'Saber más'
+    },
+    features: {
+      title: 'Solución completa para gestión de restaurantes',
+      subtitle: 'Todo lo que necesitas para gestionar tu restaurante de manera eficiente y deleitar a tus clientes',
+      voiceAI: {
+        title: 'Asistente de IA de voz',
+        description: 'Riley, tu anfitriona de IA, toma reservas, responde preguntas sobre el menú y brinda servicio personalizado a cada huésped.'
+      },
+      automation: {
+        title: 'Reservas inteligentes',
+        description: 'Gestión automatizada de mesas con disponibilidad en tiempo real, gestión de lista de espera y confirmaciones automáticas.'
+      },
+      analytics: {
+        title: 'Análisis de restaurante',
+        description: 'Rastrea reservas, horas pico, preferencias de clientes y análisis de ingresos para optimizar las operaciones de tu restaurante.'
+      }
+    },
+    stats: {
+      title: 'Confianza de restaurantes en todo el mundo',
+      subtitle: 'Únete a miles de restaurantes que ya usan nuestro asistente de IA',
+      activeUsers: 'Restaurantes',
+      processedRequests: 'Reservas realizadas',
+      timeSaved: 'Tiempo ahorrado',
+      satisfiedCustomers: 'Clientes felices'
+    },
+    cta: {
+      title: '¿Listo para transformar tu restaurante?',
+      subtitle: 'Únete a la revolución tecnológica en la industria gastronómica. Comienza con una prueba gratuita hoy.',
+      createAccount: 'Crear cuenta',
+      hasAccount: '¿Ya tienes una cuenta?'
+    }
   }
 };
 

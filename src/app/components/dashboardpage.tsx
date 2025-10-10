@@ -284,19 +284,19 @@ const Dashboard: React.FC = () => {
         {/* Funnel */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
           <div className="flex items-center justify-between p-4 md:p-5 border-b border-gray-100 bg-gray-50/50">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-900">Funnel</h2>
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">{t('dashboard.funnel.title') || 'Funnel'}</h2>
           </div>
           <div className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="rounded-lg border border-gray-100 p-4">
-              <div className="text-xs text-gray-500 mb-1">Calls</div>
+              <div className="text-xs text-gray-500 mb-1">{t('dashboard.funnel.calls') || 'Calls'}</div>
               <div className="text-2xl font-bold text-gray-900">{funnel.calls}</div>
             </div>
             <div className="rounded-lg border border-gray-100 p-4">
-              <div className="text-xs text-gray-500 mb-1">Intents</div>
+              <div className="text-xs text-gray-500 mb-1">{t('dashboard.funnel.intents') || 'Intents'}</div>
               <div className="text-2xl font-bold text-gray-900">{funnel.intents}</div>
             </div>
             <div className="rounded-lg border border-gray-100 p-4">
-              <div className="text-xs text-gray-500 mb-1">Bookings</div>
+              <div className="text-xs text-gray-500 mb-1">{t('dashboard.funnel.bookings') || 'Bookings'}</div>
               <div className="text-2xl font-bold text-gray-900">{funnel.bookings}</div>
             </div>
           </div>
@@ -305,16 +305,16 @@ const Dashboard: React.FC = () => {
         {/* Channel Breakdown */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
           <div className="flex items-center justify-between p-4 md:p-5 border-b border-gray-100 bg-gray-50/50">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-900">Channels</h2>
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">{t('dashboard.channels.title') || 'Channels'}</h2>
           </div>
           <div className="p-4 md:p-6 overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">Channel</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">Calls</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">Bookings</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">Conversion</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">{t('dashboard.channels.headers.channel') || 'Channel'}</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">{t('dashboard.channels.headers.calls') || 'Calls'}</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">{t('dashboard.channels.headers.bookings') || 'Bookings'}</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-600">{t('dashboard.channels.headers.conversion') || 'Conversion'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -328,7 +328,7 @@ const Dashboard: React.FC = () => {
                 ))}
                 {!channelStats.length && (
                   <tr>
-                    <td colSpan={4} className="px-4 py-6 text-center text-gray-500">No data</td>
+                    <td colSpan={4} className="px-4 py-6 text-center text-gray-500">{t('dashboard.noData') || 'No data'}</td>
                   </tr>
                 )}
               </tbody>

@@ -78,7 +78,8 @@ export function middleware(req: NextRequest) {
   }
 
 
-  if (!locales.includes(pathLocale)) {
+  // Allow root path to show landing page, redirect other non-locale paths
+  if (!locales.includes(pathLocale) && path !== '/') {
     const cookieLocale = req.cookies.get('NEXT_LOCALE')?.value || req.cookies.get('lang')?.value;
     const locale = (cookieLocale && locales.includes(cookieLocale)) ? cookieLocale : 'en';
     const redirectTo = `/${locale}${path}${url.search}`;

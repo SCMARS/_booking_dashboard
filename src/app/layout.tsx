@@ -16,8 +16,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Restaurant Dashboard",
-  description: "Restaurant management dashboard",
+  title: "AI Restaurant Assistant - Революция в сфере общественного питания",
+  description: "Умная система бронирования с голосовым AI, которая принимает заказы столиков, обрабатывает заказы и обеспечивает исключительное обслуживание клиентов 24/7. Riley - ваш AI-ассистент для ресторана.",
+  keywords: "AI, искусственный интеллект, ресторан, бронирование столиков, голосовой ассистент, Vapi AI, управление рестораном, Riley",
+  openGraph: {
+    title: "AI Restaurant Assistant - Революция в сфере общественного питания",
+    description: "Умная система бронирования с голосовым AI для ресторанов",
+    type: "website",
+  },
 };
 
 export const viewport = {

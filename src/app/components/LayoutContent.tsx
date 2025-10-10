@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Sidebar from './Sidebar';
 import { useAuth } from '../contexts/AuthContext';
 
-const PUBLIC_ROUTES = new Set<string>(['/login', '/register']);
+const PUBLIC_ROUTES = new Set<string>(['/login', '/register', '/']);
 
 export default function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -21,17 +21,22 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
   useEffect(() => {
     if (loading) return;
 
+    // Don't redirect if we're on the landing page
+    if (currentPath === '/' || pathname === '/') {
+      return;
+    }
+
     if (!user && !isPublic) {
       router.replace(`/${first || 'en'}/login`);
       return;
     }
 
-    if (user && isPublic) {
+    if (user && isPublic && currentPath !== '/' && pathname !== '/') {
       router.replace(`/${first || 'en'}/dashboard`);
     }
-  }, [user, loading, isPublic, router]);
+  }, [user, loading, isPublic, router, currentPath, pathname]);
 
-  if (loading) {
+  if (loading && currentPath !== '/' && pathname !== '/') {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600">
         Загрузка...
@@ -40,7 +45,11 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
   }
 
 
-  if (isPublic) {
+  if (isPublic || currentPath === '/' || pathname === '/') {
+    // For the landing page, don't add extra padding or background
+    if (currentPath === '/' || pathname === '/') {
+      return <>{children}</>;
+    }
     return <div className="min-h-screen bg-lightGray p-4 md:p-6">{children}</div>;
   }
 

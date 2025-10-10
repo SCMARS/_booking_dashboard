@@ -116,6 +116,44 @@ const hr = {
       notes: 'Bilješke',
       actions: { save: 'Spremi', confirm: 'Potvrdi', cancel: 'Otkaži', reschedule: 'Promijeni', close: 'Zatvori' }
     }
+  },
+  landing: {
+    hero: {
+      title: 'AI asistent za restoran - Revolucija u ugostiteljstvu',
+      subtitle: 'Pametni sustav rezervacija s glasovnim AI-om koji prima narudžbe stolova, obrađuje narudžbe i pruža izuzetnu uslugu klijentima 24/7',
+      ctaPrimary: 'Počni besplatno',
+      ctaSecondary: 'Saznaj više'
+    },
+    features: {
+      title: 'Kompletno rješenje za upravljanje restoranom',
+      subtitle: 'Sve što trebate za učinkovito upravljanje vašim restoranom i zadovoljavanje klijenata',
+      voiceAI: {
+        title: 'Glasovni AI asistent',
+        description: 'Riley, vaša AI domaćica, prima rezervacije, odgovara na pitanja o jelovniku i pruža personaliziranu uslugu svakom gostu.'
+      },
+      automation: {
+        title: 'Pametne rezervacije',
+        description: 'Automatizirano upravljanje stolovima s realnom dostupnošću, upravljanje listom čekanja i automatske potvrde.'
+      },
+      analytics: {
+        title: 'Analitika restorana',
+        description: 'Pratite rezervacije, najprometnije sate, preferencije klijenata i analitiku prihoda za optimizaciju rada restorana.'
+      }
+    },
+    stats: {
+      title: 'Povjerenje restorana diljem svijeta',
+      subtitle: 'Pridružite se tisućama restorana koji već koriste našeg AI asistenta',
+      activeUsers: 'Restorani',
+      processedRequests: 'Rezervacija napravljeno',
+      timeSaved: 'Ušteda vremena',
+      satisfiedCustomers: 'Zadovoljni klijenti'
+    },
+    cta: {
+      title: 'Spremni transformirati svoj restoran?',
+      subtitle: 'Pridružite se tehnološkoj revoluciji u ugostiteljstvu. Počnite s besplatnom probnom verzijom danas.',
+      createAccount: 'Stvori račun',
+      hasAccount: 'Već imate račun?'
+    }
   }
 };
 
