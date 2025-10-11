@@ -1,10 +1,34 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SimpleVapiWidget() {
+  const [config, setConfig] = useState<{
+    publicKey: string;
+    assistantId: string;
+  } | null>(null);
+
   useEffect(() => {
-    // Загружаем скрипт Vapi
+    // Получаем конфигурацию с сервера
+    const fetchConfig = async () => {
+      try {
+        const response = await fetch('/api/vapi/config');
+        const data = await response.json();
+        if (data.success) {
+          setConfig(data.config);
+        }
+      } catch (error) {
+        console.error('Failed to fetch Vapi config:', error);
+      }
+    };
+
+    fetchConfig();
+  }, []);
+
+  useEffect(() => {
+    if (!config) return;
+
+    // Загружаем скрипт Vapi только после получения конфигурации
     const script = document.createElement('script');
     script.src = 'https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js';
     script.async = true;
@@ -16,12 +40,26 @@ export default function SimpleVapiWidget() {
         document.head.removeChild(script);
       }
     };
-  }, []);
+  }, [config]);
+
+  // Показываем состояние загрузки пока не получили конфигурацию
+  if (!config) {
+    return (
+      <div className="fixed bottom-4 right-4 z-50">
+        <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
+          <div className="flex items-center space-x-2">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+            <span className="text-sm">Loading Vapi...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <vapi-widget
-      public-key="ea7c4170-a2cd-4b71-a37c-bf829fc2d0e6"
-      assistant-id="c459fd1f-dcc7-4716-8dc8-e8c79ce5e319"
+      public-key={config.publicKey}
+      assistant-id={config.assistantId}
       mode="voice"
       theme="dark"
       base-bg-color="#000000"

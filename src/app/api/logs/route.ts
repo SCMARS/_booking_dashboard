@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/firebase';
-import { addDoc, collection, serverTimestamp, getDocs, query, where, limit } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, getDocs, query, where, limit, orderBy } from 'firebase/firestore';
 
 const API_KEY = process.env.LOGS_API_KEY;
 
@@ -73,4 +73,53 @@ export async function POST(req: Request) {
   }
 }
 
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const type = searchParams.get('type');
+    const limitCount = parseInt(searchParams.get('limit') || '20');
+    const callId = searchParams.get('callId');
+    const channel = searchParams.get('channel');
+    const status = searchParams.get('status');
+
+    let q = query(
+      collection(db, 'logs'),
+      limit(limitCount)
+    );
+
+
+    if (type) {
+      q = query(q, where('type', '==', type));
+    }
+    if (callId) {
+      q = query(q, where('callId', '==', callId));
+    }
+    if (channel) {
+      q = query(q, where('channel', '==', channel));
+    }
+    if (status) {
+      q = query(q, where('status', '==', status));
+    }
+
+    const snapshot = await getDocs(q);
+    const logs = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate() || new Date(),
+      updatedAt: doc.data().updatedAt?.toDate() || new Date()
+    }));
+
+    return NextResponse.json({
+      success: true,
+      logs: logs
+    });
+
+  } catch (error: any) {
+    console.error('Error fetching logs:', error);
+    return NextResponse.json(
+      { error: error?.message || 'Failed to fetch logs' },
+      { status: 500 }
+    );
+  }
+}
 

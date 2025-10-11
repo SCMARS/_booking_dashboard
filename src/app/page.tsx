@@ -3,8 +3,6 @@
 import { useLanguage } from './contexts/LanguageContext';
 import SimpleVapiWidget from './components/SimpleVapiWidget';
 import LanguageSwitcher from './components/LanguageSwitcher';
-import CallButton from './components/CallButton';
-import VapiTest from './components/VapiTest';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -158,18 +156,6 @@ export default function HomePage() {
                 </Link>
               </div>
               
-              {/* Call Button */}
-              <div className="mt-4">
-                <CallButton 
-                  phoneNumber="+1234567890" 
-                  assistantId="c459fd1f-dcc7-4716-8dc8-e8c79ce5e319"
-                />
-              </div>
-              
-              {/* Vapi Test Component */}
-              <div className="mt-8">
-                <VapiTest />
-              </div>
             </div>
           </div>
         </div>

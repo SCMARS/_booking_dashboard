@@ -12,6 +12,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import CallsList from './CallsList';
 
 interface BookingData {
   id?: string;
@@ -87,10 +88,14 @@ const Dashboard: React.FC = () => {
           : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
         const since = Timestamp.fromDate(start);
  
+        // Обновлено для использования реальных данных из Vapi
         const [totalSnap, confirmedSnap, pendingSnap] = await Promise.all([
-          getCountFromServer(query(bookingsCol)),
-          getCountFromServer(query(bookingsCol, where('status', '==', 'Confirmed'))),
-          getCountFromServer(query(bookingsCol, where('status', '==', 'Pending'))),
+          // Общее количество бронирований из завершенных звонков
+          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'))),
+          // Подтвержденные бронирования (звонки с успешным исходом)
+          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('status', '==', 'ended'))),
+          // Ожидающие бронирования (звонки в процессе)
+          getCountFromServer(query(logsCol, where('type', '==', 'call_event'), where('status', '==', 'call_started'))),
         ]);
  
         if (!isActive) return;
@@ -98,37 +103,42 @@ const Dashboard: React.FC = () => {
         setConfirmedCount(confirmedSnap.data().count || 0);
         setPendingCount(pendingSnap.data().count || 0);
         try {
-          const [bookingsCallSnap, logsCallSnap] = await Promise.all([
-            getCountFromServer(query(bookingsCol, where('channel', '==', 'Call'), where('createdAt', '>=', since))),
-            getCountFromServer(query(logsCol, where('channel', '==', 'Call'), where('createdAt', '>=', since))),
+          // Обновлено для использования реальных данных Vapi
+          const [successfulCallsSnap, totalCallsSnap] = await Promise.all([
+            // Успешные звонки (завершенные клиентом)
+            getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
+            // Все звонки (call_event + call_summary)
+            getCountFromServer(query(logsCol, where('type', 'in', ['call_event', 'call_summary']), where('createdAt', '>=', since))),
           ]);
           if (!isActive) return;
-          const bookingsCall = bookingsCallSnap.data().count || 0;
-          const logsCall = logsCallSnap.data().count || 0;
-          const pct = logsCall > 0 ? Math.round((bookingsCall / logsCall) * 1000) / 10 : 0;
+          const successfulCalls = successfulCallsSnap.data().count || 0;
+          const totalCalls = totalCallsSnap.data().count || 0;
+          const pct = totalCalls > 0 ? Math.round((successfulCalls / totalCalls) * 1000) / 10 : 0;
           setCallConversion(pct);
         } catch {
           if (!isActive) return;
           setCallConversion(null);
         }
  
-        // Use count API for funnel numbers
+        // Use count API for funnel numbers - обновлено для реальных данных Vapi
         const [callsCount, intentsCount, bookingsCount] = await Promise.all([
-          getCountFromServer(query(logsCol, where('createdAt', '>=', since))),
+          // Звонки из Vapi (call_event и call_summary)
+          getCountFromServer(query(logsCol, where('type', '==', 'call_event'), where('createdAt', '>=', since))),
+          // Намерения из транскриптов (intent_detected или booking-related messages)
           getCountFromServer(query(logsCol, where('status', '==', 'intent_detected'), where('createdAt', '>=', since))),
-          getCountFromServer(query(bookingsCol, where('createdAt', '>=', since))),
+          // Бронирования из завершенных звонков с успешным исходом
+          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
         ]);
         if (!isActive) return;
         const calls = callsCount.data().count || 0;
-        const intents = intentsCount.data().count || 0;
-        const bookings = bookingsCount.data().count || 0;
-        setFunnel({ calls, intents, bookings });
- 
-        // Channel breakdown via counts (3 channels x 2 counts)
-        const channels = ['Call', 'Website', 'WhatsApp'];
+
+        // Обновлено для использования реальных данных Vapi
+        const channels = ['Call']; // Пока только Call канал из Vapi
         const channelPromises = channels.map((ch) => Promise.all([
+          // Все звонки в канале Call
           getCountFromServer(query(logsCol, where('channel', '==', ch), where('createdAt', '>=', since))),
-          getCountFromServer(query(bookingsCol, where('channel', '==', ch), where('createdAt', '>=', since))),
+          // Успешные звонки в канале Call
+          getCountFromServer(query(logsCol, where('channel', '==', ch), where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
         ]));
         const channelSnaps = await Promise.all(channelPromises);
         if (!isActive) return;
@@ -139,7 +149,7 @@ const Dashboard: React.FC = () => {
           return { channel: channels[idx], calls: callsV, bookings: booksV, conversion: conv };
         }));
  
-        // Fetch limited logs for AHT and Heatmap only (to reduce payload)
+
         const logsForDetails = await getDocs(query(logsCol, where('createdAt', '>=', since), orderBy('createdAt', 'desc'), limit(2000)));
         if (!isActive) return;
         const durations = logsForDetails.docs
@@ -766,6 +776,11 @@ const Dashboard: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Recent Calls */}
+        <div className="mb-8">
+          <CallsList />
         </div>
       </div>
     </div>

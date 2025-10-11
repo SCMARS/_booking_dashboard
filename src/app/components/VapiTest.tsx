@@ -39,6 +39,15 @@ export default function VapiTest() {
   const testCall = async () => {
     setLoading(true);
     try {
+      // Сначала получаем конфигурацию
+      const configResponse = await fetch('/api/vapi/config');
+      const configData = await configResponse.json();
+      
+      if (!configData.success) {
+        setTestResult(`❌ Config test failed: ${configData.error}`);
+        return;
+      }
+
       const response = await fetch('/api/vapi/call', {
         method: 'POST',
         headers: {
@@ -46,7 +55,7 @@ export default function VapiTest() {
         },
         body: JSON.stringify({
           phoneNumber: '+1234567890',
-          assistantId: '13b8bfd2-f6c0-4a78-9e85-d46744296327',
+          assistantId: configData.config.assistantId,
         }),
       });
       const data = await response.json();

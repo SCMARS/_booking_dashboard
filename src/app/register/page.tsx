@@ -36,6 +36,10 @@ export default function Register() {
             setError(t('auth.errors.fillAllFields') as string);
             return;
         }
+        if (formData.password.length < 6) {
+            setError(t('auth.errors.passwordMin') as string);
+            return;
+        }
 
         if (formData.password !== formData.confirmPassword) {
             setError(t('auth.errors.passwordsMismatch') as string);

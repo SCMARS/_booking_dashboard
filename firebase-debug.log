@@ -223,3 +223,494 @@ To learn about active projects for the CLI, visit https://firebase.google.com/do
 [info] ✔  Deploy complete! 
 [info] 
 [info] Project Console: https://console.firebase.google.com/project/booking-2c3e1/overview
+[debug] [2025-10-11T10:23:07.937Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:23:07.938Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T10:23:07.938Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:23:07.938Z] Platform:      darwin
+[debug] [2025-10-11T10:23:07.938Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:23:07.939Z] Time:          Sat Oct 11 2025 12:23:07 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:23:07.939Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:23:07.941Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-10-11T10:23:08.063Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:23:08.063Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:23:08.063Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-10-11T10:23:08.064Z] Checked if tokens are valid: false, expires at: 1758736660930
+[debug] [2025-10-11T10:23:08.064Z] Checked if tokens are valid: false, expires at: 1758736660930
+[debug] [2025-10-11T10:23:08.064Z] > refreshing access token with scopes: []
+[debug] [2025-10-11T10:23:08.065Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-10-11T10:23:08.065Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-11T10:23:08.978Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-10-11T10:23:08.978Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-10-11T10:23:08.991Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:23:08.992Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:23:08.992Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-10-11T10:23:08.994Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-10-11T10:23:08.994Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2025-10-11T10:23:10.046Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:23:10.046Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-10-11T10:23:10.050Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:23:10.050Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:23:10.050Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:23:10.903Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:23:10.903Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:23:10.904Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:23:10.904Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:23:10.904Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:23:11.610Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:23:11.611Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2025-10-11T10:23:11.612Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:23:11.612Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:23:11.612Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:23:11.612Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[info] ✔  firestore: deployed indexes in firestore.indexes.json successfully for (default) database 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/booking-2c3e1/overview
+[debug] [2025-10-11T10:25:43.408Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:25:43.409Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T10:25:43.410Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:25:43.410Z] Platform:      darwin
+[debug] [2025-10-11T10:25:43.410Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:25:43.411Z] Time:          Sat Oct 11 2025 12:25:43 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:25:43.411Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:25:43.512Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:25:43.513Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:25:43.513Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-10-11T10:25:43.514Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:43.514Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:43.515Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:25:43.515Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:25:43.515Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-10-11T10:25:44.020Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:25:44.020Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-10-11T10:25:44.023Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.024Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.024Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:25:44.293Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:25:44.293Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:25:44.294Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.294Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.294Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:25:44.561Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:25:44.561Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2025-10-11T10:25:44.562Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:25:44.562Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:25:44.562Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:25:44.562Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2025-10-11T10:25:44.563Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:25:44.563Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.563Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:44.563Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-10-11T10:25:44.563Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:25:44.860Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 400
+[debug] [2025-10-11T10:25:44.860Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"error":{"code":400,"message":"this index is not necessary, configure using single field index controls","status":"INVALID_ARGUMENT"}}
+[error] 
+[error] Error: Request to https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes had HTTP Error: 400, this index is not necessary, configure using single field index controls
+[debug] [2025-10-11T10:25:45.305Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 400,
+      "message": "this index is not necessary, configure using single field index controls",
+      "status": "INVALID_ARGUMENT"
+    }
+  },
+  "response": {
+    "statusCode": 400
+  }
+}
+[debug] [2025-10-11T10:25:57.088Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:25:57.089Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T10:25:57.089Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:25:57.090Z] Platform:      darwin
+[debug] [2025-10-11T10:25:57.090Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:25:57.091Z] Time:          Sat Oct 11 2025 12:25:57 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:25:57.091Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:25:57.193Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:25:57.194Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:25:57.194Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-10-11T10:25:57.195Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.195Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.195Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:25:57.195Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:25:57.196Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-10-11T10:25:57.747Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:25:57.747Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-10-11T10:25:57.751Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.751Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.751Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:25:57.967Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:25:57.967Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:25:57.968Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.968Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:25:57.968Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:25:58.177Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:25:58.177Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] i  firestore: there are 4 indexes defined in your project that are not present in your firestore indexes file. To delete them, run this command with the --force flag. 
+[error] 
+[error] Error: Pass the --force flag to use this command in non-interactive mode
+[debug] [2025-10-11T10:26:01.659Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:26:01.660Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1 --force
+[debug] [2025-10-11T10:26:01.660Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:26:01.660Z] Platform:      darwin
+[debug] [2025-10-11T10:26:01.660Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:26:01.661Z] Time:          Sat Oct 11 2025 12:26:01 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:26:01.661Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:26:01.762Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:26:01.762Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:26:01.762Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-10-11T10:26:01.763Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:01.763Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:01.763Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:26:01.764Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:26:01.764Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-10-11T10:26:02.269Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:26:02.269Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-10-11T10:26:02.272Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.272Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.272Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:26:02.464Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:26:02.464Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"},{"fieldPath":"__name__","order":"DESCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:26:02.465Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.465Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.465Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:26:02.663Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:26:02.663Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2025-10-11T10:26:02.664Z] Creating new index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:26:02.664Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.664Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:02.664Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes [none]
+[debug] [2025-10-11T10:26:02.665Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:26:03.003Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes 200
+[debug] [2025-10-11T10:26:03.003Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0lvOUZqSmdBQ0lDDCoDIDc1Mzg3ZTJhN2FkNS02MWViLWRlNTQtMWIwMi0zM2YzNGNkYSQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-10-11T10:26:02.993741Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJjF9oIK","state":"INITIALIZING"}}
+[debug] [2025-10-11T10:26:03.003Z] Creating new index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:26:03.003Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.003Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.003Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes [none]
+[debug] [2025-10-11T10:26:03.004Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:26:03.322Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes 200
+[debug] [2025-10-11T10:26:03.323Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0U0ejdqSmdBQ0lDDCoDIDU3YzRhYzVmMWMzZC1lYThiLWVjNjQtYTU1NS0yNDc2ZGNkMCQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-10-11T10:26:03.313587Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJj7z4EK","state":"INITIALIZING"}}
+[debug] [2025-10-11T10:26:03.323Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:26:03.324Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.324Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.324Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-10-11T10:26:03.324Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:26:03.653Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 200
+[debug] [2025-10-11T10:26:03.653Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0VKaW1qSmdBQ0lDDCoDIDk5NTE3ZDhkYWYzNy04NzY5LWViOTQtNzU5My1mMjY3MjdmMCQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-10-11T10:26:03.645092Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJjmiJEK","state":"INITIALIZING"}}
+[debug] [2025-10-11T10:26:03.653Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:26:03.653Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.654Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:03.654Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-10-11T10:26:03.654Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:26:04.021Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 200
+[debug] [2025-10-11T10:26:04.021Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S0lac1VpSmdBQ0lDDCoDIGI3ZDEwODA1ZDllOS1lNDdiLWVkOTQtNzRiMC1kODBkZGQxMiQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-10-11T10:26:03.979150Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJiUsZIK","state":"INITIALIZING"}}
+[info] i  firestore: Deleting 4 indexes... 
+[debug] [2025-10-11T10:26:04.021Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.021Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.021Z] >>> [apiv2][query] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ [none]
+[debug] [2025-10-11T10:26:04.278Z] <<< [apiv2][status] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ 200
+[debug] [2025-10-11T10:26:04.278Z] <<< [apiv2][body] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgOjXh4EJ {}
+[debug] [2025-10-11T10:26:04.278Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.278Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.279Z] >>> [apiv2][query] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK [none]
+[debug] [2025-10-11T10:26:04.548Z] <<< [apiv2][status] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK 200
+[debug] [2025-10-11T10:26:04.548Z] <<< [apiv2][body] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJim14AK {}
+[debug] [2025-10-11T10:26:04.548Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.548Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.548Z] >>> [apiv2][query] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK [none]
+[debug] [2025-10-11T10:26:04.833Z] <<< [apiv2][status] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK 200
+[debug] [2025-10-11T10:26:04.834Z] <<< [apiv2][body] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgOjXh4EK {}
+[debug] [2025-10-11T10:26:04.834Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.834Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:26:04.834Z] >>> [apiv2][query] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK [none]
+[debug] [2025-10-11T10:26:05.098Z] <<< [apiv2][status] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK 200
+[debug] [2025-10-11T10:26:05.098Z] <<< [apiv2][body] DELETE https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJiUpoMK {}
+[info] ✔  firestore: deployed indexes in firestore.indexes.json successfully for (default) database 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/booking-2c3e1/overview
+[debug] [2025-10-11T10:58:40.028Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:58:40.029Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase deploy --only firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T10:58:40.029Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:58:40.029Z] Platform:      darwin
+[debug] [2025-10-11T10:58:40.029Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:58:40.030Z] Time:          Sat Oct 11 2025 12:58:40 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:58:40.030Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:58:40.131Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:58:40.132Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:58:40.132Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2025-10-11T10:58:40.132Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:40.132Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:40.133Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:58:40.133Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:58:40.133Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2025-10-11T10:58:40.739Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:58:40.739Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'booking-2c3e1'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  firestore: deploying indexes... 
+[debug] [2025-10-11T10:58:40.743Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:40.743Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:40.743Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:58:41.898Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:58:41.898Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJj7z4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJjF9oIK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJjmiJEK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJiUsZIK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:58:41.899Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:41.899Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:41.899Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:58:43.079Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:58:43.080Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2025-10-11T10:58:43.081Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:58:43.081Z] Skipping existing index: {"collectionGroup":"bookings","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:58:43.081Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:58:43.081Z] Skipping existing index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:58:43.081Z] Creating new index: {"collectionGroup":"logs","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}]}
+[debug] [2025-10-11T10:58:43.081Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:43.081Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:58:43.081Z] >>> [apiv2][query] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes [none]
+[debug] [2025-10-11T10:58:43.081Z] >>> [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"}],"queryScope":"COLLECTION"}
+[debug] [2025-10-11T10:58:44.281Z] <<< [apiv2][status] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes 200
+[debug] [2025-10-11T10:58:44.281Z] <<< [apiv2][body] POST https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes {"name":"projects/booking-2c3e1/databases/(default)/operations/S01vNzRpTmdBQ0lDDCoDIGEzZjBhNjFlN2Y3Ny1kYjQ4LWQzMTQtOTcxMy00YzA4NmI1OCQac2VuaWxlcGlwCQpBEg","metadata":{"@type":"type.googleapis.com/google.firestore.admin.v1.IndexOperationMetadata","startTime":"2025-10-11T10:58:44.173514Z","index":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgNi47oMK","state":"INITIALIZING"}}
+[info] ✔  firestore: deployed indexes in firestore.indexes.json successfully for (default) database 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/booking-2c3e1/overview
+[debug] [2025-10-11T10:59:11.733Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T10:59:11.734Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T10:59:11.734Z] CLI Version:   13.35.1
+[debug] [2025-10-11T10:59:11.735Z] Platform:      darwin
+[debug] [2025-10-11T10:59:11.735Z] Node Version:  v18.20.5
+[debug] [2025-10-11T10:59:11.735Z] Time:          Sat Oct 11 2025 12:59:11 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T10:59:11.736Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T10:59:11.837Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T10:59:11.837Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T10:59:11.838Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.list","firebase.projects.get"]
+[debug] [2025-10-11T10:59:11.838Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:11.838Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:11.839Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T10:59:11.839Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T10:59:11.839Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.list","firebase.projects.get"]}
+[debug] [2025-10-11T10:59:12.377Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T10:59:12.377Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.list","firebase.projects.get"]}
+[debug] [2025-10-11T10:59:12.378Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:12.378Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:12.378Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T10:59:13.598Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T10:59:13.599Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJj7z4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJjF9oIK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgNi47oMK","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"CREATING","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJjmiJEK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJiUsZIK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T10:59:13.600Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:13.600Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T10:59:13.600Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T10:59:14.713Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T10:59:14.713Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] {
+  "indexes": [
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "channel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "channel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
+[debug] [2025-10-11T11:02:01.078Z] ----------------------------------------------------------------------
+[debug] [2025-10-11T11:02:01.079Z] Command:       /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/node /Users/glebuhovskij/.nvm/versions/node/v18.20.5/bin/firebase firestore:indexes --project booking-2c3e1
+[debug] [2025-10-11T11:02:01.079Z] CLI Version:   13.35.1
+[debug] [2025-10-11T11:02:01.079Z] Platform:      darwin
+[debug] [2025-10-11T11:02:01.079Z] Node Version:  v18.20.5
+[debug] [2025-10-11T11:02:01.080Z] Time:          Sat Oct 11 2025 13:02:01 GMT+0200 (Central European Summer Time)
+[debug] [2025-10-11T11:02:01.080Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-11T11:02:01.188Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-11T11:02:01.188Z] > authorizing via signed-in user (gleb270975@gmail.com)
+[debug] [2025-10-11T11:02:01.189Z] [iam] checking project booking-2c3e1 for permissions ["datastore.indexes.list","firebase.projects.get"]
+[debug] [2025-10-11T11:02:01.189Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:01.189Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:01.190Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions [none]
+[debug] [2025-10-11T11:02:01.190Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions x-goog-quota-user=projects/booking-2c3e1
+[debug] [2025-10-11T11:02:01.190Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.list","firebase.projects.get"]}
+[debug] [2025-10-11T11:02:01.787Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions 200
+[debug] [2025-10-11T11:02:01.787Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/booking-2c3e1:testIamPermissions {"permissions":["datastore.indexes.list","firebase.projects.get"]}
+[debug] [2025-10-11T11:02:01.787Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:01.787Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:01.787Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-11T11:02:03.014Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-10-11T11:02:03.014Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJj7z4EK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/bookings/indexes/CICAgJjF9oIK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgNi47oMK","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJjmiJEK","queryScope":"COLLECTION","fields":[{"fieldPath":"channel","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"},{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/logs/indexes/CICAgJiUsZIK","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"createdAt","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY","density":"SPARSE_ALL"}]}
+[debug] [2025-10-11T11:02:03.014Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:03.014Z] Checked if tokens are valid: true, expires at: 1760181787978
+[debug] [2025-10-11T11:02:03.014Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-11T11:02:04.168Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-10-11T11:02:04.168Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/booking-2c3e1/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/booking-2c3e1/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] {
+  "indexes": [
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "channel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "channel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "logs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
