@@ -29,6 +29,7 @@ describe('Performance Tests', () => {
         new NextRequest('http://localhost:3000/ru/settings'),
         new NextRequest('http://localhost:3000/hr/bookings'),
         new NextRequest('http://localhost:3000/es/logs'),
+        
       ]
 
       const startTime = performance.now()

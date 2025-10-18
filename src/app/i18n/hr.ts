@@ -38,8 +38,28 @@ const hr = {
       weakPassword: 'Lozinka je preslaba',
       passwordMin: 'Lozinka mora imati najmanje 6 znakova',
     },
+    marketing: {
+      badge: 'AI domaćin • Rezervacije 24/7',
+      headline: 'Priredite gostima iskustvo s pet zvjezdica prije nego stignu.',
+      subtitle: 'Riley odgovara na pozive, osigurava rezervacije i oslobađa vaš tim dok AI preuzima ponavljajuće zadatke.',
+      benefits: [
+        'Zaprimajte svaku rezervaciju čak i nakon zatvaranja',
+        'Sinkronizirajte podatke gostiju s CRM-om i analitikom automatski',
+        'Odmah prepoznajte VIP goste, alergije i navike potrošnje'
+      ],
+      highlight: '„Riley nam donosi 35% više rezervacija poslije radnog vremena i oslobađa hostese za goste u restoranu.”',
+      highlightAuthor: 'Lena Ortiz',
+      highlightRole: 'Vlasnica, Azul Tapas Bar',
+      contact: 'Imate veći tim? Razgovarajte s nama →'
+    }
   },
   settings: {
+    title: 'Postavke restorana',
+    restaurantProfile: 'Profil restorana',
+    businessHours: 'Radno vrijeme',
+    channels: 'Komunikacijski kanali',
+    integrations: 'Integracije i webhookovi',
+    notifications: 'Obavijesti i predlošci',
     languageTitle: 'Jezik',
     chooseInterface: 'Odaberite jezik sučelja',
     languages: {
@@ -47,55 +67,103 @@ const hr = {
       ru: { label: 'Русский', desc: 'Русский язык' },
       hr: { label: 'Hrvatski', desc: 'Hrvatski jezik' },
       es: { label: 'Español', desc: 'Idioma español' },
-    },
-    agent: {
-      title: 'Profil agenta', subtitle: 'Osnovne postavke agenta',
-      name: 'Ime agenta', voice: 'Glas', lang: 'Jezik i naglasak', active: 'Aktivan',
-    },
-    integrations: {
-      title: 'Integracije', subtitle: 'Povežite vanjske servise',
-      sheets: 'Google Sheets', customize: 'Prilagodi',
-      twilio: 'Twilio', connect: 'Poveži',
-      crm: 'CRM', integrate: 'Integriraj',
-    },
-    call: {
-      title: 'Ponašanje poziva', greeting: 'Pozdravna skripta', maxDuration: 'Maksimalno trajanje poziva', minutes: 'minuta', forwardHuman: 'Proslijedi agentu'
-    },
-    notifications: {
-      title: 'Obavijesti', subtitle: 'Email obavijesti i izvještaji',
-      newBookings: 'Nove rezervacije', callErrors: 'Greške poziva', daily: 'Dnevni izvještaj', weekly: 'Tjedni izvještaj'
     }
   },
   dashboard: {
-    title: 'Nadzorna ploča',
-    totalBookings: 'Ukupno rezervacija',
-    viewDetails: 'Pogledaj detalje →',
-    confirmedPending: 'Potvrđeno / Na čekanju',
-    todaysSnapshot: 'Današnji pregled',
-    callsConversion: 'Konverzija poziva u rezervacije',
-    last30Days: 'Zadnjih 30 dana',
-    recentBookings: 'Nedavne rezervacije',
-    viewAll: 'Pogledaj sve',
-    // table keys are defined below with 'actions'
-    loadingBookings: 'Učitavanje rezervacija…',
-    recentLogs: 'Nedavni zapisi',
-    logs: { text: 'Tekst', intent: 'Nakana', channel: 'Kanal' },
-    period: { today: 'Danas', last7: 'Zadnjih 7 dana', last30: 'Zadnjih 30 dana' },
-    actions: { confirm: 'Potvrdi', cancel: 'Otkaži', reschedule: 'Promijeni', notify: 'Obavijesti', newDate: 'Novi datum (GGGG-MM-DD):', notifyMsg: 'Poruka administratoru:' },
-    modal: { title: 'Nova rezervacija', name: 'Ime', date: 'Datum', channel: 'Kanal', status: 'Status', close: 'Zatvori', create: 'Kreiraj', saving: 'Spremanje…' },
-    kpi: {
-      ahtTitle: 'Prosječno trajanje poziva (AHT)',
-      ahtNote: 'Približno po broju replika',
-      confirmedCancelled: 'Potvrđeno / Otkazano',
-      byPeriod: 'Za period',
-      noShowTitle: 'Nije došao',
-      noShowNote: 'Placeholder'
+    title: 'Nadzorna ploča restorana',
+    period: {
+      today: 'Danas',
+      last7: 'Posljednjih 7 dana',
+      last30: 'Posljednjih 30 dana'
     },
-    heatmap: { title: 'Toplinska karta opterećenja', weekdays: { Sun: 'Ned', Mon: 'Pon', Tue: 'Uto', Wed: 'Sri', Thu: 'Čet', Fri: 'Pet', Sat: 'Sub' } },
-    missed: { calls: 'Propušteni pozivi', errors: 'STT/TTS greške' },
-    repeat: { title: 'Ponavljani pozivi i duplikati' },
-    cta: { newBooking: 'Nova rezervacija', confirm: 'Potvrdi', cancel: 'Otkaži', reschedule: 'Promijeni', notifyAdmin: 'Obavijesti administratora', exportCsv: 'Izvoz CSV', shareSnapshot: 'Podijeli pregled' },
-    table: { name: 'Ime', date: 'Datum', status: 'Status', channel: 'Kanal', actions: 'Radnje' }
+    cards: {
+      bookings: {
+        title: 'Ukupno rezervacija',
+        cta: 'Pogledaj detalje →'
+      },
+      status: {
+        title: 'Potvrđeno / Na čekanju',
+        helper: 'Današnji pregled'
+      },
+      conversion: {
+        title: 'Konverzija poziva u rezervacije',
+        helper: 'Posljednjih 30 dana'
+      }
+    },
+    loadingBookings: 'Učitavanje rezervacija…',
+    noData: 'Još nema podataka. Počnite primati pozive kako biste vidjeli uvide.',
+    funnel: {
+      title: 'Prodajni lijevak rezervacija',
+      calls: 'Dolazni pozivi',
+      intents: 'Prepoznate namjere',
+      bookings: 'Potvrđene rezervacije'
+    },
+    channels: {
+      title: 'Učinkovitost po kanalima',
+      headers: {
+        channel: 'Kanal',
+        calls: 'Pozivi',
+        bookings: 'Rezervacije',
+        conversion: 'Stopa konverzije'
+      }
+    },
+    metrics: {
+      helper: 'Za odabrano razdoblje',
+      aht: { title: 'Prosječno trajanje poziva (AHT)' },
+      confirmation: { title: 'Potvrđeno vs Otkazano' },
+      noShow: { title: 'Stopa nedolazaka', helper: 'Uvid uskoro' },
+      missed: { title: 'Propušteni pozivi' },
+      errors: { title: 'STT / TTS pogreške' },
+      duplicates: { title: 'Ponavljani pozivi i duplikati' }
+    },
+    heatmap: {
+      title: 'Toplinska karta opterećenja',
+      weekdays: { Sun: 'Ned', Mon: 'Pon', Tue: 'Uto', Wed: 'Sri', Thu: 'Čet', Fri: 'Pet', Sat: 'Sub' }
+    },
+    quickActions: {
+      newBooking: 'Nova rezervacija',
+      confirm: 'Potvrdi',
+      cancel: 'Otkaži',
+      reschedule: 'Promijeni termin',
+      notify: 'Obavijesti administratora'
+    },
+    modal: {
+      title: 'Unesi rezervaciju ručno',
+      name: 'Ime gosta',
+      date: 'Datum rezervacije',
+      channel: 'Kanal',
+      status: 'Status',
+      close: 'Zatvori',
+      create: 'Spremi rezervaciju',
+      saving: 'Spremanje…'
+    },
+    actions: {
+      confirm: 'Potvrdi',
+      cancel: 'Otkaži',
+      reschedule: 'Promijeni termin',
+      notify: 'Obavijesti administratora',
+      newDate: 'Novi datum (GGGG-MM-DD):',
+      notifyMsg: 'Poruka administratoru:'
+    },
+    table: {
+      name: 'Gost',
+      date: 'Datum',
+      status: 'Status',
+      channel: 'Kanal',
+      actions: 'Radnje'
+    },
+    recentBookings: {
+      title: 'Nedavne rezervacije',
+      viewAll: 'Pogledaj sve',
+      empty: 'Još nema nedavnih rezervacija.'
+    },
+    logs: {
+      title: 'Nedavni AI razgovori',
+      text: 'Tekst',
+      intent: 'Nakana',
+      channel: 'Kanal',
+      viewAll: 'Pogledaj sve razgovore'
+    }
   },
   bookings: {
     title: 'Rezervacije',
@@ -117,46 +185,123 @@ const hr = {
       actions: { save: 'Spremi', confirm: 'Potvrdi', cancel: 'Otkaži', reschedule: 'Promijeni', close: 'Zatvori' }
     }
   },
+  booking: {
+    status: {
+      confirm: 'Potvrdi',
+      cancel: 'Otkaži',
+      reschedule: 'Promijeni termin',
+      notify: 'Obavijesti administratora'
+    }
+  },
+  knowledge: {
+    title: 'Baza znanja (FAQ)',
+    empty: 'Još nema stavki. Koristite Uvoz ili dodajte pitanje.',
+    import: 'Uvoz CSV / JSON',
+    add: 'Dodaj FAQ stavku'
+  },
+  common: {
+    export: 'Izvoz CSV',
+    share: 'Podijeli izvještaj',
+    load: 'Učitaj toplinsku kartu',
+    reset: 'Poništi filtre',
+    placeholder: 'Nema podataka za prikaz',
+    language: {
+      en: 'Engleski',
+      hr: 'Hrvatski',
+      ru: 'Ruski',
+      es: 'Španjolski'
+    }
+  },
   landing: {
     hero: {
-      title: 'AI asistent za restoran - Revolucija u ugostiteljstvu',
-      subtitle: 'Pametni sustav rezervacija s glasovnim AI-om koji prima narudžbe stolova, obrađuje narudžbe i pruža izuzetnu uslugu klijentima 24/7',
-      ctaPrimary: 'Počni besplatno',
-      ctaSecondary: 'Saznaj više'
+      badge: 'AI glasovni domaćin za moderne restorane',
+      title: 'Revolucionirajte svoj restoran uz AI glasovnog domaćina',
+      subtitle: 'Upoznajte virtualnog recepcionista koji prima rezervacije, odgovara na pozive i ne propušta nijednog gosta - 24/7.',
+      ctaPrimary: 'Započni besplatno probno razdoblje',
+      ctaSecondary: 'Zatraži demo',
+      bullets: [
+        'Primate rezervacije 24/7, čak i nakon zatvaranja',
+        'Smanjite opterećenje osoblja automatizacijom poziva',
+        'Promovirajte specijalnu ponudu i potvrđujte goste u nekoliko sekundi'
+      ]
     },
     features: {
-      title: 'Kompletno rješenje za upravljanje restoranom',
-      subtitle: 'Sve što trebate za učinkovito upravljanje vašim restoranom i zadovoljavanje klijenata',
+      title: 'Dizajnirano za restorane s velikim prometom',
+      subtitle: 'Automatizirajte svaki poziv, držite stolove popunjenima i pružite gostima vrhunsko iskustvo bez dodatnog osoblja.',
       voiceAI: {
-        title: 'Glasovni AI asistent',
-        description: 'Riley, vaša AI domaćica, prima rezervacije, odgovara na pitanja o jelovniku i pruža personaliziranu uslugu svakom gostu.'
+        title: 'Glasovni AI asistent koji zvuči ljudski',
+        description: 'Vaš AI domaćin odgovara na svaki poziv, dočekuje goste i upravlja rezervacijama automatski - manje propuštenih poziva i veća učinkovitost tima.'
       },
-      automation: {
-        title: 'Pametne rezervacije',
-        description: 'Automatizirano upravljanje stolovima s realnom dostupnošću, upravljanje listom čekanja i automatske potvrde.'
+      booking: {
+        title: 'Pametne rezervacije i lista čekanja',
+        description: 'Bez dvostrukih rezervacija i ručnih evidencija. Sustav se sinkronizira s rasporedom i drži stolove popunjenima u svakom trenutku.'
       },
       analytics: {
-        title: 'Analitika restorana',
-        description: 'Pratite rezervacije, najprometnije sate, preferencije klijenata i analitiku prihoda za optimizaciju rada restorana.'
+        title: 'Analitika koja potiče profit',
+        description: 'Saznajte koji su vam sati najprometniji, koja jela najprodavanija i što gosti vole. Donosite odluke vođene podacima i povećajte prihod.'
       }
     },
     stats: {
-      title: 'Povjerenje restorana diljem svijeta',
-      subtitle: 'Pridružite se tisućama restorana koji već koriste našeg AI asistenta',
-      activeUsers: 'Restorani',
-      processedRequests: 'Rezervacija napravljeno',
-      timeSaved: 'Ušteda vremena',
-      satisfiedCustomers: 'Zadovoljni klijenti'
+      title: 'Restorani diljem svijeta vjeruju Rileyju',
+      subtitle: 'Ugostiteljski timovi oslanjaju se na Riley kako bi zabilježili svaku rezervaciju i oduševili svakog gosta.',
+      items: [
+        { value: '2.500+', label: 'restorana pokreće naš AI' },
+        { value: '500.000+', label: 'obrađenih rezervacija' },
+        { value: '75%', label: 'uštede vremena osoblja' },
+        { value: '98%', label: 'zadovoljstva gostiju' }
+      ]
+    },
+    workflow: {
+      title: 'Kako Riley vodi svaki poziv',
+      subtitle: 'Od pozdrava do potvrde, vaš AI domaćin slijedi savršen scenarij.',
+      steps: [
+        {
+          title: 'Odgovor i kvalifikacija',
+          description: 'Riley pozdravlja gosta, prepoznaje zahtjev i u trenu provjerava dostupnost.'
+        },
+        {
+          title: 'Osiguravanje rezervacije',
+          description: 'Pametna pravila sprječavaju dvostruke rezervacije, vode listu čekanja i automatski šalju potvrde.'
+        },
+        {
+          title: 'Dijeljenje uvida',
+          description: 'Svaki razgovor bilježi namjeru, podatke gosta i bilješke o prihodima izravno u nadzornoj ploči.'
+        }
+      ]
+    },
+    testimonials: {
+      title: 'Ugostiteljski timovi vide stvarne rezultate',
+      subtitle: 'Restorani svih veličina prelaze na AI za rezervacije i podršku gostima.',
+      items: [
+        {
+          quote: 'Bilježimo 35% više rezervacija nakon radnog vremena, a tim se konačno posvećuje gostima u restoranu.',
+          author: 'Lena Ortiz',
+          role: 'Vlasnica, Azul Tapas Bar'
+        },
+        {
+          quote: 'Analitika pokazuje vršno opterećenje po satima pa pametnije planiramo smjene i prepolovili smo nedolaske.',
+          author: 'Marco Petrović',
+          role: 'Voditelj, Adriatic Bistro'
+        }
+      ]
+    },
+    integrations: {
+      title: 'Povezuje se s vašim alatima',
+      subtitle: 'Sinkronizirajte rezervacije, goste i obavijesti s alatima koje već koristite.',
+      items: [
+        'OpenTable, GloriaFood i POS izvozi',
+        'Twilio glas, WhatsApp i SMS',
+        'Google Sheets, Slack i email upozorenja',
+        'Prilagođene automatizacije putem webhookova'
+      ]
     },
     cta: {
       title: 'Spremni transformirati svoj restoran?',
-      subtitle: 'Pridružite se tehnološkoj revoluciji u ugostiteljstvu. Počnite s besplatnom probnom verzijom danas.',
-      createAccount: 'Stvori račun',
-      hasAccount: 'Već imate račun?'
+      subtitle: 'Isprobajte AI domaćina koji ponovno definira iskustvo gostiju. Početak je besplatan.',
+      button: 'Rezerviraj besplatni demo',
+      secondary: 'Već koristite Riley? Prijava'
     }
   }
 };
 
 export default hr;
-
-

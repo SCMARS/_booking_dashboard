@@ -4,19 +4,21 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 
 export type SupportedLanguage = 'en' | 'ru' | 'hr' | 'es';
 
-type TranslationNode = string | { [key: string]: TranslationNode };
+type TranslationNode = string | TranslationNode[] | { [key: string]: TranslationNode };
 type Dictionary = { [key: string]: TranslationNode };
 
 interface LanguageContextValue {
   language: SupportedLanguage;
   setLanguage: (lang: SupportedLanguage) => void;
   t: (key: string) => string;
+  translateNode: (key: string) => TranslationNode | null;
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
   language: 'en',
   setLanguage: () => {},
   t: (key: string) => key,
+  translateNode: () => null,
 });
 
 // Lazy imports to keep bundle small
@@ -103,22 +105,30 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const t = useMemo(() => {
-    return (key: string): string => {
+  const translateNode = useMemo(() => {
+    return (key: string): TranslationNode | null => {
       const parts = key.split('.');
       let current: any = dict;
       for (const part of parts) {
         current = current?.[part];
-        if (current == null) return key;
+        if (current == null) return null;
       }
-      return typeof current === 'string' ? current : key;
+      return current ?? null;
     };
   }, [dict]);
+
+  const t = useMemo(() => {
+    return (key: string): string => {
+      const result = translateNode(key);
+      return typeof result === 'string' ? result : key;
+    };
+  }, [translateNode]);
 
   const value: LanguageContextValue = {
     language,
     setLanguage,
     t,
+    translateNode,
   };
 
   return (
@@ -129,5 +139,3 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export function useLanguage() {
   return useContext(LanguageContext);
 }
-
-

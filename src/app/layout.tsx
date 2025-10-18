@@ -16,12 +16,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Restaurant Assistant - Революция в сфере общественного питания",
-  description: "Умная система бронирования с голосовым AI, которая принимает заказы столиков, обрабатывает заказы и обеспечивает исключительное обслуживание клиентов 24/7. Riley - ваш AI-ассистент для ресторана.",
-  keywords: "AI, искусственный интеллект, ресторан, бронирование столиков, голосовой ассистент, Vapi AI, управление рестораном, Riley",
+  title: "BMP Book My Place - AI Restaurant Assistant",
+  description: "Smart reservation system with voice AI that handles table bookings, takes orders, and provides exceptional customer service 24/7. Riley - your AI assistant for restaurants.",
+  keywords: "BMP, Book My Place, AI, restaurant, table booking, voice assistant, Vapi AI, restaurant management, Riley, reservations",
   openGraph: {
-    title: "AI Restaurant Assistant - Революция в сфере общественного питания",
-    description: "Умная система бронирования с голосовым AI для ресторанов",
+    title: "BMP Book My Place - AI Restaurant Assistant",
+    description: "Smart reservation system with voice AI for restaurants",
     type: "website",
   },
 };

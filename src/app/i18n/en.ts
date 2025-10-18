@@ -38,8 +38,28 @@ const en = {
       weakPassword: 'Password is too weak',
       passwordMin: 'Password must be at least 6 characters',
     },
+    marketing: {
+      badge: 'AI Voice Host • 24/7 Reservations',
+      headline: 'Give every caller a five-star experience before they arrive.',
+      subtitle: 'Riley answers phones, secures bookings, and keeps your team focused on hospitality while the AI handles repetitive tasks.',
+      benefits: [
+        'Capture every reservation request even after closing time',
+        'Sync guest details to your CRM and dashboards automatically',
+        'Spot VIPs, allergies, and spending patterns instantly'
+      ],
+      highlight: '“Riley books 35% more covers after hours and keeps our hosts free for walk-ins.”',
+      highlightAuthor: 'Lena Ortiz',
+      highlightRole: 'Owner, Azul Tapas Bar',
+      contact: 'Have a larger team? Talk with us →'
+    }
   },
   settings: {
+    title: 'Restaurant Settings',
+    restaurantProfile: 'Restaurant Profile',
+    businessHours: 'Business Hours',
+    channels: 'Communication Channels',
+    integrations: 'Integrations & Webhooks',
+    notifications: 'Notifications & Templates',
     languageTitle: 'Language',
     chooseInterface: 'Choose interface language',
     languages: {
@@ -47,54 +67,103 @@ const en = {
       ru: { label: 'Русский', desc: 'Русский язык' },
       hr: { label: 'Hrvatski', desc: 'Hrvatski jezik' },
       es: { label: 'Español', desc: 'Idioma español' },
-    },
-    agent: {
-      title: 'Agent Profile', subtitle: 'Basic agent profile settings',
-      name: 'Agent name', voice: 'Voice', lang: 'Language & accent', active: 'Active',
-    },
-    integrations: {
-      title: 'Integrations', subtitle: 'Connect external services',
-      sheets: 'Google Sheets', customize: 'Customize',
-      twilio: 'Twilio', connect: 'Connect',
-      crm: 'CRM', integrate: 'Integrate',
-    },
-    call: {
-      title: 'Call Behavior', greeting: 'Greeting script', maxDuration: 'Maximum call duration', minutes: 'minutes', forwardHuman: 'Forward to human'
-    },
-    notifications: {
-      title: 'Notifications', subtitle: 'Email alerts and reports',
-      newBookings: 'New bookings', callErrors: 'Call errors', daily: 'Daily report', weekly: 'Weekly report'
     }
   },
   dashboard: {
-    title: 'Dashboard',
-    totalBookings: 'Total bookings',
-    viewDetails: 'View details →',
-    confirmedPending: 'Confirmed / Pending',
-    todaysSnapshot: "Today's snapshot",
-    callsConversion: 'Calls to bookings conversion',
-    last30Days: 'Last 30 days',
-    recentBookings: 'Recent bookings',
-    viewAll: 'View all',
-    loadingBookings: 'Loading bookings…',
-    recentLogs: 'Recent logs',
-    logs: { text: 'Text', intent: 'Intent', channel: 'Channel' },
-    period: { today: 'Today', last7: 'Last 7 days', last30: 'Last 30 days' },
-    actions: { confirm: 'Confirm', cancel: 'Cancel', reschedule: 'Reschedule', notify: 'Notify', newDate: 'New date (YYYY-MM-DD):', notifyMsg: 'Message to admin:' },
-    modal: { title: 'New booking', name: 'Name', date: 'Date', channel: 'Channel', status: 'Status', close: 'Close', create: 'Create', saving: 'Saving…' },
-    kpi: {
-      ahtTitle: 'Average call duration (AHT)',
-      ahtNote: 'Approx. by dialog turns',
-      confirmedCancelled: 'Confirmed / Cancelled',
-      byPeriod: 'By period',
-      noShowTitle: 'No-show',
-      noShowNote: 'Placeholder'
+    title: 'Restaurant Dashboard',
+    period: {
+      today: 'Today',
+      last7: 'Last 7 Days',
+      last30: 'Last 30 Days'
     },
-    heatmap: { title: 'Load heatmap', weekdays: { Sun: 'Sun', Mon: 'Mon', Tue: 'Tue', Wed: 'Wed', Thu: 'Thu', Fri: 'Fri', Sat: 'Sat' } },
-    missed: { calls: 'Missed calls', errors: 'STT/TTS errors' },
-    repeat: { title: 'Repeat calls & duplicates' },
-    cta: { newBooking: 'New booking', confirm: 'Confirm', cancel: 'Cancel', reschedule: 'Reschedule', notifyAdmin: 'Notify admin', exportCsv: 'Export CSV', shareSnapshot: 'Share snapshot' },
-    table: { name: 'Name', date: 'Date', status: 'Status', channel: 'Channel', actions: 'Actions' }
+    cards: {
+      bookings: {
+        title: 'Total Bookings',
+        cta: 'View Details →'
+      },
+      status: {
+        title: 'Confirmed / Pending',
+        helper: "Today's Snapshot"
+      },
+      conversion: {
+        title: 'Calls to Bookings Conversion',
+        helper: 'Last 30 Days'
+      }
+    },
+    loadingBookings: 'Loading bookings…',
+    noData: 'No data available yet. Start receiving calls to see insights.',
+    funnel: {
+      title: 'Booking Funnel',
+      calls: 'Incoming Calls',
+      intents: 'Detected Booking Intents',
+      bookings: 'Confirmed Bookings'
+    },
+    channels: {
+      title: 'Performance by Channel',
+      headers: {
+        channel: 'Channel',
+        calls: 'Calls',
+        bookings: 'Bookings',
+        conversion: 'Conversion Rate'
+      }
+    },
+    metrics: {
+      helper: 'By selected period',
+      aht: { title: 'Average Call Duration (AHT)' },
+      confirmation: { title: 'Confirmed vs Cancelled' },
+      noShow: { title: 'No-show Rate', helper: 'Insights coming soon' },
+      missed: { title: 'Missed Calls' },
+      errors: { title: 'STT / TTS Errors' },
+      duplicates: { title: 'Repeat Calls & Duplicates' }
+    },
+    heatmap: {
+      title: 'Load Heatmap',
+      weekdays: { Sun: 'Sun', Mon: 'Mon', Tue: 'Tue', Wed: 'Wed', Thu: 'Thu', Fri: 'Fri', Sat: 'Sat' }
+    },
+    quickActions: {
+      newBooking: 'New Booking',
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      reschedule: 'Reschedule',
+      notify: 'Notify Admin'
+    },
+    modal: {
+      title: 'Create Manual Booking',
+      name: 'Guest Name',
+      date: 'Booking Date',
+      channel: 'Channel',
+      status: 'Status',
+      close: 'Close',
+      create: 'Save Booking',
+      saving: 'Saving…'
+    },
+    actions: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      reschedule: 'Reschedule',
+      notify: 'Notify Admin',
+      newDate: 'New date (YYYY-MM-DD):',
+      notifyMsg: 'Message to admin:'
+    },
+    table: {
+      name: 'Guest',
+      date: 'Date',
+      status: 'Status',
+      channel: 'Channel',
+      actions: 'Actions'
+    },
+    recentBookings: {
+      title: 'Recent Bookings',
+      viewAll: 'View All',
+      empty: 'No recent bookings yet.'
+    },
+    logs: {
+      title: 'Recent AI Conversations',
+      text: 'Text',
+      intent: 'Intent',
+      channel: 'Channel',
+      viewAll: 'View All Logs'
+    }
   },
   bookings: {
     title: 'Bookings',
@@ -116,46 +185,123 @@ const en = {
       actions: { save: 'Save', confirm: 'Confirm', cancel: 'Cancel', reschedule: 'Reschedule', close: 'Close' }
     }
   },
+  booking: {
+    status: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      reschedule: 'Reschedule',
+      notify: 'Notify Admin'
+    }
+  },
+  knowledge: {
+    title: 'Knowledge Base (FAQ)',
+    empty: 'No knowledge items yet. Use Import or Add Item.',
+    import: 'Import CSV / JSON',
+    add: 'Add FAQ Item'
+  },
+  common: {
+    export: 'Export CSV',
+    share: 'Share Snapshot',
+    load: 'Load Heatmap',
+    reset: 'Reset Filters',
+    placeholder: 'No data to display',
+    language: {
+      en: 'English',
+      hr: 'Croatian',
+      ru: 'Russian',
+      es: 'Spanish'
+    }
+  },
   landing: {
     hero: {
-      title: 'AI Restaurant Assistant - Revolutionize Your Dining Experience',
-      subtitle: 'Smart reservation system with voice AI that handles table bookings, takes orders, and provides exceptional customer service 24/7',
-      ctaPrimary: 'Start Free',
-      ctaSecondary: 'Learn More'
+      badge: 'AI Voice Host for Modern Restaurants',
+      title: 'Revolutionize Your Restaurant with an AI Voice Host',
+      subtitle: 'Meet your virtual receptionist that takes reservations, answers calls, and never misses a guest - 24/7.',
+      ctaPrimary: 'Start Free Trial',
+      ctaSecondary: 'Book a Free Demo',
+      bullets: [
+        'Capture bookings 24/7, even after hours',
+        'Reduce front-of-house workload by automating calls',
+        'Upsell specials and confirm guests in seconds'
+      ]
     },
     features: {
-      title: 'Complete Restaurant Management Solution',
-      subtitle: 'Everything you need to manage your restaurant efficiently and delight your customers',
+      title: 'Built for High-Volume Restaurants',
+      subtitle: 'Automate every phone conversation, keep tables full, and give guests a five-star experience without adding headcount.',
       voiceAI: {
-        title: 'Voice AI Assistant',
-        description: 'Riley, your AI hostess, takes reservations, answers questions about the menu, and provides personalized service to every guest.'
+        title: 'AI Voice Assistant That Sounds Human',
+        description: 'Your AI host answers every call, greets customers, and manages table reservations automatically - reducing missed calls and freeing up your team.'
       },
-      automation: {
-        title: 'Smart Reservations',
-        description: 'Automated table management with real-time availability, waitlist management, and automatic confirmations.'
+      booking: {
+        title: 'Smart Reservations and Waitlist Management',
+        description: 'No more double bookings or manual logs. Our intelligent system syncs with your schedule and keeps your tables full at all times.'
       },
       analytics: {
-        title: 'Restaurant Analytics',
-        description: 'Track reservations, peak hours, customer preferences, and revenue insights to optimize your restaurant operations.'
+        title: 'Analytics That Drive Profit',
+        description: 'Get insights into peak hours, top menu items, and customer preferences. Make data-driven decisions that increase your revenue.'
       }
     },
     stats: {
       title: 'Trusted by Restaurants Worldwide',
-      subtitle: 'Join thousands of restaurants already using our AI assistant',
-      activeUsers: 'Restaurants',
-      processedRequests: 'Reservations Made',
-      timeSaved: 'Time Saved',
-      satisfiedCustomers: 'Happy Customers'
+      subtitle: 'Hospitality teams count on Riley to capture every booking and delight every caller.',
+      items: [
+        { value: '2,500+', label: 'restaurants powered by our AI' },
+        { value: '500,000+', label: 'reservations handled' },
+        { value: '75%', label: 'staff time saved' },
+        { value: '98%', label: 'customer satisfaction' }
+      ]
+    },
+    workflow: {
+      title: 'How Riley Handles Every Call',
+      subtitle: 'From greeting to confirmation, your AI host runs a perfect flow every time.',
+      steps: [
+        {
+          title: 'Answer & Qualify',
+          description: 'Riley greets callers, understands the request, and checks live availability within seconds.'
+        },
+        {
+          title: 'Secure the Booking',
+          description: 'Smart rules prevent double bookings, manage the waitlist, and send confirmations automatically.'
+        },
+        {
+          title: 'Share the Insight',
+          description: 'Every interaction logs intent, guest details, and revenue notes directly into your dashboard.'
+        }
+      ]
+    },
+    testimonials: {
+      title: 'Hospitality Teams See Real Results',
+      subtitle: 'Restaurants of all sizes are switching to AI for reservations and guest support.',
+      items: [
+        {
+          quote: 'We capture 35% more bookings after hours and my hosts can finally focus on guests in front of them.',
+          author: 'Lena Ortiz',
+          role: 'Owner, Azul Tapas Bar'
+        },
+        {
+          quote: 'The analytics highlight peak demand by the hour so we schedule smarter and cut no-shows in half.',
+          author: 'Marco Petrovic',
+          role: 'GM, Adriatic Bistro'
+        }
+      ]
+    },
+    integrations: {
+      title: 'Connects With Your Stack',
+      subtitle: 'Sync bookings, guests, and notifications with the tools you already use.',
+      items: [
+        'OpenTable, GloriaFood, and POS exports',
+        'Twilio voice, WhatsApp, and SMS',
+        'Google Sheets, Slack, and email alerts',
+        'Custom automations via webhooks'
+      ]
     },
     cta: {
       title: 'Ready to Transform Your Restaurant?',
-      subtitle: 'Join the restaurant technology revolution. Start with a free trial today.',
-      createAccount: 'Create Account',
-      hasAccount: 'Already have an account?'
+      subtitle: "Try the AI host that's redefining guest experience. It's free to start.",
+      button: 'Book a Free Demo',
+      secondary: 'Already using Riley? Log in'
     }
   }
 };
 
 export default en;
-
-

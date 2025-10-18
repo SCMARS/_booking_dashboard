@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Menu, X, LogOut, Home, Calendar, FileText, BookOpen, Settings as SettingsIcon } from 'lucide-react';
+import { Menu, X, LogOut, Home, Calendar, FileText, Settings as SettingsIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -20,7 +20,6 @@ export default function Sidebar() {
     { name: t('nav.dashboard'), path: `${localePrefix}/dashboard`, icon: Home },
     { name: t('nav.bookings'), path: `${localePrefix}/bookings`, icon: Calendar },
     { name: t('nav.logs'), path: `${localePrefix}/logs`, icon: FileText },
-    { name: t('nav.knowledge'), path: `${localePrefix}/knowledge`, icon: BookOpen },
     { name: t('nav.settings'), path: `${localePrefix}/settings`, icon: SettingsIcon },
   ];
 

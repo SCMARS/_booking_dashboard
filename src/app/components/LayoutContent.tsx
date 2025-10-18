@@ -50,7 +50,7 @@ export default function LayoutContent({ children }: { children: React.ReactNode 
     if (currentPath === '/' || pathname === '/') {
       return <>{children}</>;
     }
-    return <div className="min-h-screen bg-lightGray p-4 md:p-6">{children}</div>;
+    return <div className="min-h-screen">{children}</div>;
   }
 
   return (
