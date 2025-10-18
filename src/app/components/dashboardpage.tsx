@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/app/lib/firebase';
-import { collection, onSnapshot, orderBy, query, limit, getCountFromServer, where, Timestamp, getDocs, doc, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, limit, where, Timestamp, getDocs, doc, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import CallsList from './CallsList';
@@ -48,6 +48,7 @@ const Dashboard: React.FC = () => {
   const [toasts, setToasts] = useState<Array<{ id: number; text: string }>>([]);
   const [recentLogsLeft, setRecentLogsLeft] = useState<LogData[]>([]);
   const [recentLogsRight, setRecentLogsRight] = useState<LogData[]>([]);
+  const [bookingStatusFilter, setBookingStatusFilter] = useState<'all' | 'Confirmed' | 'Pending' | 'cancelled'>('all');
 
   const pushToast = (text: string) => {
     const id = Date.now() + Math.random();
@@ -56,30 +57,39 @@ const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    // Обновлено для использования реальных данных из Vapi
+    // Загружаем последние звонки и фильтруем на клиенте, чтобы избежать требований к индексам
     const q = query(
-      collection(db, 'logs'), 
-      where('type', '==', 'call_summary'),
-      where('endedReason', '==', 'customer-ended-call'),
-      orderBy('createdAt', 'desc'), 
-      limit(10)
+      collection(db, 'logs'),
+      orderBy('createdAt', 'desc'),
+      limit(40)
     );
     const unsub = onSnapshot(q, (snap) => {
-      const rows: BookingData[] = snap.docs.map((d) => {
-        const data = d.data();
-        return {
-          id: d.id,
-          name: `Call ${data.callId?.substring(0, 8)}...` || 'Unknown Call',
-          date: data.createdAt?.toDate?.()?.toISOString()?.split('T')[0] || new Date().toISOString().split('T')[0],
+      const rows: BookingData[] = snap.docs
+        .map((docu) => {
+          const data = docu.data() as any;
+          const createdAt: Date = data.createdAt?.toDate?.() || (data.createdAt ? new Date(data.createdAt) : new Date());
+          return {
+            id: docu.id,
+            callId: data.callId,
+            type: data.type,
+            endedReason: data.endedReason,
+            channel: data.channel || 'Call',
+            createdAt,
+          };
+        })
+        .filter((item) => item.type === 'call_summary' && (item.endedReason || '').toLowerCase() === 'customer-ended-call')
+        .slice(0, 10)
+        .map((item) => ({
+          id: item.id,
+          name: item.callId ? `Call ${String(item.callId).slice(0, 8)}…` : 'Unknown Call',
+          date: item.createdAt.toISOString().split('T')[0],
           status: 'Confirmed' as const,
-          channel: 'Call' as const,
-          createdAt: data.createdAt
-        };
-      });
+          channel: item.channel,
+        }));
       setRecentBookings(rows);
     });
 
-    return () => unsub(); 
+    return () => unsub();
   }, []);
 
 
@@ -87,7 +97,6 @@ const Dashboard: React.FC = () => {
     let isActive = true;
     async function loadCounts() {
       try {
-        const bookingsCol = collection(db, 'bookings');
         const logsCol = collection(db, 'logs');
         const now = new Date();
         const start = period === 'today'
@@ -96,110 +105,108 @@ const Dashboard: React.FC = () => {
           ? new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
           : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
         const since = Timestamp.fromDate(start);
- 
-        // Обновлено для использования реальных данных из Vapi
-        const [totalSnap, confirmedSnap, pendingSnap] = await Promise.all([
-          // Общее количество бронирований из завершенных звонков
-          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'))),
-          // Подтвержденные бронирования (звонки с успешным исходом)
-          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('status', '==', 'ended'))),
-          // Ожидающие бронирования (звонки в процессе)
-          getCountFromServer(query(logsCol, where('type', '==', 'call_event'), where('status', '==', 'call_started'))),
-        ]);
- 
-        if (!isActive) return;
-        setTotalBookings(totalSnap.data().count || 0);
-        setConfirmedCount(confirmedSnap.data().count || 0);
-        setPendingCount(pendingSnap.data().count || 0);
-        try {
-          // Обновлено для использования реальных данных Vapi
-          const [successfulCallsSnap, totalCallsSnap] = await Promise.all([
-            // Успешные звонки (завершенные клиентом)
-            getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
-            // Все звонки (call_event + call_summary)
-            getCountFromServer(query(logsCol, where('type', 'in', ['call_event', 'call_summary']), where('createdAt', '>=', since))),
-          ]);
-          if (!isActive) return;
-          const successfulCalls = successfulCallsSnap.data().count || 0;
-          const totalCalls = totalCallsSnap.data().count || 0;
-          const pct = totalCalls > 0 ? Math.round((successfulCalls / totalCalls) * 1000) / 10 : 0;
-          setCallConversion(pct);
-        } catch {
-          if (!isActive) return;
-          setCallConversion(null);
-        }
- 
-        // Use count API for funnel numbers - обновлено для реальных данных Vapi
-        const [callsCount, intentsCount, bookingsCount] = await Promise.all([
-          // Звонки из Vapi (call_event и call_summary)
-          getCountFromServer(query(logsCol, where('type', '==', 'call_event'), where('createdAt', '>=', since))),
-          // Намерения из транскриптов (intent_detected или booking-related messages)
-          getCountFromServer(query(logsCol, where('status', '==', 'intent_detected'), where('createdAt', '>=', since))),
-          // Бронирования из завершенных звонков с успешным исходом
-          getCountFromServer(query(logsCol, where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
-        ]);
-        if (!isActive) return;
-        const calls = callsCount.data().count || 0;
+        const logsSnapshot = await getDocs(
+          query(
+            logsCol,
+            where('createdAt', '>=', since),
+            orderBy('createdAt', 'desc'),
+            limit(2000)
+          )
+        );
 
-        // Обновлено для использования реальных данных Vapi
-        const channels = ['Call']; // Пока только Call канал из Vapi
-        const channelPromises = channels.map((ch) => Promise.all([
-          // Все звонки в канале Call
-          getCountFromServer(query(logsCol, where('channel', '==', ch), where('createdAt', '>=', since))),
-          // Успешные звонки в канале Call
-          getCountFromServer(query(logsCol, where('channel', '==', ch), where('type', '==', 'call_summary'), where('endedReason', '==', 'customer-ended-call'), where('createdAt', '>=', since))),
-        ]));
-        const channelSnaps = await Promise.all(channelPromises);
         if (!isActive) return;
-        setChannelStats(channelSnaps.map(([cSnap, bSnap], idx) => {
-          const callsV = cSnap.data().count || 0;
-          const booksV = bSnap.data().count || 0;
-          const conv = callsV > 0 ? Math.round((booksV / callsV) * 1000) / 10 : 0;
-          return { channel: channels[idx], calls: callsV, bookings: booksV, conversion: conv };
-        }));
- 
 
-        const logsForDetails = await getDocs(query(logsCol, where('createdAt', '>=', since), orderBy('createdAt', 'desc'), limit(2000)));
-        if (!isActive) return;
-        const durations = logsForDetails.docs
-          .map((d) => {
-            const data: any = d.data();
-            if (typeof data?.durationSec === 'number') return data.durationSec;
-            if (typeof data?.durationMs === 'number') return Math.round(data.durationMs / 1000);
+        const logsData = logsSnapshot.docs.map((docu) => {
+          const data = docu.data() as any;
+          const createdAt: Date = data.createdAt?.toDate?.() || (data.createdAt ? new Date(data.createdAt) : new Date());
+          return {
+            id: docu.id,
+            ...data,
+            createdAt,
+          };
+        });
+
+        const callEvents = logsData.filter((item) => item.type === 'call_event');
+        const callSummaries = logsData.filter((item) => item.type === 'call_summary');
+        const successfulSummaries = callSummaries.filter((item) => (item.endedReason || '').toLowerCase() === 'customer-ended-call');
+        const confirmedSummaries = successfulSummaries.filter((item) => (item.status || '').toLowerCase() === 'ended');
+        const pendingCalls = callEvents.filter((item) => (item.status || '').toLowerCase() === 'call_started');
+
+        setTotalBookings(successfulSummaries.length);
+        setConfirmedCount(confirmedSummaries.length);
+        setPendingCount(pendingCalls.length);
+
+        const totalCallTouchpoints = callEvents.length + callSummaries.length;
+        const conversion = totalCallTouchpoints > 0
+          ? Math.round((successfulSummaries.length / totalCallTouchpoints) * 1000) / 10
+          : 0;
+        setCallConversion(conversion);
+
+        const intentsDetected = logsData.filter((item) => (item.status || '').toLowerCase() === 'intent_detected').length;
+        setFunnel({ calls: callEvents.length, intents: intentsDetected, bookings: successfulSummaries.length });
+
+        const channelAggregate = new Map<string, { calls: number; bookings: number }>();
+        callEvents.forEach((event) => {
+          const channel = event.channel || 'Call';
+          const entry = channelAggregate.get(channel) || { calls: 0, bookings: 0 };
+          entry.calls += 1;
+          channelAggregate.set(channel, entry);
+        });
+        successfulSummaries.forEach((summary) => {
+          const channel = summary.channel || 'Call';
+          const entry = channelAggregate.get(channel) || { calls: 0, bookings: 0 };
+          entry.bookings += 1;
+          channelAggregate.set(channel, entry);
+        });
+        setChannelStats(
+          Array.from(channelAggregate.entries()).map(([channel, stats]) => ({
+            channel,
+            calls: stats.calls,
+            bookings: stats.bookings,
+            conversion: stats.calls ? Math.round((stats.bookings / stats.calls) * 1000) / 10 : 0,
+          }))
+        );
+
+        const durations = logsData
+          .map((log) => {
+            if (typeof log?.durationSec === 'number') return log.durationSec;
+            if (typeof log?.durationMs === 'number') return Math.round(log.durationMs / 1000);
             return null;
           })
-          .filter((v) => typeof v === 'number') as number[];
+          .filter((value): value is number => typeof value === 'number');
         const ahtSec = durations.length
-          ? Math.round((durations.reduce((a, b) => a + b, 0) / durations.length))
+          ? Math.round(durations.reduce((acc, curr) => acc + curr, 0) / durations.length)
           : null;
+
         const missedStatuses = new Set(['missed', 'no_answer', 'failed']);
-        const missed = logsForDetails.docs.filter((d) => missedStatuses.has(((d.data() as any)?.status || '').toLowerCase())).length;
-        const errors = logsForDetails.docs.filter((d) => Array.isArray((d.data() as any)?.errors) && (d.data() as any).errors.length > 0).length;
-        setKpi((prev) => ({ confirmed: prev.confirmed, cancelled: prev.cancelled, ahtSec }));
+        const missed = callEvents.filter((event) => missedStatuses.has((event.status || '').toLowerCase())).length;
+        const errors = logsData.filter((log) => Array.isArray(log.errors) && log.errors.length > 0).length;
         setMissedFailed({ missed, errors });
- 
-        const numbers = logsForDetails.docs.map((d) => ((d.data() as any)?.clientNumber || '').trim()).filter(Boolean);
+
+        const numbers = callEvents
+          .map((event) => (event.clientNumber || '').trim())
+          .filter(Boolean);
         const freq = new Map<string, number>();
-        for (const n of numbers) freq.set(n, (freq.get(n) || 0) + 1);
-        const repeatCalls = numbers.filter((n) => (freq.get(n) || 0) > 1).length;
-        const repeatPctCalc = calls > 0 ? Math.round((repeatCalls / calls) * 1000) / 10 : 0;
+        for (const phone of numbers) freq.set(phone, (freq.get(phone) || 0) + 1);
+        const repeatCalls = numbers.filter((phone) => (freq.get(phone) || 0) > 1).length;
+        const repeatPctCalc = callEvents.length > 0 ? Math.round((repeatCalls / callEvents.length) * 1000) / 10 : 0;
         setRepeatPct(repeatPctCalc);
- 
+
         const grid = Array.from({ length: 7 }, () => Array.from({ length: 24 }, () => 0));
-        for (const docu of logsForDetails.docs) {
-          const data: any = docu.data();
-          let dt: Date | null = null;
-          if (data?.createdAt?.toDate) dt = data.createdAt.toDate();
-          else if (data?.timestamp) {
-            const t = Date.parse(data.timestamp);
-            dt = isNaN(t) ? null : new Date(t);
-          }
-          if (!dt) continue;
-          const dow = dt.getDay();
-          const hour = dt.getHours();
+        logsData.forEach((log) => {
+          const timestamp = log.createdAt instanceof Date ? log.createdAt : new Date(log.createdAt);
+          if (!(timestamp instanceof Date) || Number.isNaN(timestamp.getTime())) return;
+          const dow = timestamp.getDay();
+          const hour = timestamp.getHours();
           grid[dow][hour] = (grid[dow][hour] || 0) + 1;
-        }
+        });
         setHeatmap(grid);
+
+        const cancelledSummaries = callSummaries.filter((summary) => {
+          const status = (summary.status || '').toLowerCase();
+          return status.includes('cancel');
+        }).length;
+        setKpi({ confirmed: confirmedSummaries.length, cancelled: cancelledSummaries, ahtSec });
  
       } catch (e) {
       }
@@ -304,6 +311,82 @@ const Dashboard: React.FC = () => {
       : period === '7d'
       ? t('dashboard.period.last7')
       : t('dashboard.period.last30');
+
+  const resolveLabel = (key: string, fallback: string) => {
+    const result = t(key);
+    return result === key ? fallback : result;
+  };
+
+  const filteredRecentBookings = useMemo(() => {
+    if (bookingStatusFilter === 'all') return recentBookings;
+    return recentBookings.filter((booking) => booking.status === bookingStatusFilter);
+  }, [bookingStatusFilter, recentBookings]);
+
+  const bookingStats = useMemo(
+    () => ({
+      total: totalBookings,
+      confirmed: confirmedCount,
+      pending: pendingCount,
+      cancelled: kpi.cancelled,
+    }),
+    [totalBookings, confirmedCount, pendingCount, kpi.cancelled]
+  );
+
+  const bookingStatusOptions: Array<{
+    label: string;
+    value: 'all' | 'Confirmed' | 'Pending' | 'cancelled';
+    className: string;
+  }> = [
+    { label: 'All', value: 'all', className: 'bg-slate-100 text-slate-600' },
+    { label: 'Confirmed', value: 'Confirmed', className: 'bg-emerald-100 text-emerald-700' },
+    { label: 'Pending', value: 'Pending', className: 'bg-amber-100 text-amber-700' },
+    { label: 'Cancelled', value: 'cancelled', className: 'bg-rose-100 text-rose-700' },
+  ];
+
+  const bookingStatusStyles: Record<BookingData['status'], string> = {
+    Confirmed: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+    Pending: 'bg-amber-50 text-amber-700 ring-amber-200',
+    cancelled: 'bg-rose-50 text-rose-700 ring-rose-200',
+  };
+
+  const formatBookingStatus = (status: BookingData['status']) =>
+    status === 'cancelled' ? 'Cancelled' : status;
+
+  const exportRecentBookings = () => {
+    if (!filteredRecentBookings.length) {
+      return;
+    }
+    const header = ['guest', 'date', 'status', 'channel'];
+    const rows = filteredRecentBookings.map((booking) => [
+      booking.name,
+      booking.date,
+      booking.status,
+      booking.channel,
+    ]);
+    const csv = [header, ...rows]
+      .map((row) => row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `recent-bookings-${Date.now()}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const shareBookingsSnapshot = async () => {
+    const snapshot = `Bookings: ${bookingStats.total} total / ${bookingStats.confirmed} confirmed / ${bookingStats.pending} pending.`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Bookings Snapshot', text: snapshot });
+        return;
+      }
+      await navigator.clipboard.writeText(snapshot);
+    } catch (error) {
+      console.error('Share snapshot error', error);
+    }
+  };
 
   return (
     <div className="space-y-10 text-white">
@@ -986,118 +1069,214 @@ const Dashboard: React.FC = () => {
             <div key={m.id} className="bg-gray-900 text-white text-sm px-3 py-2 rounded shadow-lg">{m.text}</div>
           ))}
         </div>
-
-        {/* Export / Share */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-8">
-          <div className="flex items-center gap-2">
-            <button className="px-3 py-2 rounded-lg border text-sm hover:bg-gray-50">{t('common.export')}</button>
-            <button className="px-3 py-2 rounded-lg border text-sm hover:bg-gray-50">{t('common.share')}</button>
-          </div>
-        </div>
-
         {/* Recent Bookings */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
-          <div className="flex items-center justify-between p-4 md:p-5 border-b border-gray-100 bg-gray-50/50">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-900">{t('dashboard.recentBookings.title')}</h2>
-            <button 
-              onClick={handleViewAllBookings}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-blue-700 bg-white border border-blue-200 shadow-sm hover:bg-blue-50 hover:border-blue-300 transition-colors text-sm"
-            >
-              {t('dashboard.recentBookings.viewAll')}
-              <ChevronRight className="w-4 h-4" />
-            </button>
+        <div className="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur shadow-xl overflow-hidden">
+          <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 px-6 py-6 text-white">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-widest text-white/70">{resolveLabel('dashboard.recentBookings.title', 'Recent Bookings')}</p>
+                <h2 className="text-2xl font-semibold mt-1">{resolveLabel('dashboard.recentBookings.subtitle', 'Guests to nurture this week')}</h2>
+                <p className="mt-2 text-sm text-white/70">
+                  {resolveLabel('dashboard.recentBookings.description', 'Keep confirmations tight and spot guests that need attention.')}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setShowNewModal(true)}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm transition hover:bg-emerald-50"
+                >
+                  + New booking
+                </button>
+                <button
+                  onClick={handleViewAllBookings}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/50 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  {resolveLabel('dashboard.recentBookings.viewAll', 'View All')}
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={exportRecentBookings}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/50 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Export CSV
+                </button>
+                <button
+                  onClick={shareBookingsSnapshot}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/50 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Share snapshot
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* Mobile view - card layout */}
-          <div className="md:hidden">
-            {recentBookings.length > 0 ? (
-              recentBookings.map((booking, index) => (
-                <div key={booking.id || index} className="p-4 border-b border-gray-100 last:border-b-0">
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="font-medium text-gray-900">{booking.name}</div>
-                    <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${
-                      booking.status === 'Confirmed' 
-                        ? 'bg-green-100 text-green-800' 
-                        : booking.status === 'Pending'
-                        ? 'bg-yellow-100 text-yellow-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {booking.status}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-600">
-                    <div>{booking.date}</div>
-                    <div>{booking.channel}</div>
-                  </div>
+          <div className="p-6 space-y-6">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Total bookings</p>
+                <div className="mt-2 flex items-baseline gap-2 text-slate-900">
+                  <span className="text-2xl font-semibold">{bookingStats.total}</span>
+                  <span className="text-xs text-slate-400">overall</span>
                 </div>
-              ))
-            ) : (
-              <div className="p-4 text-center text-gray-500">{t('dashboard.recentBookings.empty')}</div>
-            )}
-          </div>
+              </div>
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 shadow-inner">
+                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600">Confirmed</p>
+                <div className="mt-2 text-emerald-700">
+                  <span className="text-2xl font-semibold">{bookingStats.confirmed}</span>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-amber-100 bg-amber-50 p-4 shadow-inner">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-600">Pending</p>
+                <div className="mt-2 text-amber-700">
+                  <span className="text-2xl font-semibold">{bookingStats.pending}</span>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-rose-100 bg-rose-50 p-4 shadow-inner">
+                <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">Cancelled</p>
+                <div className="mt-2 text-rose-700">
+                  <span className="text-2xl font-semibold">{bookingStats.cancelled}</span>
+                </div>
+              </div>
+            </div>
 
-          {/* Desktop view - table layout */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-600">{t('dashboard.table.name')}</th>
-                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-600">{t('dashboard.table.date')}</th>
-                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-600">{t('dashboard.table.status')}</th>
-                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-600">{t('dashboard.table.channel')}</th>
-                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-600">{t('dashboard.table.actions')}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {recentBookings.length > 0 ? (
-                  recentBookings.map((booking, index) => (
-                    <tr key={booking.id || index} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 md:px-6 py-4 text-xs md:text-sm font-medium text-gray-900">{booking.name}</td>
-                      <td className="px-4 md:px-6 py-4 text-xs md:text-sm text-gray-600">{booking.date}</td>
-                      <td className="px-4 md:px-6 py-4">
-                        <span className={`inline-flex px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium ring-1 ring-inset ${
-                          booking.status === 'Confirmed' 
-                            ? 'bg-green-50 text-green-700 ring-green-200' 
-                            : booking.status === 'Pending'
-                            ? 'bg-yellow-50 text-yellow-700 ring-yellow-200'
-                            : 'bg-red-50 text-red-700 ring-red-200'
-                        }`}>
-                          {booking.status}
-                        </span>
-                      </td>
-                      <td className="px-4 md:px-6 py-4 text-xs md:text-sm text-gray-600">{booking.channel}</td>
-                      <td className="px-4 md:px-6 py-4">
-                        <div className="flex flex-wrap gap-1">
-                          <button
-                            onClick={() => booking.id && setActionModal({ type: 'confirm', bookingId: booking.id, name: booking.name })}
-                            className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
-                          >{t('booking.status.confirm')}</button>
-                          <button
-                            onClick={() => booking.id && setActionModal({ type: 'cancel', bookingId: booking.id, name: booking.name })}
-                            className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
-                          >{t('booking.status.cancel')}</button>
-                          <button
-                            onClick={() => booking.id && setActionModal({ type: 'reschedule', bookingId: booking.id, name: booking.name, currentDate: booking.date })}
-                            className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
-                          >{t('booking.status.reschedule')}</button>
-                          <button
-                            onClick={() => setActionModal({ type: 'notify', bookingId: booking.id || '', name: booking.name })}
-                            className="px-2 py-1 text-xs rounded border hover:bg-gray-50"
-                          >{t('booking.status.notify')}</button>
-                        </div>
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="text-sm font-semibold text-slate-600">Filter by status</div>
+              <div className="flex flex-wrap gap-2">
+                {bookingStatusOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setBookingStatusFilter(option.value)}
+                    className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${
+                      bookingStatusFilter === option.value
+                        ? 'bg-slate-900 text-white shadow'
+                        : `${option.className} hover:shadow`
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-sm text-slate-700">
+                <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  <tr>
+                    <th className="px-6 py-3">{t('dashboard.table.name')}</th>
+                    <th className="px-6 py-3">{t('dashboard.table.date')}</th>
+                    <th className="px-6 py-3">{t('dashboard.table.status')}</th>
+                    <th className="px-6 py-3">{t('dashboard.table.channel')}</th>
+                    <th className="px-6 py-3 text-right">{t('dashboard.table.actions')}</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  {filteredRecentBookings.length ? (
+                    filteredRecentBookings.map((booking, index) => (
+                      <tr key={booking.id || index} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60">
+                        <td className="px-6 py-4 font-medium text-slate-900">{booking.name}</td>
+                        <td className="px-6 py-4 text-slate-500">{booking.date}</td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${bookingStatusStyles[booking.status]}`}>
+                            {formatBookingStatus(booking.status)}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-slate-500">{booking.channel}</td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <button
+                              onClick={() => booking.id && setActionModal({ type: 'confirm', bookingId: booking.id, name: booking.name })}
+                              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                            >
+                              {t('booking.status.confirm')}
+                            </button>
+                            <button
+                              onClick={() => booking.id && setActionModal({ type: 'cancel', bookingId: booking.id, name: booking.name })}
+                              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                            >
+                              {t('booking.status.cancel')}
+                            </button>
+                            <button
+                              onClick={() => booking.id && setActionModal({ type: 'reschedule', bookingId: booking.id, name: booking.name, currentDate: booking.date })}
+                              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                            >
+                              {t('booking.status.reschedule')}
+                            </button>
+                            <button
+                              onClick={() => setActionModal({ type: 'notify', bookingId: booking.id || '', name: booking.name })}
+                              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
+                            >
+                              {t('booking.status.notify')}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                        <div className="mx-auto h-2 w-1/2 rounded bg-slate-100 animate-pulse" />
+                        <p className="mt-3 text-xs text-slate-400">{t('dashboard.loadingBookings')}</p>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={5} className="px-4 md:px-6 py-12 text-center text-gray-500">
-                      <div className="mx-auto h-2 w-1/2 bg-gray-100 rounded animate-pulse" />
-                      <div className="mt-3 text-xs text-gray-400">{t('dashboard.loadingBookings')}</div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="space-y-4 md:hidden">
+              {filteredRecentBookings.length ? (
+                filteredRecentBookings.map((booking, index) => (
+                  <div key={booking.id || index} className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-semibold text-slate-900">{booking.name}</p>
+                      <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${bookingStatusStyles[booking.status]}`}>
+                        {formatBookingStatus(booking.status)}
+                      </span>
+                    </div>
+                    <div className="mt-3 grid grid-cols-2 gap-3 text-xs text-slate-500">
+                      <div>
+                        <p className="font-medium text-slate-600">{t('dashboard.table.date')}</p>
+                        <p>{booking.date}</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-slate-600">{t('dashboard.table.channel')}</p>
+                        <p>{booking.channel}</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                      <button
+                        onClick={() => booking.id && setActionModal({ type: 'confirm', bookingId: booking.id, name: booking.name })}
+                        className="rounded-xl border border-slate-200 px-3 py-2 transition hover:border-slate-300 hover:bg-white"
+                      >
+                        {t('booking.status.confirm')}
+                      </button>
+                      <button
+                        onClick={() => booking.id && setActionModal({ type: 'cancel', bookingId: booking.id, name: booking.name })}
+                        className="rounded-xl border border-slate-200 px-3 py-2 transition hover:border-slate-300 hover:bg-white"
+                      >
+                        {t('booking.status.cancel')}
+                      </button>
+                      <button
+                        onClick={() => booking.id && setActionModal({ type: 'reschedule', bookingId: booking.id, name: booking.name, currentDate: booking.date })}
+                        className="rounded-xl border border-slate-200 px-3 py-2 transition hover:border-slate-300 hover:bg-white"
+                      >
+                        {t('booking.status.reschedule')}
+                      </button>
+                      <button
+                        onClick={() => setActionModal({ type: 'notify', bookingId: booking.id || '', name: booking.name })}
+                        className="rounded-xl border border-slate-200 px-3 py-2 transition hover:border-slate-300 hover:bg-white"
+                      >
+                        {t('booking.status.notify')}
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-slate-500">
+                  {resolveLabel('dashboard.recentBookings.empty', 'No recent bookings yet.')}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
