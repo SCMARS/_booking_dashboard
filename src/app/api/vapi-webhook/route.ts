@@ -1,25 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 
+// Initialize Firebase Admin only at runtime when env vars are present.
+// Avoid throwing during build to allow Next.js to collect page data.
+let db: admin.firestore.Firestore | null = null;
 if (!admin.apps.length) {
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
 
-  if (!projectId || !clientEmail || !privateKey) {
-    throw new Error('Missing Firebase service account environment variables');
+  if (projectId && clientEmail && privateKey) {
+    admin.initializeApp({
+      credential: admin.credential.cert({ projectId, clientEmail, privateKey })
+    });
+    db = admin.firestore();
+  } else {
+    // Defer initialization error to request time to prevent build failures.
+    db = null;
   }
-
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId,
-      clientEmail,
-      privateKey
-    })
-  });
+} else {
+  db = admin.firestore();
 }
-
-const db = admin.firestore();
 
 type VapiPayload = {
   event?: string;
@@ -31,6 +32,9 @@ const jsonError = (message: string, status = 400) =>
 
 export async function POST(req: NextRequest) {
   try {
+    if (!db) {
+      return jsonError('Server misconfiguration: Firebase not initialized', 500);
+    }
     const expectedSecret = process.env.VAPI_SECRET;
     if (expectedSecret) {
       const provided = req.headers.get('x-vapi-secret');
@@ -111,4 +115,3 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   return jsonError('Method not allowed', 405);
 }
-
