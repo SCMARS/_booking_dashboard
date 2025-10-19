@@ -71,10 +71,18 @@ const en = {
   },
   dashboard: {
     title: 'Restaurant Dashboard',
+    hero: {
+      badge: 'Bookings Control Center',
+      subtitle: 'Track every reservation, channel, and guest interaction in one place.'
+    },
     period: {
       today: 'Today',
       last7: 'Last 7 Days',
       last30: 'Last 30 Days'
+    },
+    filters: {
+      title: 'Filters',
+      helper: 'Refine the bookings shown below.'
     },
     cards: {
       bookings: {
@@ -105,6 +113,14 @@ const en = {
         calls: 'Calls',
         bookings: 'Bookings',
         conversion: 'Conversion Rate'
+      },
+      labels: {
+        call: 'Phone',
+        phone: 'Phone',
+        website: 'Website',
+        chat: 'Live Chat',
+        whatsapp: 'WhatsApp',
+        sms: 'SMS'
       }
     },
     metrics: {
@@ -116,11 +132,19 @@ const en = {
       errors: { title: 'STT / TTS Errors' },
       duplicates: { title: 'Repeat Calls & Duplicates' }
     },
+    metricsSection: {
+      title: 'Operations pulse'
+    },
     heatmap: {
       title: 'Load Heatmap',
       weekdays: { Sun: 'Sun', Mon: 'Mon', Tue: 'Tue', Wed: 'Wed', Thu: 'Thu', Fri: 'Fri', Sat: 'Sat' }
     },
+    calendar: {
+      helper: 'See where bookings cluster this month.'
+    },
     quickActions: {
+      title: 'Quick Actions',
+      helper: 'Handle manual updates without leaving the dashboard.',
       newBooking: 'New Booking',
       confirm: 'Confirm',
       cancel: 'Cancel',
@@ -154,8 +178,14 @@ const en = {
     },
     recentBookings: {
       title: 'Recent Bookings',
+      subtitle: 'Focus on the guests you need to follow up with today.',
       viewAll: 'View All',
       empty: 'No recent bookings yet.'
+    },
+    snapshot: {
+      title: 'Current bookings',
+      subtitle: 'Every confirmation from voice, chat, and web in one queue.',
+      filtered: '{shown} of {total} bookings'
     },
     logs: {
       title: 'Recent AI Conversations',
@@ -172,6 +202,7 @@ const en = {
     calendar: { title: 'Calendar', daysShort: { S: 'S', M: 'M', T: 'T', W: 'W' }, headers: { status: 'Status', channel: 'Channel', actions: 'Actions' }, details: 'Details' },
     recent: { title: 'Recent bookings', viewAll: 'View all' },
     table: { name: 'Name', date: 'Date', status: 'Status', channel: 'Channel' },
+    statuses: { confirmed: 'Confirmed', pending: 'Pending', cancelled: 'Cancelled' },
     details: {
       title: 'Booking details',
       name: 'Name',

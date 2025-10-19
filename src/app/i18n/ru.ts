@@ -71,10 +71,18 @@ const ru = {
   },
   dashboard: {
     title: 'Панель ресторана',
+    hero: {
+      badge: 'Центр управления бронированиями',
+      subtitle: 'Отслеживайте каждую бронь, канал и взаимодействие с гостем в одном месте.'
+    },
     period: {
       today: 'Сегодня',
       last7: 'Последние 7 дней',
       last30: 'Последние 30 дней'
+    },
+    filters: {
+      title: 'Фильтры',
+      helper: 'Настройте список броней ниже.'
     },
     cards: {
       bookings: {
@@ -105,6 +113,14 @@ const ru = {
         calls: 'Звонки',
         bookings: 'Брони',
         conversion: 'Конверсия'
+      },
+      labels: {
+        call: 'Телефон',
+        phone: 'Телефон',
+        website: 'Сайт',
+        chat: 'Чат',
+        whatsapp: 'WhatsApp',
+        sms: 'SMS'
       }
     },
     metrics: {
@@ -116,11 +132,19 @@ const ru = {
       errors: { title: 'Ошибки STT / TTS' },
       duplicates: { title: 'Повторные звонки и дубликаты' }
     },
+    metricsSection: {
+      title: 'Операционный пульс'
+    },
     heatmap: {
       title: 'Тепловая карта загрузки',
       weekdays: { Sun: 'Вс', Mon: 'Пн', Tue: 'Вт', Wed: 'Ср', Thu: 'Чт', Fri: 'Пт', Sat: 'Сб' }
     },
+    calendar: {
+      helper: 'Посмотрите, в какие дни месяца концентрируются брони.'
+    },
     quickActions: {
+      title: 'Быстрые действия',
+      helper: 'Вносите изменения вручную, не уходя с дашборда.',
       newBooking: 'Создать бронь',
       confirm: 'Подтвердить',
       cancel: 'Отменить',
@@ -154,8 +178,14 @@ const ru = {
     },
     recentBookings: {
       title: 'Недавние бронирования',
+      subtitle: 'Сконцентрируйтесь на гостях, которым нужно внимание сегодня.',
       viewAll: 'Показать все',
       empty: 'Недавних броней пока нет.'
+    },
+    snapshot: {
+      title: 'Текущие брони',
+      subtitle: 'Все подтверждения из голоса, чата и веба в одном потоке.',
+      filtered: '{shown} из {total} броней'
     },
     logs: {
       title: 'Недавние разговоры AI',
@@ -172,6 +202,7 @@ const ru = {
     calendar: { title: 'Календарь', daysShort: { S: 'Вс', M: 'Пн', T: 'Вт', W: 'Ср' }, headers: { status: 'Статус', channel: 'Канал', actions: 'Действия' }, details: 'Подробнее' },
     recent: { title: 'Недавние брони', viewAll: 'Показать все' },
     table: { name: 'Имя', date: 'Дата', status: 'Статус', channel: 'Канал' },
+    statuses: { confirmed: 'Подтверждено', pending: 'В ожидании', cancelled: 'Отменено' },
     details: {
       title: 'Детали брони',
       name: 'Имя',

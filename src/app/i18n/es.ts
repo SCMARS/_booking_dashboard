@@ -71,10 +71,18 @@ const es = {
   },
   dashboard: {
     title: 'Panel del restaurante',
+    hero: {
+      badge: 'Centro de control de reservas',
+      subtitle: 'Supervisa cada reserva, canal e interacción con huéspedes en un solo lugar.'
+    },
     period: {
       today: 'Hoy',
       last7: 'Últimos 7 días',
       last30: 'Últimos 30 días'
+    },
+    filters: {
+      title: 'Filtros',
+      helper: 'Refina las reservas mostradas abajo.'
     },
     cards: {
       bookings: {
@@ -83,7 +91,7 @@ const es = {
       },
       status: {
         title: 'Confirmadas / Pendientes',
-        helper: 'Resumen de hoy'
+        helper: 'Instantánea de hoy'
       },
       conversion: {
         title: 'Conversión de llamadas a reservas',
@@ -91,7 +99,7 @@ const es = {
       }
     },
     loadingBookings: 'Cargando reservas…',
-    noData: 'Aún no hay datos. Empieza a recibir llamadas para ver los insights.',
+    noData: 'Aún no hay datos. Empieza a recibir llamadas para ver información.',
     funnel: {
       title: 'Embudo de reservas',
       calls: 'Llamadas entrantes',
@@ -105,22 +113,38 @@ const es = {
         calls: 'Llamadas',
         bookings: 'Reservas',
         conversion: 'Tasa de conversión'
+      },
+      labels: {
+        call: 'Teléfono',
+        phone: 'Teléfono',
+        website: 'Sitio web',
+        chat: 'Chat',
+        whatsapp: 'WhatsApp',
+        sms: 'SMS'
       }
     },
     metrics: {
-      helper: 'Por período seleccionado',
+      helper: 'Según el período seleccionado',
       aht: { title: 'Duración media de llamada (AHT)' },
       confirmation: { title: 'Confirmadas vs Canceladas' },
-      noShow: { title: 'Tasa de no asistencia', helper: 'Próximamente' },
+      noShow: { title: 'Tasa de no presentación', helper: 'Información disponible pronto' },
       missed: { title: 'Llamadas perdidas' },
       errors: { title: 'Errores STT / TTS' },
-      duplicates: { title: 'Llamadas repetidas y duplicados' }
+      duplicates: { title: 'Llamadas repetidas y duplicadas' }
+    },
+    metricsSection: {
+      title: 'Pulso operativo'
     },
     heatmap: {
-      title: 'Mapa de calor de carga',
+      title: 'Mapa de calor de demanda',
       weekdays: { Sun: 'Dom', Mon: 'Lun', Tue: 'Mar', Wed: 'Mié', Thu: 'Jue', Fri: 'Vie', Sat: 'Sáb' }
     },
+    calendar: {
+      helper: 'Descubre en qué días del mes se concentran las reservas.'
+    },
     quickActions: {
+      title: 'Acciones rápidas',
+      helper: 'Gestiona cambios manuales sin salir del panel.',
       newBooking: 'Nueva reserva',
       confirm: 'Confirmar',
       cancel: 'Cancelar',
@@ -129,7 +153,7 @@ const es = {
     },
     modal: {
       title: 'Crear reserva manual',
-      name: 'Nombre del cliente',
+      name: 'Nombre del huésped',
       date: 'Fecha de la reserva',
       channel: 'Canal',
       status: 'Estado',
@@ -146,7 +170,7 @@ const es = {
       notifyMsg: 'Mensaje para el administrador:'
     },
     table: {
-      name: 'Cliente',
+      name: 'Huésped',
       date: 'Fecha',
       status: 'Estado',
       channel: 'Canal',
@@ -154,11 +178,17 @@ const es = {
     },
     recentBookings: {
       title: 'Reservas recientes',
-      viewAll: 'Ver todas',
+      subtitle: 'Concéntrate en los invitados que necesitan seguimiento hoy.',
+      viewAll: 'Ver todo',
       empty: 'Aún no hay reservas recientes.'
     },
+    snapshot: {
+      title: 'Reservas actuales',
+      subtitle: 'Todas las confirmaciones de voz, chat y web en una sola cola.',
+      filtered: '{shown} de {total} reservas'
+    },
     logs: {
-      title: 'Conversaciones recientes del IA',
+      title: 'Conversaciones recientes con IA',
       text: 'Texto',
       intent: 'Intención',
       channel: 'Canal',
@@ -172,6 +202,7 @@ const es = {
     calendar: { title: 'Calendario', daysShort: { S: 'D', M: 'L', T: 'M', W: 'X' }, headers: { status: 'Estado', channel: 'Canal', actions: 'Acciones' }, details: 'Detalles' },
     recent: { title: 'Reservas recientes', viewAll: 'Ver todas' },
     table: { name: 'Nombre', date: 'Fecha', status: 'Estado', channel: 'Canal' },
+    statuses: { confirmed: 'Confirmada', pending: 'Pendiente', cancelled: 'Cancelada' },
     details: {
       title: 'Detalles de la reserva',
       name: 'Nombre',

@@ -71,10 +71,18 @@ const hr = {
   },
   dashboard: {
     title: 'Nadzorna ploča restorana',
+    hero: {
+      badge: 'Centar za rezervacije',
+      subtitle: 'Pratite svaku rezervaciju, kanal i interakciju s gostima na jednom mjestu.'
+    },
     period: {
       today: 'Danas',
-      last7: 'Posljednjih 7 dana',
-      last30: 'Posljednjih 30 dana'
+      last7: 'Zadnjih 7 dana',
+      last30: 'Zadnjih 30 dana'
+    },
+    filters: {
+      title: 'Filteri',
+      helper: 'Prilagodite prikazane rezervacije.'
     },
     cards: {
       bookings: {
@@ -87,48 +95,64 @@ const hr = {
       },
       conversion: {
         title: 'Konverzija poziva u rezervacije',
-        helper: 'Posljednjih 30 dana'
+        helper: 'Zadnjih 30 dana'
       }
     },
     loadingBookings: 'Učitavanje rezervacija…',
-    noData: 'Još nema podataka. Počnite primati pozive kako biste vidjeli uvide.',
+    noData: 'Još nema podataka. Počnite primati pozive kako biste dobili uvide.',
     funnel: {
-      title: 'Prodajni lijevak rezervacija',
+      title: 'Lijevak rezervacija',
       calls: 'Dolazni pozivi',
-      intents: 'Prepoznate namjere',
+      intents: 'Otkrivene namjere',
       bookings: 'Potvrđene rezervacije'
     },
     channels: {
-      title: 'Učinkovitost po kanalima',
+      title: 'Učinkovitost po kanalu',
       headers: {
         channel: 'Kanal',
         calls: 'Pozivi',
         bookings: 'Rezervacije',
         conversion: 'Stopa konverzije'
+      },
+      labels: {
+        call: 'Telefon',
+        phone: 'Telefon',
+        website: 'Web stranica',
+        chat: 'Chat',
+        whatsapp: 'WhatsApp',
+        sms: 'SMS'
       }
     },
     metrics: {
-      helper: 'Za odabrano razdoblje',
+      helper: 'Prema odabranom razdoblju',
       aht: { title: 'Prosječno trajanje poziva (AHT)' },
       confirmation: { title: 'Potvrđeno vs Otkazano' },
-      noShow: { title: 'Stopa nedolazaka', helper: 'Uvid uskoro' },
+      noShow: { title: 'Stopa nedolazaka', helper: 'Uvid dolazi uskoro' },
       missed: { title: 'Propušteni pozivi' },
       errors: { title: 'STT / TTS pogreške' },
-      duplicates: { title: 'Ponavljani pozivi i duplikati' }
+      duplicates: { title: 'Ponovljeni pozivi i duplikati' }
+    },
+    metricsSection: {
+      title: 'Operativni puls'
     },
     heatmap: {
       title: 'Toplinska karta opterećenja',
       weekdays: { Sun: 'Ned', Mon: 'Pon', Tue: 'Uto', Wed: 'Sri', Thu: 'Čet', Fri: 'Pet', Sat: 'Sub' }
     },
+    calendar: {
+      helper: 'Pogledajte u kojim se danima u mjesecu gomilaju rezervacije.'
+    },
     quickActions: {
+      title: 'Brze radnje',
+      helper: 'Ručne izmjene bez napuštanja nadzorne ploče.',
       newBooking: 'Nova rezervacija',
       confirm: 'Potvrdi',
       cancel: 'Otkaži',
-      reschedule: 'Promijeni termin',
+      reschedule: 'Pomakni',
       notify: 'Obavijesti administratora'
     },
     modal: {
-      title: 'Unesi rezervaciju ručno',
+      title: 'Kreiraj ručnu rezervaciju',
       name: 'Ime gosta',
       date: 'Datum rezervacije',
       channel: 'Kanal',
@@ -140,7 +164,7 @@ const hr = {
     actions: {
       confirm: 'Potvrdi',
       cancel: 'Otkaži',
-      reschedule: 'Promijeni termin',
+      reschedule: 'Pomakni',
       notify: 'Obavijesti administratora',
       newDate: 'Novi datum (GGGG-MM-DD):',
       notifyMsg: 'Poruka administratoru:'
@@ -154,13 +178,19 @@ const hr = {
     },
     recentBookings: {
       title: 'Nedavne rezervacije',
+      subtitle: 'Fokusirajte se na goste kojima danas treba praćenje.',
       viewAll: 'Pogledaj sve',
       empty: 'Još nema nedavnih rezervacija.'
+    },
+    snapshot: {
+      title: 'Trenutne rezervacije',
+      subtitle: 'Sve potvrde iz glasa, chata i weba na jednom mjestu.',
+      filtered: '{shown} od {total} rezervacija'
     },
     logs: {
       title: 'Nedavni AI razgovori',
       text: 'Tekst',
-      intent: 'Nakana',
+      intent: 'Namjera',
       channel: 'Kanal',
       viewAll: 'Pogledaj sve razgovore'
     }
@@ -172,6 +202,7 @@ const hr = {
     calendar: { title: 'Kalendar', daysShort: { S: 'N', M: 'P', T: 'U', W: 'S' }, headers: { status: 'Status', channel: 'Kanal', actions: 'Radnje' }, details: 'Detalji' },
     recent: { title: 'Nedavne rezervacije', viewAll: 'Pogledaj sve' },
     table: { name: 'Ime', date: 'Datum', status: 'Status', channel: 'Kanal' },
+    statuses: { confirmed: 'Potvrđeno', pending: 'Na čekanju', cancelled: 'Otkazano' },
     details: {
       title: 'Detalji rezervacije',
       name: 'Ime',
