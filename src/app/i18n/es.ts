@@ -198,10 +198,54 @@ const es = {
   bookings: {
     title: 'Reservas',
     new: 'Nueva reserva',
-    filters: { status: 'Estado', channel: 'Canal', period: 'Periodo', sort: 'Orden', reset: 'Restablecer', all: 'Todas', allTime: 'Todo el tiempo', last7: 'Últimos 7 días', last30: 'Últimos 30 días', thisMonth: 'Este mes', dateDesc: 'Fecha ↓', dateAsc: 'Fecha ↑', nameAsc: 'Nombre A→Z' },
-    calendar: { title: 'Calendario', daysShort: { S: 'D', M: 'L', T: 'M', W: 'X' }, headers: { status: 'Estado', channel: 'Canal', actions: 'Acciones' }, details: 'Detalles' },
+    hero: { subtitle: 'Mantente al tanto de cada reserva con sincronización en vivo desde Firebase. Filtra, confirma o reprograma en segundos sin salir de esta vista.' },
+    filters: {
+      status: 'Estado',
+      channel: 'Canal',
+      period: 'Periodo',
+      sort: 'Orden',
+      reset: 'Restablecer',
+      all: 'Todas',
+      allTime: 'Todo el tiempo',
+      last7: 'Últimos 7 días',
+      last30: 'Últimos 30 días',
+      thisMonth: 'Este mes',
+      dateDesc: 'Fecha ↓',
+      dateAsc: 'Fecha ↑',
+      nameAsc: 'Nombre A→Z',
+      smartTitle: 'Filtros inteligentes',
+      smartDescription: 'Combina estado, canal, periodo y búsqueda para reducir la cola.',
+      searchPlaceholder: 'Busca por invitados, teléfono, notas…'
+    },
+    calendar: {
+      title: 'Calendario',
+      helper: 'Toca un día para ver todo el contexto de reservas.',
+      daysShort: { S: 'D', M: 'L', T: 'M', W: 'X' },
+      headers: { status: 'Estado', channel: 'Canal', actions: 'Acciones' },
+      details: 'Detalles'
+    },
     recent: { title: 'Reservas recientes', viewAll: 'Ver todas' },
-    table: { name: 'Nombre', date: 'Fecha', status: 'Estado', channel: 'Canal' },
+    table: {
+      name: 'Nombre',
+      date: 'Fecha',
+      status: 'Estado',
+      channel: 'Canal',
+      filteredCountSuffix: 'reservas coinciden con tus filtros.'
+    },
+    metrics: {
+      visibleBadge: 'visibles',
+      selectedChannelAll: 'Todos los canales',
+      selectedChannelPrefix: 'Canal'
+    },
+    channelMix: {
+      title: 'Mezcla de canales',
+      helper: 'Resultados filtrados por canal para decidir rápido.',
+      empty: 'No hay reservas en esta vista.'
+    },
+    dayList: {
+      countLabel: 'reservas',
+      empty: 'No hay reservas para este día.'
+    },
     statuses: { confirmed: 'Confirmada', pending: 'Pendiente', cancelled: 'Cancelada' },
     details: {
       title: 'Detalles de la reserva',
@@ -222,6 +266,141 @@ const es = {
       cancel: 'Cancelar',
       reschedule: 'Reprogramar',
       notify: 'Notificar al administrador'
+    }
+  },
+  logs: {
+    title: 'Registros de conversaciones',
+    hero: {
+      subtitle: 'Revisa cada conversación del asistente, identifica intenciones de reserva y controla los traspasos entre canales en tiempo real.',
+      ctaDashboard: 'Volver al panel'
+    },
+    metrics: {
+      total: 'Registros totales',
+      totalHelper: 'Todo el tiempo',
+      filtered: 'En vista',
+      filteredHelper: 'Coinciden con los filtros',
+      channels: 'Canales',
+      channelsHelper: 'Únicos en vista',
+      statuses: 'Estados',
+      statusesHelper: 'Únicos en vista',
+      badgeVisible: 'visibles'
+    },
+    filters: {
+      title: 'Filtros',
+      helper: 'Refina las transcripciones por canal, estado, intención o texto.',
+      channel: 'Canal',
+      status: 'Estado',
+      searchPlaceholder: 'Busca en transcripción, intención, estado…',
+      reset: 'Restablecer filtros',
+      allChannels: 'Todos los canales',
+      allStatuses: 'Todos los estados'
+    },
+    table: {
+      headline: 'Archivo de conversaciones',
+      helper: 'Transcripciones filtradas en tiempo real.',
+      timestamp: 'Fecha y hora',
+      channel: 'Canal',
+      summary: 'Vista previa',
+      status: 'Estado',
+      booking: 'Reserva',
+      view: 'Ver',
+      moreTurns: 'más'
+    },
+    empty: 'Cargando registros…',
+    noResults: 'No hay conversaciones que coincidan con tus filtros.',
+    channelMix: {
+      title: 'Mezcla de canales',
+      helper: 'Volumen por canal en la vista actual.',
+      empty: 'No hay canales en la vista actual.'
+    },
+    timeline: {
+      title: 'Cronología en vivo',
+      helper: 'Últimas derivaciones del asistente entre canales.',
+      empty: 'Aún no hay eventos para estos filtros.'
+    },
+    detail: {
+      title: 'Detalle de la conversación',
+      ai: 'IA',
+      guest: 'Cliente',
+      unknown: 'Desconocido',
+      intent: 'Intención',
+      bookingLink: 'Abrir reserva',
+      close: 'Cerrar',
+      noDialog: 'No hay transcripción disponible.'
+    }
+  },
+  settingsPage: {
+    hero: {
+      badge: 'Centro de control',
+      title: 'Configura tu restaurante',
+      subtitle: 'Mantén alineados canales, automatizaciones y políticas con la operación del equipo.',
+      discard: 'Descartar',
+      save: 'Guardar cambios'
+    },
+    summary: {
+      maxGuests: { title: 'Máx. comensales por mesa', helper: 'Control de capacidad' },
+      activeChannels: { title: 'Canales activos', helper: 'Voz · Chat · Web · WhatsApp' },
+      locale: { title: 'Formato y moneda', helper: '' },
+      automation: { title: 'Automatizaciones', helper: 'Notificaciones activas' }
+    },
+    channels: {
+      title: 'Canales y estados',
+      description: 'Define dónde escucha la IA y cómo se reportan tus estados personalizados.',
+      call: { title: 'Llamadas', description: 'Asistente de voz para llamadas' },
+      website: { title: 'Sitio web', description: 'Widget de reservas online' },
+      whatsapp: { title: 'WhatsApp', description: 'Flujo de reservas en WhatsApp' },
+      chat: { title: 'Chat', description: 'Chat embebido en el sitio' },
+      customStatuses: 'Estados personalizados',
+      addStatus: 'Añadir estado',
+      reportAs: 'Reportar como ·',
+      placeholder: 'Confirmada',
+      remove: 'Eliminar',
+      reportOptions: {
+        booked: 'Confirmada',
+        cancelled: 'Cancelada',
+        noShow: 'No asistió',
+        seated: 'En mesa'
+      }
+    },
+    integrations: {
+      title: 'Integraciones',
+      description: 'Conecta automatizaciones, calendarios y exportaciones programadas.',
+      n8nUrl: 'URL webhook de n8n',
+      n8nSecret: 'Secreto n8n',
+      googleCalendar: 'Google Calendar',
+      connect: 'Conectar',
+      ics: 'URL de feed ICS',
+      csvSchedule: 'Frecuencia de exportación CSV',
+      csv: {
+        disabled: 'Desactivado',
+        hourly: 'Cada hora',
+        daily_06: 'Diario a las 06:00',
+        weekly_mon: 'Semanal los lunes'
+      }
+    },
+    locale: {
+      title: 'Idioma y localización',
+      description: 'Cambia el idioma del equipo y los formatos para tus invitados.',
+      dateFormat: 'Formato de fecha',
+      timeFormat: 'Formato de hora',
+      currency: 'Moneda'
+    },
+    notifications: {
+      title: 'Notificaciones',
+      description: 'Elige destinos y personaliza el contenido de los avisos.',
+      telegram: 'ID de chat / canal de Telegram',
+      telegramPlaceholder: '@tu_canal o 123456789',
+      email: 'E-mail de notificaciones',
+      triggers: {
+        new: 'Nueva reserva',
+        cancel: 'Cancelación',
+        errors: 'Errores y reintentos',
+        daily: 'Resumen diario'
+      },
+      templates: {
+        new: 'Plantilla de nueva reserva',
+        cancel: 'Plantilla de cancelación'
+      }
     }
   },
   knowledge: {

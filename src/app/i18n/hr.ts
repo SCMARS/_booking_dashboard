@@ -198,10 +198,54 @@ const hr = {
   bookings: {
     title: 'Rezervacije',
     new: 'Nova rezervacija',
-    filters: { status: 'Status', channel: 'Kanal', period: 'Period', sort: 'Sortiranje', reset: 'Reset', all: 'Sve', allTime: 'Svo vrijeme', last7: 'Zadnjih 7 dana', last30: 'Zadnjih 30 dana', thisMonth: 'Ovaj mjesec', dateDesc: 'Datum ↓', dateAsc: 'Datum ↑', nameAsc: 'Ime A→Z' },
-    calendar: { title: 'Kalendar', daysShort: { S: 'N', M: 'P', T: 'U', W: 'S' }, headers: { status: 'Status', channel: 'Kanal', actions: 'Radnje' }, details: 'Detalji' },
+    hero: { subtitle: 'Kontrolirajte svaku rezervaciju uz Firebase sinkronizaciju u stvarnom vremenu. Filtrirajte, potvrdite ili promijenite termin bez napuštanja stranice.' },
+    filters: {
+      status: 'Status',
+      channel: 'Kanal',
+      period: 'Period',
+      sort: 'Sortiranje',
+      reset: 'Reset',
+      all: 'Sve',
+      allTime: 'Svo vrijeme',
+      last7: 'Zadnjih 7 dana',
+      last30: 'Zadnjih 30 dana',
+      thisMonth: 'Ovaj mjesec',
+      dateDesc: 'Datum ↓',
+      dateAsc: 'Datum ↑',
+      nameAsc: 'Ime A→Z',
+      smartTitle: 'Pametni filteri',
+      smartDescription: 'Kombinirajte status, kanal, period i pretragu kako biste suzili popis.',
+      searchPlaceholder: 'Pretraži goste, telefon, bilješke…'
+    },
+    calendar: {
+      title: 'Kalendar',
+      helper: 'Dodirnite dan za potpuni kontekst rezervacija.',
+      daysShort: { S: 'N', M: 'P', T: 'U', W: 'S' },
+      headers: { status: 'Status', channel: 'Kanal', actions: 'Radnje' },
+      details: 'Detalji'
+    },
     recent: { title: 'Nedavne rezervacije', viewAll: 'Pogledaj sve' },
-    table: { name: 'Ime', date: 'Datum', status: 'Status', channel: 'Kanal' },
+    table: {
+      name: 'Ime',
+      date: 'Datum',
+      status: 'Status',
+      channel: 'Kanal',
+      filteredCountSuffix: 'rezervacija odgovara filtrima.'
+    },
+    metrics: {
+      visibleBadge: 'vidljivo',
+      selectedChannelAll: 'Svi kanali',
+      selectedChannelPrefix: 'Kanal'
+    },
+    channelMix: {
+      title: 'Kanalni prikaz',
+      helper: 'Rezultati po kanalima prema aktivnim filtrima.',
+      empty: 'Nema rezervacija u prikazu.'
+    },
+    dayList: {
+      countLabel: 'rezervacija',
+      empty: 'Za ovaj dan nema rezervacija.'
+    },
     statuses: { confirmed: 'Potvrđeno', pending: 'Na čekanju', cancelled: 'Otkazano' },
     details: {
       title: 'Detalji rezervacije',
@@ -222,6 +266,141 @@ const hr = {
       cancel: 'Otkaži',
       reschedule: 'Promijeni termin',
       notify: 'Obavijesti administratora'
+    }
+  },
+  logs: {
+    title: 'Zapisi razgovora',
+    hero: {
+      subtitle: 'Pregledajte svaku konverzaciju AI asistenta, prepoznajte namjere rezervacija i pratite prijenose između kanala u stvarnom vremenu.',
+      ctaDashboard: 'Povratak na nadzornu ploču'
+    },
+    metrics: {
+      total: 'Ukupno zapisa',
+      totalHelper: 'Sveukupno',
+      filtered: 'U prikazu',
+      filteredHelper: 'Odgovara filtrima',
+      channels: 'Kanali',
+      channelsHelper: 'Jedinstveni u prikazu',
+      statuses: 'Statusi',
+      statusesHelper: 'Jedinstveni u prikazu',
+      badgeVisible: 'vidljivo'
+    },
+    filters: {
+      title: 'Filteri',
+      helper: 'Suzi transkripte po kanalu, statusu, namjeri ili tekstu.',
+      channel: 'Kanal',
+      status: 'Status',
+      searchPlaceholder: 'Pretraži transkript, namjeru, status…',
+      reset: 'Poništi filtere',
+      allChannels: 'Svi kanali',
+      allStatuses: 'Svi statusi'
+    },
+    table: {
+      headline: 'Arhiv razgovora',
+      helper: 'Filtrirani transkripti u stvarnom vremenu.',
+      timestamp: 'Datum i vrijeme',
+      channel: 'Kanal',
+      summary: 'Pregled transkripta',
+      status: 'Status',
+      booking: 'Rezervacija',
+      view: 'Pregledaj',
+      moreTurns: 'više'
+    },
+    empty: 'Učitavanje zapisa…',
+    noResults: 'Nema razgovora koji odgovaraju filtrima.',
+    channelMix: {
+      title: 'Mix kanala',
+      helper: 'Volumen po kanalima u trenutnom prikazu.',
+      empty: 'Nema kanala u trenutnom prikazu.'
+    },
+    timeline: {
+      title: 'Vremenska linija uživo',
+      helper: 'Najnovije predaje AI-a kroz kanale.',
+      empty: 'Još nema događaja za ove filtere.'
+    },
+    detail: {
+      title: 'Detalj razgovora',
+      ai: 'AI',
+      guest: 'Gost',
+      unknown: 'Nepoznato',
+      intent: 'Namjera',
+      bookingLink: 'Otvori rezervaciju',
+      close: 'Zatvori',
+      noDialog: 'Transkript nije dostupan.'
+    }
+  },
+  settingsPage: {
+    hero: {
+      badge: 'Kontrolni centar',
+      title: 'Prilagodite restaurant',
+      subtitle: 'Uskladite kanale, automatizacije i pravila s radom vašeg tima.',
+      discard: 'Odbaci',
+      save: 'Spremi promjene'
+    },
+    summary: {
+      maxGuests: { title: 'Najviše gostiju po stolu', helper: 'Kontrola kapaciteta' },
+      activeChannels: { title: 'Aktivni kanali', helper: 'Glas · Chat · Web · WhatsApp' },
+      locale: { title: 'Format i valuta', helper: '' },
+      automation: { title: 'Automatizacija', helper: 'Aktivni okidači' }
+    },
+    channels: {
+      title: 'Kanali i statusi',
+      description: 'Odredite gdje AI prima goste i kako se statusi prikazuju u izvještajima.',
+      call: { title: 'Pozivi', description: 'Glasovni asistent za telefonske pozive' },
+      website: { title: 'Web', description: 'Online widget za rezervacije' },
+      whatsapp: { title: 'WhatsApp', description: 'Tijek rezervacija u WhatsAppu' },
+      chat: { title: 'Chat', description: 'Ugrađeni chat na webu' },
+      customStatuses: 'Prilagođeni statusi',
+      addStatus: 'Dodaj status',
+      reportAs: 'Prikaži kao ·',
+      placeholder: 'Potvrđeno',
+      remove: 'Ukloni',
+      reportOptions: {
+        booked: 'Potvrđeno',
+        cancelled: 'Otkazano',
+        noShow: 'Nije došao',
+        seated: 'Posjeo'
+      }
+    },
+    integrations: {
+      title: 'Integracije',
+      description: 'Povežite automatizacije, kalendare i zakazane eksporte.',
+      n8nUrl: 'n8n webhook URL',
+      n8nSecret: 'n8n tajna',
+      googleCalendar: 'Google Kalendar',
+      connect: 'Poveži',
+      ics: 'ICS feed URL',
+      csvSchedule: 'Plan izvoza CSV',
+      csv: {
+        disabled: 'Onemogućeno',
+        hourly: 'Svaki sat',
+        daily_06: 'Dnevno u 06:00',
+        weekly_mon: 'Tjedno ponedjeljkom'
+      }
+    },
+    locale: {
+      title: 'Jezik i lokalizacija',
+      description: 'Promijenite sučelje i formate za goste.',
+      dateFormat: 'Format datuma',
+      timeFormat: 'Format vremena',
+      currency: 'Valuta'
+    },
+    notifications: {
+      title: 'Obavijesti',
+      description: 'Odredite kamo idu obavijesti i prilagodite sadržaj.',
+      telegram: 'Telegram chat ID / kanal',
+      telegramPlaceholder: '@tvoj_kanal ili 123456789',
+      email: 'E-mail za obavijesti',
+      triggers: {
+        new: 'Nova rezervacija',
+        cancel: 'Otkazivanje',
+        errors: 'Pogreške i ponavljanja',
+        daily: 'Dnevni sažetak'
+      },
+      templates: {
+        new: 'Predložak nove rezervacije',
+        cancel: 'Predložak otkazivanja'
+      }
     }
   },
   knowledge: {

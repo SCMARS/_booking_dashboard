@@ -198,10 +198,54 @@ const en = {
   bookings: {
     title: 'Bookings',
     new: 'New booking',
-    filters: { status: 'Status', channel: 'Channel', period: 'Period', sort: 'Sort', reset: 'Reset', all: 'All', allTime: 'All time', last7: 'Last 7 days', last30: 'Last 30 days', thisMonth: 'This month', dateDesc: 'Date desc', dateAsc: 'Date asc', nameAsc: 'Name A→Z' },
-    calendar: { title: 'Calendar', daysShort: { S: 'S', M: 'M', T: 'T', W: 'W' }, headers: { status: 'Status', channel: 'Channel', actions: 'Actions' }, details: 'Details' },
+    hero: { subtitle: 'Stay on top of every reservation channel with live sync from Firebase. Filter, confirm, or reschedule in seconds without leaving this view.' },
+    filters: {
+      status: 'Status',
+      channel: 'Channel',
+      period: 'Period',
+      sort: 'Sort',
+      reset: 'Reset',
+      all: 'All',
+      allTime: 'All time',
+      last7: 'Last 7 days',
+      last30: 'Last 30 days',
+      thisMonth: 'This month',
+      dateDesc: 'Date desc',
+      dateAsc: 'Date asc',
+      nameAsc: 'Name A→Z',
+      smartTitle: 'Smart filters',
+      smartDescription: 'Combine status, channel, period, and search to narrow the queue.',
+      searchPlaceholder: 'Search guests, phone, notes…'
+    },
+    calendar: {
+      title: 'Calendar',
+      helper: 'Tap a day to see full reservation context.',
+      daysShort: { S: 'S', M: 'M', T: 'T', W: 'W' },
+      headers: { status: 'Status', channel: 'Channel', actions: 'Actions' },
+      details: 'Details'
+    },
     recent: { title: 'Recent bookings', viewAll: 'View all' },
-    table: { name: 'Name', date: 'Date', status: 'Status', channel: 'Channel' },
+    table: {
+      name: 'Name',
+      date: 'Date',
+      status: 'Status',
+      channel: 'Channel',
+      filteredCountSuffix: 'reservations match your filters.'
+    },
+    metrics: {
+      visibleBadge: 'visible',
+      selectedChannelAll: 'All channels',
+      selectedChannelPrefix: 'Channel'
+    },
+    channelMix: {
+      title: 'Channel mix',
+      helper: 'Filtered results by channel for quick allocation.',
+      empty: 'No bookings in view.'
+    },
+    dayList: {
+      countLabel: 'bookings',
+      empty: 'No bookings for this day.'
+    },
     statuses: { confirmed: 'Confirmed', pending: 'Pending', cancelled: 'Cancelled' },
     details: {
       title: 'Booking details',
@@ -222,6 +266,141 @@ const en = {
       cancel: 'Cancel',
       reschedule: 'Reschedule',
       notify: 'Notify Admin'
+    }
+  },
+  logs: {
+    title: 'Voice & Chat Logs',
+    hero: {
+      subtitle: 'Review every AI conversation, see booking intents, and monitor handoffs across channels in real time.',
+      ctaDashboard: 'Back to dashboard'
+    },
+    metrics: {
+      total: 'Total logs',
+      totalHelper: 'All time',
+      filtered: 'In view',
+      filteredHelper: 'Match filters',
+      channels: 'Channels',
+      channelsHelper: 'Unique in view',
+      statuses: 'Statuses',
+      statusesHelper: 'Unique in view',
+      badgeVisible: 'visible'
+    },
+    filters: {
+      title: 'Filters',
+      helper: 'Refine transcripts by channel, status, intent, or text search.',
+      channel: 'Channel',
+      status: 'Status',
+      searchPlaceholder: 'Search transcript, intent, status…',
+      reset: 'Reset filters',
+      allChannels: 'All channels',
+      allStatuses: 'All statuses'
+    },
+    table: {
+      headline: 'Conversation archive',
+      helper: 'Filtered transcripts fetched in real time.',
+      timestamp: 'Timestamp',
+      channel: 'Channel',
+      summary: 'Transcript preview',
+      status: 'Status',
+      booking: 'Booking',
+      view: 'Inspect',
+      moreTurns: 'more'
+    },
+    empty: 'Loading logs…',
+    noResults: 'No conversations match your filters yet.',
+    channelMix: {
+      title: 'Channel mix',
+      helper: 'Volume by channel in current view.',
+      empty: 'No channels in current view.'
+    },
+    timeline: {
+      title: 'Live timeline',
+      helper: 'Latest AI handoffs across channels.',
+      empty: 'Nothing recorded for this filter yet.'
+    },
+    detail: {
+      title: 'Conversation detail',
+      ai: 'AI',
+      guest: 'Guest',
+      unknown: 'Unknown',
+      intent: 'Intent',
+      bookingLink: 'Open booking',
+      close: 'Close',
+      noDialog: 'No transcript available.'
+    }
+  },
+  settingsPage: {
+    hero: {
+      badge: 'Control Center',
+      title: 'Configure your restaurant',
+      subtitle: 'Keep every channel, automation, and policy aligned with how your hospitality team works.',
+      discard: 'Discard',
+      save: 'Save changes'
+    },
+    summary: {
+      maxGuests: { title: 'Max guests per table', helper: 'Capacity guardrail' },
+      activeChannels: { title: 'Active channels', helper: 'Voice · Chat · Web · WhatsApp' },
+      locale: { title: 'Locale & currency', helper: '' },
+      automation: { title: 'Automation triggers', helper: 'Notifications enabled' }
+    },
+    channels: {
+      title: 'Channels & statuses',
+      description: 'Decide where the AI listens for guests and how custom statuses roll up to reports.',
+      call: { title: 'Call', description: 'Voice calls via AI host' },
+      website: { title: 'Website', description: 'Online booking widget' },
+      whatsapp: { title: 'WhatsApp', description: 'WhatsApp conversation flow' },
+      chat: { title: 'Chat', description: 'Embedded live chat' },
+      customStatuses: 'Custom statuses',
+      addStatus: 'Add status',
+      reportAs: 'Report as ·',
+      placeholder: 'Confirmed',
+      remove: 'Remove',
+      reportOptions: {
+        booked: 'Booked',
+        cancelled: 'Cancelled',
+        noShow: 'No-show',
+        seated: 'Seated'
+      }
+    },
+    integrations: {
+      title: 'Integrations',
+      description: 'Connect automations, calendars, and scheduled exports.',
+      n8nUrl: 'n8n webhook URL',
+      n8nSecret: 'n8n secret',
+      googleCalendar: 'Google Calendar',
+      connect: 'Connect',
+      ics: 'ICS feed URL',
+      csvSchedule: 'CSV export schedule',
+      csv: {
+        disabled: 'Disabled',
+        hourly: 'Hourly',
+        daily_06: 'Daily at 06:00',
+        weekly_mon: 'Weekly on Monday'
+      }
+    },
+    locale: {
+      title: 'Language & locale',
+      description: 'Switch the interface for your team and adjust formatting for guests.',
+      dateFormat: 'Date format',
+      timeFormat: 'Time format',
+      currency: 'Currency'
+    },
+    notifications: {
+      title: 'Notifications',
+      description: 'Choose where alerts go and tailor the content for every scenario.',
+      telegram: 'Telegram chat ID / channel',
+      telegramPlaceholder: '@your_channel or 123456789',
+      email: 'Notification e-mail',
+      triggers: {
+        new: 'New booking',
+        cancel: 'Cancellation',
+        errors: 'Errors & retries',
+        daily: 'Daily summary'
+      },
+      templates: {
+        new: 'New booking template',
+        cancel: 'Cancellation template'
+      }
     }
   },
   knowledge: {

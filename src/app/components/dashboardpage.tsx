@@ -379,90 +379,60 @@ const Dashboard: React.FC = () => {
         setConfirmedCount(confirmedSnap.data().count || 0);
         setPendingCount(pendingSnap.data().count || 0);
 
-        try {
-          const [successfulCallsSnap, totalCallsSnap] = await Promise.all([
-            getCountFromServer(
-              query(
-                logsCol,
-                where('type', '==', 'call_summary'),
-                where('endedReason', '==', 'customer-ended-call'),
-                where('createdAt', '>=', since)
-              )
-            ),
-            getCountFromServer(
-              query(
-                logsCol,
-                where('type', 'in', ['call_event', 'call_summary']),
-                where('createdAt', '>=', since)
-              )
-            ),
-          ]);
-          if (!isActive) return;
-          const successfulCalls = successfulCallsSnap.data().count || 0;
-          const totalCalls = totalCallsSnap.data().count || 0;
-          const pct = totalCalls > 0 ? Math.round((successfulCalls / totalCalls) * 1000) / 10 : 0;
-          setCallConversion(pct);
-        } catch {
-          if (!isActive) return;
-          setCallConversion(null);
-        }
-
-        const [callsCount, intentsCount, bookingsCount] = await Promise.all([
-          getCountFromServer(query(logsCol, where('type', '==', 'call_event'), where('createdAt', '>=', since))),
-          getCountFromServer(query(logsCol, where('status', '==', 'intent_detected'), where('createdAt', '>=', since))),
-          getCountFromServer(
-            query(
-              logsCol,
-              where('type', '==', 'call_summary'),
-              where('endedReason', '==', 'customer-ended-call'),
-              where('createdAt', '>=', since)
-            )
-          ),
-        ]);
-        if (!isActive) return;
-
-        const calls = callsCount.data().count || 0;
-        const intents = intentsCount.data().count || 0;
-        const bookings = bookingsCount.data().count || 0;
-        setFunnel({ calls, intents, bookings });
-
-        const channels = ['Call'];
-        const channelSnaps = await Promise.all(
-          channels.map((ch) =>
-            Promise.all([
-              getCountFromServer(query(logsCol, where('channel', '==', ch), where('createdAt', '>=', since))),
-              getCountFromServer(
-                query(
-                  logsCol,
-                  where('channel', '==', ch),
-                  where('type', '==', 'call_summary'),
-                  where('endedReason', '==', 'customer-ended-call'),
-                  where('createdAt', '>=', since)
-                )
-              ),
-            ])
-          )
-        );
-        if (!isActive) return;
-        setChannelStats(
-          channelSnaps.map(([callsSnap, bookingsSnap], idx) => {
-            const callCount = callsSnap.data().count || 0;
-            const bookingCount = bookingsSnap.data().count || 0;
-            const conv = callCount > 0 ? Math.round((bookingCount / callCount) * 1000) / 10 : 0;
-            return { channel: channels[idx], calls: callCount, bookings: bookingCount, conversion: conv };
-          })
-        );
-
-        const logsForDetails = await getDocs(
+        const logsSinceSnap = await getDocs(
           query(logsCol, where('createdAt', '>=', since), orderBy('createdAt', 'desc'), limit(2000))
         );
         if (!isActive) return;
 
-        const durations = logsForDetails.docs
+        const logsSince = logsSinceSnap.docs.map((docu) => docu.data() as any);
+
+        const successfulCalls = logsSince.filter(
+          (entry) =>
+            entry?.type === 'call_summary' &&
+            (entry?.endedReason || '').toLowerCase() === 'customer-ended-call'
+        ).length;
+        const totalCalls = logsSince.filter((entry) =>
+          ['call_event', 'call_summary'].includes(entry?.type)
+        ).length;
+        const conversionPct = totalCalls > 0 ? Math.round((successfulCalls / totalCalls) * 1000) / 10 : 0;
+        setCallConversion(conversionPct);
+
+        const calls = logsSince.filter((entry) => entry?.type === 'call_event').length;
+        const intents = logsSince.filter(
+          (entry) => (entry?.status || '').toLowerCase() === 'intent_detected'
+        ).length;
+        const bookings = successfulCalls;
+        setFunnel({ calls, intents, bookings });
+
+        const channelAggregation = new Map<
+          string,
+          { calls: number; bookings: number }
+        >();
+        logsSince.forEach((entry) => {
+          const channelName = (entry?.channel || 'Call').trim() || 'Call';
+          const bucket = channelAggregation.get(channelName) || { calls: 0, bookings: 0 };
+          if (entry?.type === 'call_event') bucket.calls += 1;
+          if (
+            entry?.type === 'call_summary' &&
+            (entry?.endedReason || '').toLowerCase() === 'customer-ended-call'
+          ) {
+            bucket.bookings += 1;
+          }
+          channelAggregation.set(channelName, bucket);
+        });
+        setChannelStats(
+          Array.from(channelAggregation.entries())
+            .map(([channelName, stats]) => {
+              const conv = stats.calls > 0 ? Math.round((stats.bookings / stats.calls) * 1000) / 10 : 0;
+              return { channel: channelName, calls: stats.calls, bookings: stats.bookings, conversion: conv };
+            })
+            .sort((a, b) => b.calls - a.calls)
+        );
+
+        const durations = logsSince
           .map((docu) => {
-            const data = docu.data() as any;
-            if (typeof data?.durationSec === 'number') return data.durationSec;
-            if (typeof data?.durationMs === 'number') return Math.round(data.durationMs / 1000);
+            if (typeof docu?.durationSec === 'number') return docu.durationSec;
+            if (typeof docu?.durationMs === 'number') return Math.round(docu.durationMs / 1000);
             return null;
           })
           .filter((value): value is number => typeof value === 'number');
@@ -471,21 +441,21 @@ const Dashboard: React.FC = () => {
           : null;
 
         const missedStatuses = new Set(['missed', 'no_answer', 'failed']);
-        const missed = logsForDetails.docs.filter((docu) =>
-          missedStatuses.has(((docu.data() as any)?.status || '').toLowerCase())
+        const missed = logsSince.filter((entry) =>
+          missedStatuses.has((entry?.status || '').toLowerCase())
         ).length;
-        const errors = logsForDetails.docs.filter(
-          (docu) => Array.isArray((docu.data() as any)?.errors) && (docu.data() as any).errors.length > 0
+        const errors = logsSince.filter(
+          (entry) => Array.isArray(entry?.errors) && entry.errors.length > 0
         ).length;
-        const cancelledSummaries = logsForDetails.docs.filter((docu) => {
-          const status = ((docu.data() as any)?.status || '').toLowerCase();
+        const cancelledSummaries = logsSince.filter((entry) => {
+          const status = (entry?.status || '').toLowerCase();
           return status.includes('cancel');
         }).length;
         setKpi({ confirmed: bookings, cancelled: cancelledSummaries, ahtSec });
         setMissedFailed({ missed, errors });
 
-        const numbers = logsForDetails.docs
-          .map((docu) => ((docu.data() as any)?.clientNumber || '').trim())
+        const numbers = logsSince
+          .map((entry) => (entry?.clientNumber || '').trim())
           .filter(Boolean);
         const freq = new Map<string, number>();
         for (const phone of numbers) freq.set(phone, (freq.get(phone) || 0) + 1);
@@ -494,7 +464,7 @@ const Dashboard: React.FC = () => {
         setRepeatPct(repeatPctCalc);
 
         const grid = Array.from({ length: 7 }, () => Array.from({ length: 24 }, () => 0));
-        logsForDetails.docs.forEach((docu) => {
+        logsSinceSnap.docs.forEach((docu) => {
           const data = docu.data() as any;
           let timestamp: Date | null = null;
           if (data?.createdAt?.toDate) {
@@ -610,7 +580,7 @@ const Dashboard: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-2xl border border-white/15 bg-white/10 p-4 shadow-lg">
                 <p className="text-[11px] uppercase tracking-wide text-slate-300">{resolveLabel('dashboard.cards.bookings.title', 'Total bookings')}</p>
                 <p className="mt-2 text-2xl font-semibold text-white sm:text-3xl">{totalBookings}</p>
@@ -937,7 +907,7 @@ const Dashboard: React.FC = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+            <div className="hidden mt-6 overflow-hidden rounded-2xl border border-slate-200 shadow-sm md:block">
               <table className="min-w-full divide-y divide-slate-200 text-left text-sm text-slate-700">
                 <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   <tr>

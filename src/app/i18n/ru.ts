@@ -198,10 +198,54 @@ const ru = {
   bookings: {
     title: 'Бронирования',
     new: 'Новая бронь',
-    filters: { status: 'Статус', channel: 'Канал', period: 'Период', sort: 'Сортировка', reset: 'Сбросить', all: 'Все', allTime: 'За всё время', last7: 'За 7 дней', last30: 'За 30 дней', thisMonth: 'Текущий месяц', dateDesc: 'Дата ↓', dateAsc: 'Дата ↑', nameAsc: 'Имя A→Z' },
-    calendar: { title: 'Календарь', daysShort: { S: 'Вс', M: 'Пн', T: 'Вт', W: 'Ср' }, headers: { status: 'Статус', channel: 'Канал', actions: 'Действия' }, details: 'Подробнее' },
+    hero: { subtitle: 'Держите под контролем каждую бронь: синхронизация с Firebase в реальном времени. Фильтруйте, подтверждайте и переносите брони, не покидая страницу.' },
+    filters: {
+      status: 'Статус',
+      channel: 'Канал',
+      period: 'Период',
+      sort: 'Сортировка',
+      reset: 'Сбросить',
+      all: 'Все',
+      allTime: 'За всё время',
+      last7: 'За 7 дней',
+      last30: 'За 30 дней',
+      thisMonth: 'Текущий месяц',
+      dateDesc: 'Дата ↓',
+      dateAsc: 'Дата ↑',
+      nameAsc: 'Имя A→Z',
+      smartTitle: 'Умные фильтры',
+      smartDescription: 'Комбинируйте статус, канал, период и поиск, чтобы сузить очередь.',
+      searchPlaceholder: 'Поиск по гостям, телефону, заметкам…'
+    },
+    calendar: {
+      title: 'Календарь',
+      helper: 'Выберите день, чтобы увидеть все детали бронирований.',
+      daysShort: { S: 'Вс', M: 'Пн', T: 'Вт', W: 'Ср' },
+      headers: { status: 'Статус', channel: 'Канал', actions: 'Действия' },
+      details: 'Подробнее'
+    },
     recent: { title: 'Недавние брони', viewAll: 'Показать все' },
-    table: { name: 'Имя', date: 'Дата', status: 'Статус', channel: 'Канал' },
+    table: {
+      name: 'Имя',
+      date: 'Дата',
+      status: 'Статус',
+      channel: 'Канал',
+      filteredCountSuffix: 'броней соответствуют фильтрам.'
+    },
+    metrics: {
+      visibleBadge: 'в выборке',
+      selectedChannelAll: 'Все каналы',
+      selectedChannelPrefix: 'Канал'
+    },
+    channelMix: {
+      title: 'Каналы',
+      helper: 'Распределение видимых броней по каналам.',
+      empty: 'В видимом списке броней нет.'
+    },
+    dayList: {
+      countLabel: 'броней',
+      empty: 'На этот день броней нет.'
+    },
     statuses: { confirmed: 'Подтверждено', pending: 'В ожидании', cancelled: 'Отменено' },
     details: {
       title: 'Детали брони',
@@ -222,6 +266,141 @@ const ru = {
       cancel: 'Отменить',
       reschedule: 'Перенести',
       notify: 'Уведомить администратора'
+    }
+  },
+  logs: {
+    title: 'Логи разговоров',
+    hero: {
+      subtitle: 'Отслеживайте каждый диалог с гостями, фиксируйте намерения и контролируйте передачи между каналами в реальном времени.',
+      ctaDashboard: 'Назад к дашборду'
+    },
+    metrics: {
+      total: 'Всего логов',
+      totalHelper: 'За всё время',
+      filtered: 'В выдаче',
+      filteredHelper: 'Соответствует фильтрам',
+      channels: 'Каналы',
+      channelsHelper: 'Уникальных в выдаче',
+      statuses: 'Статусы',
+      statusesHelper: 'Уникальных в выдаче',
+      badgeVisible: 'в выборке'
+    },
+    filters: {
+      title: 'Фильтры',
+      helper: 'Сузьте стенограммы по каналу, статусу, интенту или тексту.',
+      channel: 'Канал',
+      status: 'Статус',
+      searchPlaceholder: 'Поиск по стенограмме, интенту, статусу…',
+      reset: 'Сбросить фильтры',
+      allChannels: 'Все каналы',
+      allStatuses: 'Все статусы'
+    },
+    table: {
+      headline: 'Архив разговоров',
+      helper: 'Отфильтрованные стенограммы в реальном времени.',
+      timestamp: 'Время',
+      channel: 'Канал',
+      summary: 'Превью стенограммы',
+      status: 'Статус',
+      booking: 'Бронь',
+      view: 'Открыть',
+      moreTurns: 'ещё'
+    },
+    empty: 'Загрузка логов…',
+    noResults: 'По текущим фильтрам ничего не найдено.',
+    channelMix: {
+      title: 'Каналы',
+      helper: 'Объём по каналам в текущей выборке.',
+      empty: 'Нет каналов в текущем списке.'
+    },
+    timeline: {
+      title: 'Лента в реальном времени',
+      helper: 'Последние передачи ИИ между каналами.',
+      empty: 'Для этих фильтров событий пока нет.'
+    },
+    detail: {
+      title: 'Детали разговора',
+      ai: 'AI',
+      guest: 'Гость',
+      unknown: 'Неизвестно',
+      intent: 'Интент',
+      bookingLink: 'Открыть бронь',
+      close: 'Закрыть',
+      noDialog: 'Стеноограмма недоступна.'
+    }
+  },
+  settingsPage: {
+    hero: {
+      badge: 'Панель управления',
+      title: 'Настройте ресторан',
+      subtitle: 'Согласуйте каналы, автоматизацию и регламенты с работой вашей команды.',
+      discard: 'Отменить',
+      save: 'Сохранить изменения'
+    },
+    summary: {
+      maxGuests: { title: 'Максимум гостей за стол', helper: 'Контроль вместимости' },
+      activeChannels: { title: 'Активные каналы', helper: 'Голос · Чат · Веб · WhatsApp' },
+      locale: { title: 'Форматы и валюта', helper: '' },
+      automation: { title: 'Автоуведомления', helper: 'Активные триггеры' }
+    },
+    channels: {
+      title: 'Каналы и статусы',
+      description: 'Выберите каналы для гостей и настройте связь кастомных статусов с отчётами.',
+      call: { title: 'Звонки', description: 'Голосовой ассистент принимает звонки' },
+      website: { title: 'Сайт', description: 'Онлайн-виджет для брони' },
+      whatsapp: { title: 'WhatsApp', description: 'Сценарий брони в WhatsApp' },
+      chat: { title: 'Чат', description: 'Встроенный чат на сайте' },
+      customStatuses: 'Пользовательские статусы',
+      addStatus: 'Добавить статус',
+      reportAs: 'Отчитывать как ·',
+      placeholder: 'Подтверждён',
+      remove: 'Удалить',
+      reportOptions: {
+        booked: 'Подтверждено',
+        cancelled: 'Отменено',
+        noShow: 'Не явился',
+        seated: 'Посажен'
+      }
+    },
+    integrations: {
+      title: 'Интеграции',
+      description: 'Подключите автоматизацию, календари и экспорт данных.',
+      n8nUrl: 'Webhook URL n8n',
+      n8nSecret: 'Секрет n8n',
+      googleCalendar: 'Google Календарь',
+      connect: 'Подключить',
+      ics: 'Ссылка ICS',
+      csvSchedule: 'Расписание CSV-экспорта',
+      csv: {
+        disabled: 'Выключено',
+        hourly: 'Каждый час',
+        daily_06: 'Ежедневно в 06:00',
+        weekly_mon: 'Еженедельно по понедельникам'
+      }
+    },
+    locale: {
+      title: 'Язык и локаль',
+      description: 'Выберите язык интерфейса и форматы для гостей.',
+      dateFormat: 'Формат даты',
+      timeFormat: 'Формат времени',
+      currency: 'Валюта'
+    },
+    notifications: {
+      title: 'Уведомления',
+      description: 'Настройте направления и содержимое уведомлений.',
+      telegram: 'Telegram канал / чат ID',
+      telegramPlaceholder: '@your_channel или 123456789',
+      email: 'E-mail для уведомлений',
+      triggers: {
+        new: 'Новая бронь',
+        cancel: 'Отмена',
+        errors: 'Ошибки и повторы',
+        daily: 'Дневной отчёт'
+      },
+      templates: {
+        new: 'Шаблон для новой брони',
+        cancel: 'Шаблон отмены'
+      }
     }
   },
   knowledge: {
